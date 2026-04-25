@@ -6,148 +6,222 @@
 <title>מרכז מיזם החקר – אזרחות</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Frank+Ruhl+Libre:wght@400;700;900&display=swap');
-:root{--bg:#0f1117;--sur:#1a1d27;--sur2:#222638;--sur3:#2a2f47;--brd:#2e3350;--acc:#4f7cff;--acc2:#7c4fff;--gold:#f5c842;--grn:#3ecf8e;--red:#ff5c5c;--txt:#e8eaf0;--txt2:#8b90a8;--txt3:#5a5f78;--r:14px}
+:root{
+  --bg:#f0f4ff;
+  --bg2:#e6ecff;
+  --sur:#ffffff;
+  --sur2:#f7f9ff;
+  --sur3:#eef2ff;
+  --brd:#d0d9f5;
+  --brd2:#b8c5f0;
+  --acc:#1a4fd6;
+  --acc2:#2563eb;
+  --acc3:#3b82f6;
+  --accl:rgba(37,99,235,.08);
+  --gold:#b45309;
+  --grn:#059669;
+  --grnl:rgba(5,150,105,.1);
+  --red:#dc2626;
+  --redl:rgba(220,38,38,.08);
+  --txt:#0f172a;
+  --txt2:#374151;
+  --txt3:#6b7280;
+  --shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(37,99,235,.06);
+  --shadow2:0 4px 24px rgba(37,99,235,.12);
+  --r:14px
+}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;direction:rtl}
+
 /* HEADER */
-.hdr{background:linear-gradient(135deg,#1a1d27,#0f1117);border-bottom:1px solid var(--brd);padding:0 32px;position:sticky;top:0;z-index:100}
-.hdr-in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:16px;padding:16px 0}
-.logo{width:42px;height:42px;background:linear-gradient(135deg,var(--acc),var(--acc2));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-.hdr-txt h1{font-family:'Frank Ruhl Libre',serif;font-size:19px;font-weight:700}
-.hdr-txt p{font-size:11px;color:var(--txt2);margin-top:1px}
-.hdr-badges{margin-right:auto;display:flex;gap:7px;flex-wrap:wrap}
-.hbdg{background:var(--sur2);border:1px solid var(--brd);border-radius:20px;padding:3px 11px;font-size:11px;color:var(--txt2)}
-.hbdg.a{background:rgba(79,124,255,.15);border-color:rgba(79,124,255,.4);color:var(--acc)}
+.hdr{background:linear-gradient(135deg,#1e40af 0%,#1d4ed8 60%,#2563eb 100%);padding:0 32px;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(30,64,175,.3)}
+.hdr-in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:16px;padding:14px 0}
+.logo{width:42px;height:42px;background:rgba(255,255,255,.2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;backdrop-filter:blur(4px)}
+.hdr-txt h1{font-family:'Frank Ruhl Libre',serif;font-size:19px;font-weight:700;color:#fff}
+.hdr-txt p{font-size:11px;color:rgba(255,255,255,.75);margin-top:1px}
+.hdr-badges{margin-right:auto;display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.hbdg{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:3px 11px;font-size:11px;color:rgba(255,255,255,.9)}
+.hbdg.a{background:rgba(255,255,255,.25);border-color:rgba(255,255,255,.5);color:#fff;font-weight:700}
+.teacher-btn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:8px;padding:6px 14px;color:#fff;font-family:'Heebo',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:5px}
+.teacher-btn:hover{background:rgba(255,255,255,.25)}
+
 /* HERO */
-.hero{background:linear-gradient(180deg,rgba(79,124,255,.07) 0%,transparent 100%);border-bottom:1px solid var(--brd);padding:36px 32px}
+.hero{background:linear-gradient(180deg,#dbeafe 0%,var(--bg) 100%);border-bottom:1px solid var(--brd);padding:36px 32px}
 .hero-in{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 340px;gap:28px;align-items:start}
-.hero h2{font-family:'Frank Ruhl Libre',serif;font-size:28px;font-weight:900;line-height:1.3;margin-bottom:10px}
+.hero h2{font-family:'Frank Ruhl Libre',serif;font-size:28px;font-weight:900;line-height:1.3;margin-bottom:10px;color:var(--txt)}
 .hero h2 span{color:var(--acc)}
 .hero-desc{color:var(--txt2);line-height:1.7;font-size:13.5px}
-.rules{background:var(--sur);border:1px solid var(--brd);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:11px}
+.rules{background:var(--sur);border:1px solid var(--brd2);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:11px;box-shadow:var(--shadow)}
 .rules h3{font-size:12px;font-weight:700;color:var(--gold);display:flex;align-items:center;gap:5px;margin-bottom:2px}
 .rule{display:flex;gap:9px;align-items:flex-start}
-.ri{width:26px;height:26px;border-radius:7px;background:var(--sur2);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.ri{width:28px;height:28px;border-radius:8px;background:var(--accl);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
 .rt{font-size:12px;color:var(--txt2);line-height:1.5}
 .rt strong{color:var(--txt)}
+
 /* TABS */
-.tabs{border-bottom:1px solid var(--brd);padding:0 32px;background:var(--sur)}
+.tabs{border-bottom:2px solid var(--brd);padding:0 32px;background:var(--sur)}
 .tabs-in{max-width:1200px;margin:0 auto;display:flex;gap:2px}
-.tb{padding:13px 18px;font-family:'Heebo',sans-serif;font-size:13px;font-weight:600;color:var(--txt2);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:5px;white-space:nowrap}
-.tb:hover{color:var(--txt)}
+.tb{padding:13px 18px;font-family:'Heebo',sans-serif;font-size:13px;font-weight:600;color:var(--txt3);background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:5px;white-space:nowrap}
+.tb:hover{color:var(--acc2)}
 .tb.act{color:var(--acc);border-bottom-color:var(--acc)}
-.tc{background:var(--sur2);border-radius:10px;padding:1px 7px;font-size:10px}
-.tb.act .tc{background:rgba(79,124,255,.2);color:var(--acc)}
+.tc{background:var(--sur2);border:1px solid var(--brd);border-radius:10px;padding:1px 7px;font-size:10px;color:var(--txt3)}
+.tb.act .tc{background:var(--accl);border-color:var(--brd2);color:var(--acc);font-weight:700}
+
 /* MAIN */
 .main{max-width:1200px;margin:0 auto;padding:26px 32px}
 .panel{display:none}.panel.act{display:block}
+
 /* STATS */
 .stats{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
-.sc{background:var(--sur);border:1px solid var(--brd);border-radius:10px;padding:10px 16px;display:flex;align-items:center;gap:10px}
-.sv{font-size:22px;font-weight:800}
-.sl{font-size:11px;color:var(--txt2);line-height:1.3}
+.sc{background:var(--sur);border:1px solid var(--brd);border-radius:12px;padding:12px 18px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow)}
+.sv{font-size:24px;font-weight:800;color:var(--acc)}
+.sl{font-size:11px;color:var(--txt3);line-height:1.3}
+
 /* SEARCH */
 .th{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
-.th h3{font-size:14px;font-weight:700}
-.sb{display:flex;align-items:center;gap:7px;background:var(--sur);border:1px solid var(--brd);border-radius:9px;padding:7px 12px}
+.th h3{font-size:14px;font-weight:700;color:var(--txt)}
+.sb{display:flex;align-items:center;gap:7px;background:var(--sur);border:1.5px solid var(--brd);border-radius:10px;padding:7px 12px;transition:border-color .2s}
+.sb:focus-within{border-color:var(--acc3)}
 .sb input{background:none;border:none;outline:none;color:var(--txt);font-family:'Heebo',sans-serif;font-size:13px;width:180px;direction:rtl}
 .sb input::placeholder{color:var(--txt3)}
+
 /* GRID */
-.tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
-.tc-card{background:var(--sur);border:1px solid var(--brd);border-radius:var(--r);padding:16px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
-.tc-card::before{content:'';position:absolute;top:0;right:0;width:3px;height:100%;background:var(--acc);opacity:0;transition:opacity .2s}
-.tc-card:hover{border-color:rgba(79,124,255,.4);transform:translateY(-1px)}
+.tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.tc-card{background:var(--sur);border:1.5px solid var(--brd);border-radius:var(--r);padding:18px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.tc-card::before{content:'';position:absolute;top:0;right:0;width:4px;height:100%;background:var(--acc3);opacity:0;transition:opacity .2s}
+.tc-card:hover{border-color:var(--acc3);transform:translateY(-2px);box-shadow:var(--shadow2)}
 .tc-card:hover::before{opacity:1}
-.tc-card.taken{opacity:.5;cursor:default}
-.tc-card.taken::after{content:'נתפס ✓';position:absolute;top:10px;left:10px;background:var(--red);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:5px}
-.tc-card.mine{border-color:var(--grn)}
+.tc-card.taken{opacity:.55;cursor:default;background:var(--sur2)}
+.tc-card.taken::after{content:'נתפס ✓';position:absolute;top:12px;left:12px;background:var(--red);color:#fff;font-size:9px;font-weight:700;padding:3px 8px;border-radius:5px}
+.tc-card.mine{border-color:var(--grn);border-width:2px}
 .tc-card.mine::before{background:var(--grn);opacity:1}
-.tc-card.mine::after{content:'הקבוצה שלי ★';position:absolute;top:10px;left:10px;background:var(--grn);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:5px}
-.cn{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;background:var(--sur2);border-radius:7px;font-size:11px;font-weight:700;color:var(--txt2);margin-bottom:9px}
-.ct{font-size:13px;font-weight:700;margin-bottom:5px;line-height:1.4}
-.cd{font-size:11px;color:var(--txt2);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.cf{display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid var(--brd)}
-.ctags{display:flex;gap:3px;flex-wrap:wrap}
-.ctag{background:rgba(79,124,255,.1);border:1px solid rgba(79,124,255,.2);border-radius:4px;padding:2px 5px;font-size:9px;color:var(--acc)}
-.ca{font-size:10px;color:var(--txt2)}
+.tc-card.mine::after{content:'הקבוצה שלי ★';position:absolute;top:12px;left:12px;background:var(--grn);color:#fff;font-size:9px;font-weight:700;padding:3px 8px;border-radius:5px}
+.cn{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:var(--accl);border-radius:8px;font-size:12px;font-weight:700;color:var(--acc);margin-bottom:10px}
+.ct{font-size:13.5px;font-weight:700;margin-bottom:6px;line-height:1.4;color:var(--txt)}
+.cd{font-size:11.5px;color:var(--txt2);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cf{display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:12px;border-top:1px solid var(--brd)}
+.ctags{display:flex;gap:4px;flex-wrap:wrap}
+.ctag{background:var(--accl);border:1px solid var(--brd2);border-radius:4px;padding:2px 6px;font-size:9px;color:var(--acc);font-weight:600}
+.ca{font-size:10px;color:var(--txt3)}
+
 /* MODAL */
-.ov{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);z-index:1000;display:none;align-items:center;justify-content:center;padding:16px}
+.ov{position:fixed;inset:0;background:rgba(15,23,42,.4);backdrop-filter:blur(6px);z-index:1000;display:none;align-items:center;justify-content:center;padding:16px}
 .ov.open{display:flex}
-.modal{background:var(--sur);border:1px solid var(--brd);border-radius:20px;width:100%;max-width:540px;max-height:92vh;overflow-y:auto;padding:28px;position:relative}
-.mc{position:absolute;top:14px;left:14px;width:30px;height:30px;background:var(--sur2);border:none;border-radius:7px;color:var(--txt2);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.mc:hover{background:var(--sur3);color:var(--txt)}
-.mn{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;background:linear-gradient(135deg,var(--acc),var(--acc2));border-radius:9px;font-size:13px;font-weight:800;color:#fff;margin-bottom:12px}
-.mt{font-family:'Frank Ruhl Libre',serif;font-size:20px;font-weight:900;margin-bottom:6px;line-height:1.3}
+.modal{background:var(--sur);border:1px solid var(--brd2);border-radius:20px;width:100%;max-width:540px;max-height:92vh;overflow-y:auto;padding:28px;position:relative;box-shadow:0 20px 60px rgba(37,99,235,.15)}
+.mc{position:absolute;top:14px;left:14px;width:30px;height:30px;background:var(--sur2);border:1px solid var(--brd);border-radius:8px;color:var(--txt3);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.mc:hover{background:var(--bg2);color:var(--txt)}
+.mn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;background:linear-gradient(135deg,var(--acc),var(--acc3));border-radius:10px;font-size:14px;font-weight:800;color:#fff;margin-bottom:12px}
+.mt{font-family:'Frank Ruhl Libre',serif;font-size:21px;font-weight:900;margin-bottom:6px;line-height:1.3;color:var(--txt)}
 .ml{font-size:10px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:1px;margin:14px 0 5px}
-.md{background:var(--sur2);border-radius:9px;padding:12px;font-size:13px;color:var(--txt2);line-height:1.7;border-right:3px solid var(--acc)}
-.cl{display:flex;flex-direction:column;gap:7px}
-.ci{display:flex;gap:9px;align-items:flex-start;font-size:12px;color:var(--txt2);line-height:1.5}
-.cd2{width:5px;height:5px;border-radius:50%;background:var(--acc);margin-top:5px;flex-shrink:0}
+.md{background:var(--sur2);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--txt2);line-height:1.7;border-right:3px solid var(--acc3)}
+.cl{display:flex;flex-direction:column;gap:8px}
+.ci{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;color:var(--txt2);line-height:1.5}
+.cd2{width:6px;height:6px;border-radius:50%;background:var(--acc3);margin-top:5px;flex-shrink:0}
+
 /* SIGNUP */
-.sp{margin-top:18px;padding:18px;background:var(--sur2);border-radius:var(--r);border:1px solid var(--brd)}
-.sp.tk{border-color:rgba(255,92,92,.3);background:rgba(255,92,92,.05)}
-.spt{font-size:13px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:5px}
+.sp{margin-top:18px;padding:18px;background:var(--sur2);border-radius:var(--r);border:1.5px solid var(--brd)}
+.sp.tk{border-color:rgba(220,38,38,.3);background:var(--redl)}
+.spt{font-size:13px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px;color:var(--txt)}
 .fg{margin-bottom:10px}
-.fg label{display:block;font-size:10px;font-weight:600;color:var(--txt2);margin-bottom:4px}
-.fg input{width:100%;background:var(--sur);border:1px solid var(--brd);border-radius:7px;padding:8px 11px;font-family:'Heebo',sans-serif;font-size:13px;color:var(--txt);outline:none;direction:rtl;transition:border-color .15s}
-.fg input:focus{border-color:var(--acc)}
+.fg label{display:block;font-size:10px;font-weight:700;color:var(--txt3);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+.fg input{width:100%;background:var(--sur);border:1.5px solid var(--brd);border-radius:8px;padding:9px 12px;font-family:'Heebo',sans-serif;font-size:13px;color:var(--txt);outline:none;direction:rtl;transition:border-color .15s}
+.fg input:focus{border-color:var(--acc3)}
 .mr{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px}
-.btn{width:100%;background:linear-gradient(135deg,var(--acc),var(--acc2));border:none;border-radius:9px;padding:11px;font-family:'Heebo',sans-serif;font-size:14px;font-weight:700;color:#fff;cursor:pointer;transition:all .2s;margin-top:4px}
-.btn:hover{opacity:.9;transform:translateY(-1px)}
-.tkm{text-align:center;padding:14px}
+.btn{width:100%;background:linear-gradient(135deg,var(--acc),var(--acc2));border:none;border-radius:10px;padding:12px;font-family:'Heebo',sans-serif;font-size:14px;font-weight:700;color:#fff;cursor:pointer;transition:all .2s;margin-top:4px;box-shadow:0 4px 12px rgba(37,99,235,.3)}
+.btn:hover{opacity:.9;transform:translateY(-1px);box-shadow:0 6px 18px rgba(37,99,235,.4)}
+.tkm{text-align:center;padding:12px}
 .tkm .tki{font-size:28px;margin-bottom:6px}
-.tkm h4{font-size:14px;font-weight:700;margin-bottom:3px}
+.tkm h4{font-size:14px;font-weight:700;margin-bottom:3px;color:var(--txt)}
 .tkm p{font-size:11px;color:var(--txt2)}
+
 /* GROUPS */
-.gg{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
-.gc{background:var(--sur);border:1px solid var(--brd);border-radius:var(--r);padding:16px}
-.gc.mg{border-color:var(--grn)}
-.gn{font-size:10px;font-weight:700;color:var(--txt3);margin-bottom:5px}
-.gt{font-size:13px;font-weight:700;margin-bottom:9px;line-height:1.4}
-.gm{display:flex;flex-direction:column;gap:4px}
-.gmi{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--txt2)}
-.av{width:22px;height:22px;border-radius:6px;background:var(--sur2);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--acc);flex-shrink:0}
-.gd{margin-top:9px;padding-top:9px;border-top:1px solid var(--brd);font-size:10px;color:var(--txt3)}
-.es{grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--txt3)}
-.es .ei{font-size:36px;margin-bottom:10px}
+.gg{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.gc{background:var(--sur);border:1.5px solid var(--brd);border-radius:var(--r);padding:18px;box-shadow:var(--shadow)}
+.gc.mg{border-color:var(--grn);border-width:2px}
+.gn{font-size:10px;font-weight:700;color:var(--txt3);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
+.gt{font-size:13.5px;font-weight:700;margin-bottom:10px;line-height:1.4;color:var(--txt)}
+.gm{display:flex;flex-direction:column;gap:5px}
+.gmi{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--txt2)}
+.av{width:24px;height:24px;border-radius:7px;background:var(--accl);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--acc);flex-shrink:0}
+.gd{margin-top:10px;padding-top:10px;border-top:1px solid var(--brd);font-size:10px;color:var(--txt3)}
+.es{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--txt3)}
+.es .ei{font-size:40px;margin-bottom:12px}
+.es p{font-size:14px}
+
+/* DELETE BTN in group card */
+.del-grp{background:var(--redl);border:1px solid rgba(220,38,38,.2);color:var(--red);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:600;cursor:pointer;font-family:'Heebo',sans-serif;margin-top:8px;transition:all .15s}
+.del-grp:hover{background:rgba(220,38,38,.15)}
+
 /* INFO */
-.ig{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
-.ic{background:var(--sur);border:1px solid var(--brd);border-radius:var(--r);padding:20px}
-.ic h4{font-size:13px;font-weight:700;display:flex;align-items:center;gap:7px;margin-bottom:10px}
+.ig{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+.ic{background:var(--sur);border:1px solid var(--brd);border-radius:var(--r);padding:22px;box-shadow:var(--shadow)}
+.ic h4{font-size:13px;font-weight:700;display:flex;align-items:center;gap:7px;margin-bottom:12px;color:var(--txt)}
 .ic h4 span{font-size:18px}
 .ic p,.ic li{font-size:12.5px;color:var(--txt2);line-height:1.7}
-.ic ul{padding-right:14px}
-.ic a{color:var(--acc);text-decoration:none}
-.tl{display:flex;flex-direction:column;gap:10px}
+.ic ul{padding-right:16px}
+.ic a{color:var(--acc);text-decoration:none;font-weight:600}
+.tl{display:flex;flex-direction:column;gap:11px}
 .tli{display:flex;gap:10px;align-items:flex-start}
-.tld{width:9px;height:9px;border-radius:50%;background:var(--acc);margin-top:4px;flex-shrink:0}
-.tlt{font-size:12px;color:var(--txt2);line-height:1.5}
+.tld{width:10px;height:10px;border-radius:50%;background:var(--acc3);margin-top:4px;flex-shrink:0}
+.tlt{font-size:12.5px;color:var(--txt2);line-height:1.5}
 .tlt strong{color:var(--txt)}
+
+/* TEACHER PANEL */
+.teacher-panel{background:var(--sur);border:1.5px solid var(--brd2);border-radius:var(--r);padding:24px;margin-bottom:20px;box-shadow:var(--shadow2)}
+.teacher-panel h3{font-size:16px;font-weight:700;color:var(--acc);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.t-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:20px}
+.t-stat{background:var(--accl);border:1px solid var(--brd2);border-radius:10px;padding:12px;text-align:center}
+.t-stat-val{font-size:22px;font-weight:800;color:var(--acc)}
+.t-stat-lbl{font-size:11px;color:var(--txt2);margin-top:2px}
+.t-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.t-table th{background:var(--accl);padding:8px 12px;text-align:right;font-weight:700;color:var(--acc);border-bottom:2px solid var(--brd2)}
+.t-table td{padding:8px 12px;border-bottom:1px solid var(--brd);color:var(--txt2);vertical-align:top}
+.t-table tr:last-child td{border-bottom:none}
+.t-table tr:hover td{background:var(--sur2)}
+.t-del{background:var(--redl);border:1px solid rgba(220,38,38,.2);color:var(--red);border-radius:5px;padding:3px 8px;font-size:10px;font-weight:700;cursor:pointer;font-family:'Heebo',sans-serif}
+.t-del:hover{background:rgba(220,38,38,.15)}
+.t-export{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border:none;border-radius:8px;padding:8px 16px;font-family:'Heebo',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;margin-bottom:14px}
+.t-export:hover{opacity:.9}
+.logout-btn{background:var(--redl);border:1px solid rgba(220,38,38,.2);color:var(--red);border-radius:8px;padding:6px 13px;cursor:pointer;font-family:'Heebo',sans-serif;font-size:12px;font-weight:600}
+
+/* LOGIN MODAL */
+.login-modal{background:var(--sur);border:1px solid var(--brd2);border-radius:20px;width:100%;max-width:380px;padding:32px;text-align:center;box-shadow:0 20px 60px rgba(37,99,235,.15)}
+.login-modal h3{font-family:'Frank Ruhl Libre',serif;font-size:20px;font-weight:900;margin-bottom:6px;color:var(--txt)}
+.login-modal p{font-size:13px;color:var(--txt2);margin-bottom:20px}
+.login-modal input{width:100%;background:var(--sur2);border:1.5px solid var(--brd);border-radius:10px;padding:11px 14px;font-family:'Heebo',sans-serif;font-size:14px;color:var(--txt);outline:none;text-align:center;letter-spacing:3px;margin-bottom:12px;transition:border-color .15s}
+.login-modal input:focus{border-color:var(--acc3)}
+.login-modal .btn{margin-top:0}
+.login-err{color:var(--red);font-size:12px;margin-top:6px;height:16px}
+
 /* TOAST */
-.toast{position:fixed;bottom:22px;right:50%;transform:translateX(50%) translateY(80px);background:var(--sur2);border:1px solid var(--brd);border-radius:11px;padding:11px 18px;font-size:13px;font-weight:600;box-shadow:0 8px 30px rgba(0,0,0,.4);transition:transform .3s ease;z-index:2000;white-space:nowrap}
+.toast{position:fixed;bottom:22px;right:50%;transform:translateX(50%) translateY(80px);background:var(--sur);border:1.5px solid var(--brd2);border-radius:12px;padding:11px 20px;font-size:13px;font-weight:600;color:var(--txt);box-shadow:0 8px 30px rgba(37,99,235,.15);transition:transform .3s ease;z-index:2000;white-space:nowrap}
 .toast.show{transform:translateX(50%) translateY(0)}
 .toast.ok{border-color:var(--grn);color:var(--grn)}
 .toast.err{border-color:var(--red);color:var(--red)}
+
 @media(max-width:768px){.hero-in{grid-template-columns:1fr}.th{flex-direction:column;align-items:flex-start;gap:8px}.sb input{width:130px}.mr{grid-template-columns:1fr}.main{padding:18px 14px}.hdr,.hero,.tabs{padding-right:14px;padding-left:14px}}
 </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <div class="hdr">
   <div class="hdr-in">
     <div class="logo">⚖️</div>
     <div class="hdr-txt">
       <h1>מיזם החקר באזרחות</h1>
-      <p>מטלת מסכת מחצית ב' · כיתות יא'</p>
+      <p>מטלה מסכמת כיתה ט8</p>
     </div>
     <div class="hdr-badges">
       <span class="hbdg a">23 נושאים</span>
-      <span class="hbdg">הגשה 25.5.26</span>
-      <span class="hbdg">קבוצות של 3</span>
+      <span class="hbdg">הגשה 17.5.26</span>
+      <span class="hbdg">קבוצות של 2-3</span>
+      <button class="teacher-btn" onclick="openLogin()">🔐 כניסת מורה</button>
     </div>
   </div>
 </div>
 
+<!-- HERO -->
 <div class="hero">
   <div class="hero-in">
     <div>
@@ -156,14 +230,15 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-he
     </div>
     <div class="rules">
       <h3>📋 הנחיות כלליות</h3>
-      <div class="rule"><div class="ri">👥</div><div class="rt"><strong>קבוצות של 3 תלמידים.</strong> מי שנרשם ראשון — הנושא שלו. אחרים לא יכולים לבחור אותו.</div></div>
-      <div class="rule"><div class="ri">📅</div><div class="rt"><strong>שיבוץ קבוצות</strong> עד <strong>30.4.26</strong>. <strong>הגשה</strong> עד <strong>25.5.26</strong>.</div></div>
-      <div class="rule"><div class="ri">📧</div><div class="rt">הגשה לאימייל: <strong>1005530585@hityash.org.il</strong> · קובץ Word.</div></div>
-      <div class="rule"><div class="ri">🎤</div><div class="rt"><strong>כולם חייבים להציג.</strong> עבודה: <strong>25%</strong> מחצית. פרזנטציה: <strong>25%</strong> שנתי.</div></div>
+      <div class="rule"><div class="ri">👥</div><div class="rt"><strong>קבוצות של 2-3 תלמידים.</strong> מי שנרשם ראשון — הנושא שלו.</div></div>
+      <div class="rule"><div class="ri">📅</div><div class="rt"><strong>שיבוץ קבוצות</strong> עד <strong>30.4.26</strong>. <strong>הגשה</strong> עד <strong>17.5.26</strong>.</div></div>
+      <div class="rule"><div class="ri">📧</div><div class="rt">הגשה: <strong>1005530585@hityash.org.il</strong> · קובץ Word.</div></div>
+      <div class="rule"><div class="ri">🎤</div><div class="rt">ציון המיזם: <strong>85%</strong> מהציון הכולל. עבודת צוות בספרייה: <strong>15%</strong>.</div></div>
     </div>
   </div>
 </div>
 
+<!-- TABS -->
 <div class="tabs">
   <div class="tabs-in">
     <button class="tb act" onclick="switchTab(this,'topics')">🗂 נושאים <span class="tc" id="av-c">23</span></button>
@@ -172,14 +247,15 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-he
   </div>
 </div>
 
+<!-- MAIN -->
 <div class="main">
 
   <!-- TOPICS -->
   <div class="panel act" id="panel-topics">
     <div class="stats">
-      <div class="sc"><div><div class="sv" id="st-av">23</div><div class="sl">נושאים<br>פנויים</div></div></div>
-      <div class="sc"><div><div class="sv" id="st-tk">0</div><div class="sl">נושאים<br>נתפסו</div></div></div>
-      <div class="sc"><div><div class="sv" id="st-gr">0</div><div class="sl">קבוצות<br>נרשמו</div></div></div>
+      <div class="sc"><div><div class="sv" id="st-av">23</div><div class="sl">נושאים פנויים</div></div></div>
+      <div class="sc"><div><div class="sv" id="st-tk" style="color:var(--red)">0</div><div class="sl">נושאים נתפסו</div></div></div>
+      <div class="sc"><div><div class="sv" id="st-gr" style="color:var(--grn)">0</div><div class="sl">קבוצות נרשמו</div></div></div>
     </div>
     <div class="th">
       <h3>לחצו על כרטיס לפרטים ולהרשמה</h3>
@@ -192,7 +268,7 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-he
   <div class="panel" id="panel-groups">
     <div class="th" style="margin-bottom:18px">
       <h3>קבוצות רשומות</h3>
-      <button onclick="clearMine()" style="background:rgba(255,92,92,.15);border:1px solid rgba(255,92,92,.3);color:var(--red);border-radius:8px;padding:6px 13px;cursor:pointer;font-family:Heebo;font-size:12px;font-weight:600">🗑 מחק את הקבוצה שלי</button>
+      <button onclick="clearMine()" style="background:var(--redl);border:1px solid rgba(220,38,38,.25);color:var(--red);border-radius:8px;padding:7px 14px;cursor:pointer;font-family:Heebo;font-size:12px;font-weight:600">🗑 מחק את הקבוצה שלי</button>
     </div>
     <div class="gg" id="gg"></div>
   </div>
@@ -201,14 +277,13 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-he
   <div class="panel" id="panel-info">
     <div class="ig">
       <div class="ic"><h4><span>📅</span> לוח זמנים</h4><div class="tl">
-        <div class="tli"><div class="tld"></div><div class="tlt"><strong>עד 30.4.26</strong> — שיבוץ קבוצות ובחירת נושא באתר</div></div>
-        <div class="tli"><div class="tld"></div><div class="tlt"><strong>עד 25.5.26</strong> — הגשת מסמך Word למייל</div></div>
-        <div class="tli"><div class="tld"></div><div class="tlt"><strong>לאחר 25.5</strong> — פרזנטציות בכיתה (מעגלי שיח)</div></div>
+        <div class="tli"><div class="tld"></div><div class="tlt"><strong>עד 27.4.26</strong> — שיבוץ קבוצות ובחירת נושא באתר</div></div>
+        <div class="tli"><div class="tld"></div><div class="tlt"><strong>עד 17.5.26</strong> — הגשת מסמך Word למייל</div></div>
+        
       </div></div>
       <div class="ic"><h4><span>📊</span> משקלות ציון</h4><ul>
-        <li>עבודת חקר כתובה — <strong>25% מציון המחצית</strong></li>
-        <li>פרזנטציה / מעגל שיח — <strong>25% מהציון השנתי</strong></li>
-        <li><strong>כולם חייבים להציג</strong> כדי לקבל ציון</li>
+        <li>מיזם החקר — <strong>85% מהציון הכולל</strong></li>
+        <li>עבודת צוות בספרייה — <strong>15% מהציון הכולל</strong></li>
       </ul></div>
       <div class="ic"><h4><span>📝</span> מבנה העבודה</h4><ul>
         <li>מבוא — הצגת הדילמה, רקע, פתרונות, מושגים</li>
@@ -217,17 +292,12 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-he
         <li>רפלקציה — כל תלמיד בנפרד + קול אישי</li>
         <li>ביבליוגרפיה — לפי כללים</li>
       </ul></div>
-      <div class="ic"><h4><span>🎤</span> מעגל השיח</h4><ul>
-        <li>הצגת הנושא (כולל סרטון עד 3 דק')</li>
-        <li>4 ריבועים: טקסט/ציטוט + שאלה מנחה</li>
-        <li>המנחים נותנים <strong>קול נגדי</strong> לאתגר חברי המעגל</li>
-        <li>בסוף — כל מנחה מביע את <strong>הקול האישי</strong></li>
-      </ul></div>
+      
       <div class="ic"><h4><span>📧</span> הגשה</h4><p>שלחו קובץ Word למייל:<br><a href="mailto:1005530585@hityash.org.il">1005530585@hityash.org.il</a><br><br>שם הקובץ: <strong>שמות_הקבוצה_נושא.docx</strong></p></div>
       <div class="ic"><h4><span>⚖️</span> כללי הרשמה</h4><ul>
         <li>הרשמה מתבצעת <strong>כאן באתר</strong></li>
         <li>מי שנרשם ראשון — הנושא שלו. אין חריגים</li>
-        <li>שינוי נושא — רק לפני 30.4 ובתיאום מורה</li>
+        <li>שינוי נושא — רק בתיאום עם המורה</li>
         <li>נושא שנבחר מסומן אדום ולא זמין</li>
       </ul></div>
     </div>
@@ -235,7 +305,7 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-he
 
 </div>
 
-<!-- MODAL -->
+<!-- TOPIC MODAL -->
 <div class="ov" id="ov" onclick="closeM(event)">
   <div class="modal" id="modal">
     <button class="mc" onclick="closeM()">✕</button>
@@ -246,6 +316,34 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-he
     <div class="ml">התנגשויות מרכזיות</div>
     <div class="cl" id="mcl"></div>
     <div id="msp"></div>
+  </div>
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="ov" id="login-ov" onclick="closeLogin(event)">
+  <div class="login-modal">
+    <div style="font-size:36px;margin-bottom:10px">🔐</div>
+    <h3>כניסת מורה</h3>
+    <p>הזן את קוד הגישה</p>
+    <input type="password" id="login-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="btn" onclick="doLogin()">כניסה</button>
+    <div class="login-err" id="login-err"></div>
+  </div>
+</div>
+
+<!-- TEACHER MODAL -->
+<div class="ov" id="teacher-ov" onclick="closeTeacher(event)">
+  <div class="modal" style="max-width:800px">
+    <button class="mc" onclick="closeTeacher()">✕</button>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px">
+      <h3 style="font-size:18px;font-weight:800;color:var(--acc);display:flex;align-items:center;gap:8px">🎓 לוח בקרה — מורה</h3>
+      <div style="display:flex;gap:8px">
+        <button class="t-export" onclick="exportCSV()">📥 ייצוא לאקסל</button>
+        <button class="logout-btn" onclick="doLogout()">🚪 התנתק</button>
+      </div>
+    </div>
+    <div class="t-stats" id="t-stats"></div>
+    <div id="t-table-wrap"></div>
   </div>
 </div>
 
@@ -278,21 +376,23 @@ const TOPICS=[
   {n:23,nm:'מדיניות דיור ומשבר הדיור',d:'כיצד על המדינה לפתור את משבר הדיור — להגביר בנייה, לפקח על מחירים, או לסייע לדיירים?',c:['שוק חופשי מול רגולציה','אינטרס בעלי הדירות מול דיירים','פיתוח מול שימור סביבתי']},
 ];
 
-const SK='civics_v3';
-let groups=[],myId=null;
+const SK='civics_v4';
+let groups=[],myId=null,isTeacher=false;
+const TEACHER_PASS='yuval2104';
 
 function load(){try{const s=localStorage.getItem(SK);if(s){const p=JSON.parse(s);groups=p.g||[];myId=p.m||null;}}catch(e){groups=[];myId=null;}}
 function save(){localStorage.setItem(SK,JSON.stringify({g:groups,m:myId}));}
 function taken(){return new Set(groups.map(g=>g.t));}
 function myGrp(){return myId?groups.find(g=>g.id===myId)||null:null;}
 
+/* RENDER TOPICS */
 function renderT(f=''){
   const tk=taken(),my=myGrp(),mt=my?my.t:null;
   const list=TOPICS.filter(t=>!f||t.nm.includes(f)||t.d.includes(f));
   document.getElementById('tg').innerHTML=list.map(t=>{
     const isTk=tk.has(t.n),isM=t.n===mt;
     let cls='tc-card'+(isM?' mine':isTk?' taken':'');
-    return `<div class="${cls}" onclick="${isTk&&!isM?'':' openM('+t.n+')'}">
+    return `<div class="${cls}" ${isTk&&!isM?'':'onclick="openM('+t.n+')"'}>
       <div class="cn">${t.n}</div>
       <div class="ct">${t.nm}</div>
       <div class="cd">${t.d}</div>
@@ -303,20 +403,20 @@ function renderT(f=''){
     </div>`;
   }).join('');
   const tkc=tk.size;
-  document.getElementById('st-av').textContent=23-tkc;
+  ['st-av','av-c'].forEach(id=>document.getElementById(id).textContent=23-tkc);
   document.getElementById('st-tk').textContent=tkc;
-  document.getElementById('st-gr').textContent=groups.length;
-  document.getElementById('av-c').textContent=23-tkc;
-  document.getElementById('gr-c').textContent=groups.length;
+  ['st-gr','gr-c'].forEach(id=>document.getElementById(id).textContent=groups.length);
 }
 
+/* RENDER GROUPS */
 function renderG(){
   const el=document.getElementById('gg');
   if(!groups.length){el.innerHTML='<div class="es"><div class="ei">👥</div><p>עדיין אין קבוצות רשומות.<br>היו הראשונים לבחור נושא!</p></div>';return;}
   el.innerHTML=groups.map(g=>{
     const t=TOPICS.find(x=>x.n===g.t);
-    return `<div class="gc${g.id===myId?' mg':''}">
-      <div class="gn">נושא ${g.t}${g.id===myId?' ⭐ הקבוצה שלי':''}</div>
+    const isM=g.id===myId;
+    return `<div class="gc${isM?' mg':''}">
+      <div class="gn">נושא ${g.t}${isM?' ⭐ הקבוצה שלי':''}</div>
       <div class="gt">${t?t.nm:''}</div>
       <div class="gm">${g.ms.filter(Boolean).map(m=>`<div class="gmi"><div class="av">${m.charAt(0)}</div>${m}</div>`).join('')}</div>
       <div class="gd">נרשם: ${g.dt}</div>
@@ -324,6 +424,7 @@ function renderG(){
   }).join('');
 }
 
+/* OPEN TOPIC MODAL */
 function openM(n){
   const t=TOPICS.find(x=>x.n===n);if(!t)return;
   document.getElementById('mn').textContent=n;
@@ -333,7 +434,7 @@ function openM(n){
   const tk=taken(),my=myGrp(),isTk=tk.has(n),isM=my&&my.t===n,hasG=!!my;
   let h='';
   if(isM){
-    h=`<div class="sp" style="border-color:rgba(62,207,142,.3);background:rgba(62,207,142,.05)"><div class="spt">⭐ זהו הנושא שלכם!</div><div style="font-size:13px;color:var(--txt2)">הקבוצה שלך רשומה על נושא זה. בהצלחה!</div></div>`;
+    h=`<div class="sp" style="border-color:#059669;background:var(--grnl)"><div class="spt" style="color:var(--grn)">⭐ זהו הנושא שלכם!</div><div style="font-size:13px;color:var(--txt2)">הקבוצה שלך רשומה על נושא זה. בהצלחה!</div></div>`;
   } else if(isTk){
     const g=groups.find(g=>g.t===n);
     h=`<div class="sp tk"><div class="tkm"><div class="tki">⛔</div><h4>נושא זה נתפס!</h4><p>קבוצה אחרת כבר בחרה נושא זה.</p><p style="margin-top:6px;font-size:11px">נרשם: ${g?g.dt:''}</p></div></div>`;
@@ -354,6 +455,7 @@ function openM(n){
 
 function closeM(e){if(e&&e.target!==document.getElementById('ov'))return;document.getElementById('ov').classList.remove('open');}
 
+/* SIGNUP */
 function signup(n){
   const m1=(document.getElementById('f-m1')||{}).value?.trim();
   const m2=(document.getElementById('f-m2')||{}).value?.trim();
@@ -373,6 +475,80 @@ function clearMine(){
   renderT();renderG();toast('הרישום נמחק','ok');
 }
 
+/* TEACHER LOGIN */
+function openLogin(){document.getElementById('login-ov').classList.add('open');document.getElementById('login-input').value='';document.getElementById('login-err').textContent='';}
+function closeLogin(e){if(e&&e.target!==document.getElementById('login-ov'))return;document.getElementById('login-ov').classList.remove('open');}
+function doLogin(){
+  const v=document.getElementById('login-input').value;
+  if(v===TEACHER_PASS){
+    document.getElementById('login-ov').classList.remove('open');
+    isTeacher=true;
+    openTeacher();
+  } else {
+    document.getElementById('login-err').textContent='קוד שגוי. נסה שוב.';
+    document.getElementById('login-input').value='';
+    document.getElementById('login-input').focus();
+  }
+}
+
+/* TEACHER PANEL */
+function openTeacher(){
+  // stats
+  const tk=taken();
+  document.getElementById('t-stats').innerHTML=`
+    <div class="t-stat"><div class="t-stat-val">${groups.length}</div><div class="t-stat-lbl">קבוצות רשומות</div></div>
+    <div class="t-stat"><div class="t-stat-val" style="color:var(--red)">${tk.size}</div><div class="t-stat-lbl">נושאים נתפסו</div></div>
+    <div class="t-stat"><div class="t-stat-val" style="color:var(--grn)">${23-tk.size}</div><div class="t-stat-lbl">נושאים פנויים</div></div>
+    <div class="t-stat"><div class="t-stat-val">${groups.reduce((s,g)=>s+g.ms.filter(Boolean).length,0)}</div><div class="t-stat-lbl">תלמידים רשומים</div></div>
+  `;
+  // table
+  if(!groups.length){
+    document.getElementById('t-table-wrap').innerHTML='<div style="text-align:center;padding:30px;color:var(--txt3)">אין קבוצות רשומות עדיין.</div>';
+  } else {
+    const rows=groups.map(g=>{
+      const t=TOPICS.find(x=>x.n===g.t);
+      return `<tr>
+        <td><strong>${g.t}</strong></td>
+        <td>${t?t.nm:''}</td>
+        <td>${g.ms.join(' · ')}</td>
+        <td>${g.dt}</td>
+        <td><button class="t-del" onclick="teacherDelete('${g.id}')">מחק</button></td>
+      </tr>`;
+    }).join('');
+    document.getElementById('t-table-wrap').innerHTML=`
+      <table class="t-table">
+        <thead><tr><th>נושא</th><th>שם הנושא</th><th>חברי קבוצה</th><th>תאריך</th><th></th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>`;
+  }
+  document.getElementById('teacher-ov').classList.add('open');
+}
+
+function closeTeacher(e){if(e&&e.target!==document.getElementById('teacher-ov'))return;document.getElementById('teacher-ov').classList.remove('open');}
+function doLogout(){isTeacher=false;closeTeacher();toast('התנתקת','ok');}
+
+function teacherDelete(id){
+  if(!confirm('למחוק את רישום הקבוצה הזו?'))return;
+  if(myId===id)myId=null;
+  groups=groups.filter(g=>g.id!==id);
+  save();renderT();renderG();openTeacher();
+  toast('הקבוצה נמחקה','ok');
+}
+
+function exportCSV(){
+  const rows=[['נושא מס\'','שם הנושא','חבר 1','חבר 2','חבר 3','תאריך']];
+  groups.forEach(g=>{
+    const t=TOPICS.find(x=>x.n===g.t);
+    rows.push([g.t,t?t.nm:'',g.ms[0]||'',g.ms[1]||'',g.ms[2]||'',g.dt]);
+  });
+  const csv='\uFEFF'+rows.map(r=>r.join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='קבוצות_אזרחות.csv';a.click();
+  toast('הקובץ הורד','ok');
+}
+
+/* TABS */
 function switchTab(btn,id){
   document.querySelectorAll('.tb').forEach(b=>b.classList.remove('act'));
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('act'));
