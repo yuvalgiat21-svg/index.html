@@ -212,6 +212,45 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-he
 .unreg-list{background:var(--sur2);border:1px solid var(--brd);border-radius:10px;padding:12px 16px;font-size:12.5px;color:var(--txt2);line-height:1.8}
 .unreg-list strong{color:var(--txt);display:block;margin-bottom:4px}
 .ok-msg{color:var(--grn);font-weight:700;font-size:13px}
+
+.t-dup{background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);color:var(--acc);border-radius:5px;padding:3px 8px;font-size:10px;font-weight:700;cursor:pointer;font-family:'Heebo',sans-serif;margin-right:4px}
+.t-dup:hover{background:rgba(37,99,235,.15)}
+.custom-badge{background:rgba(124,79,255,.12);border:1px solid rgba(124,79,255,.3);color:#7c4fff;border-radius:4px;padding:1px 6px;font-size:9px;font-weight:700;margin-right:4px}
+
+.ex-wrap{max-width:780px;margin:0 auto}
+.ex-section{background:var(--sur);border:1px solid var(--brd);border-radius:var(--r);padding:28px;margin-bottom:18px;box-shadow:var(--shadow)}
+.ex-section-title{font-family:'Frank Ruhl Libre',serif;font-size:18px;font-weight:900;color:var(--acc);margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid var(--brd2);display:flex;align-items:center;gap:8px}
+.ex-sub{font-size:13px;font-weight:700;color:var(--txt);margin:16px 0 6px;display:flex;align-items:flex-start;gap:6px}
+.ex-sub-num{background:var(--accl);color:var(--acc);border-radius:6px;padding:1px 8px;font-size:11px;font-weight:800;flex-shrink:0;margin-top:1px}
+.ex-text{font-size:13px;color:var(--txt2);line-height:1.8;margin-bottom:8px}
+.ex-quote{background:var(--sur2);border-right:3px solid var(--acc3);border-radius:0 8px 8px 0;padding:12px 16px;font-size:13px;color:var(--txt2);line-height:1.7;margin:8px 0}
+.ex-bullet{display:flex;gap:8px;align-items:flex-start;font-size:13px;color:var(--txt2);line-height:1.6;margin-bottom:6px}
+.ex-dot{width:6px;height:6px;border-radius:50%;background:var(--acc3);margin-top:6px;flex-shrink:0}
+.ex-note{background:rgba(245,200,66,.08);border:1px solid rgba(245,200,66,.3);border-radius:10px;padding:12px 16px;font-size:12px;color:#92400e;margin-top:16px;line-height:1.6}
+.ex-badge{display:inline-block;background:var(--accl);border:1px solid var(--brd2);border-radius:6px;padding:2px 10px;font-size:11px;color:var(--acc);font-weight:700;margin-bottom:12px}
+.ex-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.ex-nav-btn{background:var(--sur);border:1.5px solid var(--brd);border-radius:8px;padding:7px 14px;font-family:'Heebo',sans-serif;font-size:12px;font-weight:600;color:var(--txt2);cursor:pointer;transition:all .2s}
+.ex-nav-btn:hover,.ex-nav-btn.act{background:var(--accl);border-color:var(--brd2);color:var(--acc)}
+.ex-part{display:none}.ex-part.act{display:block}
+.reflection-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+.reflection-card{background:var(--sur2);border:1px solid var(--brd);border-radius:10px;padding:14px}
+.reflection-card h5{font-size:12px;font-weight:700;color:var(--acc);margin-bottom:8px}
+.reflection-card p{font-size:12px;color:var(--txt2);line-height:1.6}
+@media(max-width:600px){.reflection-grid{grid-template-columns:1fr}}
+
+.dl-section{background:linear-gradient(135deg,#eff6ff 0%,#dbeafe 100%);border:1.5px solid var(--brd2);border-radius:var(--r);padding:24px;margin-bottom:20px;box-shadow:var(--shadow)}
+.dl-section h3{font-family:'Frank Ruhl Libre',serif;font-size:17px;font-weight:900;color:var(--acc);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.dl-section p{font-size:13px;color:var(--txt2);margin-bottom:18px;line-height:1.6}
+.dl-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.dl-card{background:var(--sur);border:1.5px solid var(--brd2);border-radius:12px;padding:18px;text-align:center;text-decoration:none;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer}
+.dl-card:hover{border-color:var(--acc3);transform:translateY(-2px);box-shadow:var(--shadow2)}
+.dl-icon{font-size:32px;line-height:1}
+.dl-title{font-size:13px;font-weight:700;color:var(--txt)}
+.dl-sub{font-size:11px;color:var(--txt3)}
+.dl-btn{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border:none;border-radius:8px;padding:8px 16px;font-family:'Heebo',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;text-decoration:none;margin-top:4px}
+.dl-btn:hover{opacity:.9;transform:translateY(-1px)}
+.dl-btn.outline{background:none;border:1.5px solid var(--acc3);color:var(--acc)}
+.dl-btn.outline:hover{background:var(--accl)}
 </style>
 </head>
 <body>
@@ -256,6 +295,8 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-he
     <button class="tb act" onclick="switchTab(this,'topics')">🗂 נושאים <span class="tc" id="av-c">23</span></button>
     <button class="tb" onclick="switchTab(this,'groups')">👥 קבוצות רשומות <span class="tc" id="gr-c">0</span></button>
     <button class="tb" onclick="switchTab(this,'info')">📋 הנחיות מפורטות</button>
+    <button class="tb" onclick="switchTab(this,'example')">📄 דוגמא מלאה</button>
+    <button class="tb" onclick="switchTab(this,'download')">⬇️ הורדות</button>
   </div>
 </div>
 
@@ -274,6 +315,7 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-he
       <div class="sb"><span style="color:var(--txt3)">🔍</span><input id="si" placeholder="חיפוש נושא..." oninput="filterT()"></div>
     </div>
     <div class="tg" id="tg"></div>
+    <div id="custom-card-wrap" style="margin-top:14px"></div>
   </div>
 
   <!-- GROUPS -->
@@ -315,6 +357,246 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-he
     </div>
   </div>
 
+  <!-- EXAMPLE PANEL -->
+  <div class="panel" id="panel-example">
+    <div class="ex-wrap">
+
+      <div class="ex-note" style="margin-bottom:20px">
+        ⭐ <strong>דוגמא מלאה לעבודת מיזם החקר</strong> — נושא: <strong>פערים חברתיים-כלכליים בישראל</strong><br>
+        זו דוגמא לאיך העבודה צריכה להיראות. השתמשו בה כמדריך לכתיבת העבודה שלכם — לא כתבנית להעתיק!
+      </div>
+
+      <!-- NAV -->
+      <div class="ex-nav">
+        <button class="ex-nav-btn act" onclick="showPart(this,'p-intro')">1. מבוא</button>
+        <button class="ex-nav-btn" onclick="showPart(this,'p-lit')">2. סקירת ספרות</button>
+        <button class="ex-nav-btn" onclick="showPart(this,'p-product')">3. תוצר</button>
+        <button class="ex-nav-btn" onclick="showPart(this,'p-reflect')">4. רפלקציה</button>
+        <button class="ex-nav-btn" onclick="showPart(this,'p-bib')">5. ביבליוגרפיה</button>
+      </div>
+
+      <!-- PART 1: INTRO -->
+      <div class="ex-part act" id="p-intro">
+        <div class="ex-section">
+          <div class="ex-section-title">📝 מבוא</div>
+          <span class="ex-badge">נושא: פערים חברתיים-כלכליים בישראל</span>
+
+          <div class="ex-sub"><span class="ex-sub-num">1</span>הצגת הדילמה האזרחית</div>
+          <div class="ex-quote">
+            הדילמה שבחרנו לחקור היא: <strong>האם המדינה מחויבת לצמצם פערים חברתיים-כלכליים באמצעות מדיניות אקטיבית של חלוקה מחדש</strong> — כגון מיסוי פרוגרסיבי, קצבאות סוציאליות והשקעה בחינוך — או שעליה להסתפק בהבטחת <strong>שוויון הזדמנויות פורמלי בלבד</strong>, תוך השארת תוצאות הפערים לתהליכי השוק החופשי?
+          </div>
+
+          <div class="ex-sub"><span class="ex-sub-num">1.1</span>הצגת הרקע לדילמה</div>
+          <div class="ex-text">
+            פערי ההכנסות בישראל הולכים ומתרחבים מאז שנות ה-80, עם המעבר לכלכלת שוק חופשי. מחאת האוהלים של 2011 הביאה את הנושא לסדר היום הציבורי בעוצמה רבה. ישראל מדורגת עקביות בין מדינות ה-OECD בעלות מקדמי גיני גבוהים — מה שמעיד על פערים גדולים בין עשירים לעניים.
+          </div>
+
+          <div class="ex-sub"><span class="ex-sub-num">1.2</span>פתרונות אפשריים ומי טוען אותם</div>
+          <div class="ex-text">
+            <strong>פתרון א' — מדיניות חלוקה מחדש אקטיבית:</strong> מיסוי פרוגרסיבי מוגבר, הרחבת קצבאות, השקעה בחינוך ציבורי. בין התומכים: הסתדרות העובדים, מפלגות שמאל, ד"ר שלי לוין (מכון ון ליר) הטוענת כי "ללא מדיניות אקטיבית הפערים ימשיכו לגדול".
+          </div>
+          <div class="ex-text">
+            <strong>פתרון ב' — חיזוק שוק העבודה החופשי:</strong> הפחתת רגולציה ומיסוי על עסקים להגברת צמיחה שתטיב עם כולם. בין התומכים: התאחדות התעשיינים, מפלגות ימין כלכלי, פרופ' דן בן-דוד (מרכז שורש) הגורס כי "השקעה בחינוך איכותי לכולם היא הדרך היעילה ביותר לצמצום פערים לטווח ארוך".
+          </div>
+
+          <div class="ex-sub"><span class="ex-sub-num">1.3</span>מושגים מעולם האזרחות</div>
+          <div class="ex-bullet"><div class="ex-dot"></div><div><strong>צדק חלוקתי</strong> — עיקרון לפיו יש לחלק טובין ומשאבים בחברה בצורה שוויונית ומוצדקת, תוך התחשבות בנקודות הפתיחה השונות של כל אדם.</div></div>
+          <div class="ex-bullet"><div class="ex-dot"></div><div><strong>מדינת רווחה</strong> — מדינה הנוטלת אחריות לרמת החיים הבסיסית של כלל אזרחיה, ומספקת שירותים כמו חינוך, בריאות וביטוח לאומי.</div></div>
+          <div class="ex-bullet"><div class="ex-dot"></div><div><strong>כלכלת שוק</strong> — מערכת כלכלית בה מחירים, יצור והקצאת משאבים נקבעים על ידי כוחות ההיצע והביקוש, ללא התערבות ממשלתית מרכזית.</div></div>
+
+          <div class="ex-sub"><span class="ex-sub-num">1.4</span>מבנה העבודה</div>
+          <div class="ex-text">המבוא מציג את הדילמה ורקעה ומגדיר את הצדדים. סקירת הספרות מביאה נתונים סטטיסטיים, חוקים רלוונטיים, פסיקות בג"צ, דעות מומחים, והשוואה בינלאומית. התוצר הוא מעגל שיח שבו הקבוצה תנחה דיון כיתתי. הרפלקציה מסכמת מה למד כל אחד מאיתנו. הביבליוגרפיה כוללת את כל המקורות.</div>
+
+          <div class="ex-sub"><span class="ex-sub-num">1.5</span>הסיבה לבחירת הדילמה</div>
+          <div class="ex-text">בחרנו בנושא זה כי הוא נוגע ישירות לחיינו — חלק מחברי הקבוצה גדלים בשכונות עם רמות סוציו-אקונומיות שונות ורואים מקרוב את ההשפעה של פערים. רצינו להבין: האם אנחנו עומדים בפני הזדמנויות שוות? האם המדינה עושה מספיק?</div>
+        </div>
+      </div>
+
+      <!-- PART 2: LITERATURE -->
+      <div class="ex-part" id="p-lit">
+        <div class="ex-section">
+          <div class="ex-section-title">📚 סקירת ספרות</div>
+
+          <div class="ex-sub"><span class="ex-sub-num">מבוא</span>היסטורי ואזרחי</div>
+          <div class="ex-text">פערי ההכנסות בישראל החלו להחריף בשנות ה-80 עם ייצוב המשק והמעבר לכלכלת שוק. בשנות ה-90 גרמה העלייה הגדולה מברה"מ ללחץ נוסף על שוק העבודה. מחאת האוהלים ב-2011 — שבה יצאו מאות אלפי אזרחים לרחובות — הייתה נקודת מפנה שהחזירה את הנושא לסדר היום הפוליטי. כיום, ישראל היא בעלת מקדם גיני של כ-0.37 לפני העברות סוציאליות — אחד הגבוהים ב-OECD.</div>
+
+          <div class="ex-sub"><span class="ex-sub-num">1.2</span>המצב החוקי</div>
+          <div class="ex-text"><strong>חוק הבטחת הכנסה (1980)</strong> — מקנה קצבה מינימלית לאזרחים ללא הכנסה מספקת. <strong>חוק ביטוח לאומי</strong> — מסדיר קצבאות ילדים, אבטלה, נכות ועוד. ועדת טרכטנברג (2011) המליצה על רפורמות שיצמצמו פערים — הפחתת מע"מ, חינוך חינמי מגיל 3 — אך רק חלקן יושמו.</div>
+
+          <div class="ex-sub"><span class="ex-sub-num">1.3</span>בג"צ בנושא</div>
+          <div class="ex-text"><strong>בג"צ 1163/98 — התנועה לאיכות השלטון נ' ממשלת ישראל:</strong> העתירה נגעה לקיצוץ קצבאות הילדים. בית המשפט פסק כי לממשלה יש סמכות לקבוע את מדיניות הקצבאות, אך ציין כי על כל שינוי מדיניות להביא בחשבון את השפעתו על האוכלוסיות החלשות. הדיון מדגיש את המתח בין שיקולי תקציב לזכויות חברתיות.</div>
+
+          <div class="ex-sub"><span class="ex-sub-num">1.4</span>נתונים סטטיסטיים</div>
+          <div class="ex-bullet"><div class="ex-dot"></div><div>20% העשירים ביותר מרוויחים פי 9 מ-20% העניים ביותר (הלמ"ס, 2023)</div></div>
+          <div class="ex-bullet"><div class="ex-dot"></div><div>שיעור העוני בישראל עומד על כ-20% — מהגבוהים במדינות ה-OECD (OECD, 2023)</div></div>
+          <div class="ex-bullet"><div class="ex-dot"></div><div>לאחר העברות סוציאליות מדינת ישראל מורידה את שיעור העוני ל-16.9% — פחות מהממוצע ב-OECD</div></div>
+
+          <div class="ex-sub"><span class="ex-sub-num">1.5</span>דעות שונות</div>
+          <div class="ex-quote"><strong>בעד מדיניות אקטיבית — ד"ר שלי לוין, כלכלנית חברתית, מכון ון ליר:</strong><br>טוענת כי ללא התערבות מדינתית, הפערים ימשיכו לגדול וייפגעו בלכידות החברתית ובדמוקרטיה. לדעתה, המדינה חייבת להבטיח שוויון הזדמנויות ממשי ולא פורמלי בלבד.</div>
+          <div class="ex-quote"><strong>בעד שוק חופשי — פרופ' דן בן-דוד, מרכז שורש:</strong><br>סבור כי צמיחה כלכלית מבוססת חינוך איכותי היא הפתרון ארוך הטווח. מיסוי גבוה מדי עלול לפגוע בתמריצי ייצור ולהאט צמיחה — מה שיפגע בסופו של דבר גם בשכבות החלשות.</div>
+
+          <div class="ex-sub"><span class="ex-sub-num">1.6</span>השוואה לחו"ל</div>
+          <div class="ex-text"><strong>שוודיה:</strong> מקדם גיני של כ-0.27 הודות למיסוי גבוה ומדיניות רווחה נרחבת — שיעור העוני נמוך מ-9%. <strong>ארה"ב:</strong> גישה של שוק חופשי יחסית — מקדם גיני של 0.41, שיעור עוני של כ-18%. ישראל ניצבת ביניהן. ניתן ללמוד ששתי הגישות אפשריות, אך לכל אחת מחירים שונים.</div>
+        </div>
+      </div>
+
+      <!-- PART 3: PRODUCT -->
+      <div class="ex-part" id="p-product">
+        <div class="ex-section">
+          <div class="ex-section-title">🎤 תוצר — מעגל שיח</div>
+
+          <div class="ex-text" style="margin-bottom:14px">מעגל השיח בנוי כך שהקבוצה מנחה דיון כיתתי על הדילמה, תוך שימוש ב-4 טקסטים/ציטוטים שנבחרו מהחקר.</div>
+
+          <div class="ex-sub"><span class="ex-sub-num">🔵</span>ריבוע מרכזי</div>
+          <div class="ex-quote" style="text-align:center"><strong>האם המדינה חייבת לצמצם פערים באופן אקטיבי?</strong><br><small style="color:var(--txt3)">קבוצה: [שמות חברי הקבוצה]</small></div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px">
+            <div style="background:var(--sur2);border:1px solid var(--brd);border-radius:10px;padding:14px">
+              <div style="font-size:10px;font-weight:700;color:var(--acc);margin-bottom:6px">ריבוע 1</div>
+              <div style="font-size:12px;font-weight:600;margin-bottom:6px">הציטוט:</div>
+              <div style="font-size:12px;color:var(--txt2);margin-bottom:8px;font-style:italic">"ללא מדיניות אקטיבית, הפערים ימשיכו לגדול ולהרעיל את המרקם הדמוקרטי" — ד"ר שלי לוין</div>
+              <div style="font-size:11px;font-weight:700;color:var(--txt);margin-bottom:3px">שאלה מנחה:</div>
+              <div style="font-size:11.5px;color:var(--txt2)">עוני הוא תוצאה של בחירות אישיות, או מבנה חברתי מדכא?</div>
+            </div>
+            <div style="background:var(--sur2);border:1px solid var(--brd);border-radius:10px;padding:14px">
+              <div style="font-size:10px;font-weight:700;color:var(--acc);margin-bottom:6px">ריבוע 2</div>
+              <div style="font-size:12px;font-weight:600;margin-bottom:6px">הציטוט:</div>
+              <div style="font-size:12px;color:var(--txt2);margin-bottom:8px;font-style:italic">"מיסוי גבוה פוגע בתמריצי הצמיחה שממנה כולנו נהנים" — פרופ' דן בן-דוד</div>
+              <div style="font-size:11px;font-weight:700;color:var(--txt);margin-bottom:3px">שאלה מנחה:</div>
+              <div style="font-size:11.5px;color:var(--txt2)">האם מס גבוה על העשירים מסייע לעניים — או פוגע בכולנו?</div>
+            </div>
+            <div style="background:var(--sur2);border:1px solid var(--brd);border-radius:10px;padding:14px">
+              <div style="font-size:10px;font-weight:700;color:var(--acc);margin-bottom:6px">ריבוע 3</div>
+              <div style="font-size:12px;font-weight:600;margin-bottom:6px">הנתון:</div>
+              <div style="font-size:12px;color:var(--txt2);margin-bottom:8px">20% העשירים מרוויחים פי 9 מ-20% העניים (הלמ"ס 2023)</div>
+              <div style="font-size:11px;font-weight:700;color:var(--txt);margin-bottom:3px">שאלה מנחה:</div>
+              <div style="font-size:11.5px;color:var(--txt2)">אם הפערים כל כך גדולים — האם שוויון הזדמנויות בכלל אפשרי?</div>
+            </div>
+            <div style="background:var(--sur2);border:1px solid var(--brd);border-radius:10px;padding:14px">
+              <div style="font-size:10px;font-weight:700;color:var(--acc);margin-bottom:6px">ריבוע 4</div>
+              <div style="font-size:12px;font-weight:600;margin-bottom:6px">ההשוואה:</div>
+              <div style="font-size:12px;color:var(--txt2);margin-bottom:8px">שוודיה: שיעור עוני 9% | ישראל: 20% | ארה"ב: 18%</div>
+              <div style="font-size:11px;font-weight:700;color:var(--txt);margin-bottom:3px">שאלה מנחה:</div>
+              <div style="font-size:11.5px;color:var(--txt2)">מה עושה שוודיה שישראל לא עושה — ואם זה כל כך טוב, למה לא מיישמים?</div>
+            </div>
+          </div>
+
+          <div class="ex-note" style="margin-top:16px">
+            💡 <strong>זכרו:</strong> תפקיד המנחים הוא לתת <strong>קול נגדי</strong> לכל עמדה שעולה, כדי לעורר דיון. בסוף — כל אחד מביע את הקול האישי שלו.
+          </div>
+        </div>
+      </div>
+
+      <!-- PART 4: REFLECTION -->
+      <div class="ex-part" id="p-reflect">
+        <div class="ex-section">
+          <div class="ex-section-title">💬 רפלקציה — כל תלמיד בנפרד</div>
+          <div class="ex-text" style="margin-bottom:16px">כל אחד כותב את הרפלקציה שלו בנפרד. אלו דוגמאות — כתבו בקול אישי ואמיתי שלכם.</div>
+
+          <div class="reflection-grid">
+            <div class="reflection-card">
+              <h5>תלמיד א'</h5>
+              <p><strong>מה למדתי:</strong> לא ידעתי שישראל מדורגת כל כך גבוה בפערים בין מדינות ה-OECD. הנתון שהעשירים מרוויחים פי 9 הדהים אותי.<br><br>
+              <strong>מה היה קשה:</strong> למצוא מקורות עדכניים ולהסביר מושגים כלכליים כמו מקדם גיני בפשטות.<br><br>
+              <strong>קול אישי:</strong> אני מאמין שהמדינה חייבת לפעול — לא מספיק לומר "יש שוויון הזדמנויות" כשנקודת ההתחלה כל כך שונה. אבל גם הבנתי שמס גבוה מדי עלול לפגוע בצמיחה שממנה כולנו נהנים.</p>
+            </div>
+            <div class="reflection-card">
+              <h5>תלמיד ב'</h5>
+              <p><strong>מה למדתי:</strong> הופתעתי לגלות שחוק הבטחת הכנסה קיים כבר מ-1980 ועדיין הפערים גדלים. זה גרם לי לחשוב שחוקים בלבד לא מספיקים.<br><br>
+              <strong>מה היה מעניין:</strong> ההשוואה לשוודיה — רציתי להבין למה אנחנו לא עושים אותו הדבר.<br><br>
+              <strong>קול אישי:</strong> אני חושב שהפתרון הוא לא שוק חופשי ולא מדינת רווחה מלאה, אלא מציאת האיזון הנכון. וזה קשה — וזו בדיוק הדילמה.</p>
+            </div>
+            <div class="reflection-card">
+              <h5>תלמיד ג'</h5>
+              <p><strong>מה למדתי:</strong> למדתי לקרוא ולפרש נתונים סטטיסטיים ולא לקבל אותם כמובן מאליו — חשוב לדעת מה הם מודדים ומה הם לא מודדים.<br><br>
+              <strong>מה היה קשה:</strong> להציג עמדות שאני לא מסכים איתן בצורה הוגנת, מבלי לבטל אותן.<br><br>
+              <strong>קול אישי:</strong> הדבר שהכי השפיע עלי הוא ההבנה שעוני הוא לא תמיד "בחירה" — לפעמים מערכת שלמה דוחפת אנשים לשם.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PART 5: BIBLIOGRAPHY -->
+      <div class="ex-part" id="p-bib">
+        <div class="ex-section">
+          <div class="ex-section-title">📑 ביבליוגרפיה</div>
+          <div class="ex-text" style="margin-bottom:14px">מסודרת לפי א'-ב' של שם המחבר:</div>
+
+          <div class="ex-bullet"><div class="ex-dot"></div><div>בן-דוד, דן. <em>"פערים ועתיד ישראל"</em>. מרכז שורש, 2022. נלקח מאתר מרכז שורש, 10.3.2026: <span style="color:var(--acc)">www.shoresh.org.il</span></div></div>
+          <div class="ex-bullet"><div class="ex-dot"></div><div>הלשכה המרכזית לסטטיסטיקה. <em>"סקר הכנסות 2023"</em>. נלקח מאתר הלמ"ס, 15.3.2026: <span style="color:var(--acc)">www.cbs.gov.il</span></div></div>
+          <div class="ex-bullet"><div class="ex-dot"></div><div>לוין, שלי. <em>"צדק חלוקתי בישראל"</em>. מכון ון ליר, 2021.</div></div>
+          <div class="ex-bullet"><div class="ex-dot"></div><div>OECD. <em>"Income Inequality Data 2023"</em>. נלקח מאתר OECD, 12.3.2026: <span style="color:var(--acc)">www.oecd.org/social/income-distribution-database.htm</span></div></div>
+
+          <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--brd)">
+            <div style="font-size:12px;font-weight:700;color:var(--txt);margin-bottom:8px">ללא ציון שם הכותב:</div>
+            <div class="ex-bullet"><div class="ex-dot"></div><div><em>"חוק הבטחת הכנסה, תשמ"א-1980"</em>. ספר החוקים. נלקח מאתר הכנסת: <span style="color:var(--acc)">www.knesset.gov.il</span></div></div>
+            <div class="ex-bullet"><div class="ex-dot"></div><div><em>"בג"צ 1163/98 — התנועה לאיכות השלטון נ' ממשלת ישראל"</em>. נבו המשפטי: <span style="color:var(--acc)">www.nevo.co.il</span></div></div>
+          </div>
+
+          <div class="ex-note" style="margin-top:16px">
+            📌 <strong>זכרו:</strong> כל מקור חייב לכלול — שם הכותב, כותרת המקור, שם האתר/ספר, תאריך הגישה, וקישור.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DOWNLOAD PANEL -->
+  <div class="panel" id="panel-download">
+
+    <div class="dl-section">
+      <h3>⬇️ הורדת תבנית העבודה</h3>
+      <p>הורידו את תבנית העבודה למחשב או לנייד שלכם, מלאו אותה ושמרו. ההגשה היא קובץ Word למייל המורה.</p>
+      <div class="dl-cards">
+
+        <div class="dl-card" onclick="downloadTemplate()">
+          <div class="dl-icon">📄</div>
+          <div class="dl-title">תבנית העבודה</div>
+          <div class="dl-sub">קובץ HTML — פתח ב-Word</div>
+          <span class="dl-btn">⬇️ הורד תבנית</span>
+        </div>
+
+        <div class="dl-card" onclick="downloadExample()">
+          <div class="dl-icon">⭐</div>
+          <div class="dl-title">דוגמא מלאה</div>
+          <div class="dl-sub">קובץ HTML — פתח ב-Word</div>
+          <span class="dl-btn">⬇️ הורד דוגמא</span>
+        </div>
+
+        <div class="dl-card" onclick="downloadGuide()">
+          <div class="dl-icon">📋</div>
+          <div class="dl-title">הנחיות המיזם</div>
+          <div class="dl-sub">קובץ HTML — פתח ב-Word</div>
+          <span class="dl-btn">⬇️ הורד הנחיות</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div style="background:var(--sur);border:1px solid var(--brd);border-radius:var(--r);padding:20px;box-shadow:var(--shadow)">
+      <h4 style="font-size:14px;font-weight:700;margin-bottom:12px;color:var(--txt)">💡 איך להשתמש בקובץ שהורדת?</h4>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px">
+        <div style="background:var(--sur2);border-radius:10px;padding:14px">
+          <div style="font-size:18px;margin-bottom:6px">💻</div>
+          <div style="font-size:12px;font-weight:700;margin-bottom:4px;color:var(--txt)">במחשב</div>
+          <div style="font-size:11.5px;color:var(--txt2);line-height:1.6">לחצו ימני על הקובץ ← <strong>פתח עם</strong> ← <strong>Word</strong> ← ערכו ← שמרו כ-DOCX</div>
+        </div>
+        <div style="background:var(--sur2);border-radius:10px;padding:14px">
+          <div style="font-size:18px;margin-bottom:6px">📱</div>
+          <div style="font-size:12px;font-weight:700;margin-bottom:4px;color:var(--txt)">בנייד</div>
+          <div style="font-size:11.5px;color:var(--txt2);line-height:1.6">לאחר ההורדה פתחו עם <strong>Word Mobile</strong> / <strong>Google Docs</strong> ← ערכו ← שתפו</div>
+        </div>
+        <div style="background:var(--sur2);border-radius:10px;padding:14px">
+          <div style="font-size:18px;margin-bottom:6px">📧</div>
+          <div style="font-size:12px;font-weight:700;margin-bottom:4px;color:var(--txt)">הגשה</div>
+          <div style="font-size:11.5px;color:var(--txt2);line-height:1.6">שלחו את הקובץ המלא למייל: <strong style="color:var(--acc)">1005530585@hityash.org.il</strong></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
 </div>
 
 <!-- TOPIC MODAL -->
@@ -340,6 +622,30 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-he
     <input type="password" id="login-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
     <button class="btn" onclick="doLogin()">כניסה</button>
     <div class="login-err" id="login-err"></div>
+  </div>
+</div>
+
+
+<!-- CUSTOM TOPIC MODAL -->
+<div class="ov" id="custom-ov" onclick="closeCustom(event)">
+  <div class="modal" style="max-width:500px">
+    <button class="mc" onclick="closeCustom()">✕</button>
+    <div class="mn" style="background:linear-gradient(135deg,#7c4fff,#a855f7)">✦</div>
+    <div class="mt">נושא חופשי — הצעה למורה</div>
+    <div style="font-size:12.5px;color:var(--txt2);margin-bottom:16px;line-height:1.6;background:rgba(124,79,255,.06);border:1px solid rgba(124,79,255,.2);border-radius:10px;padding:12px">
+      ⚠️ הצעת נושא חופשי <strong>טעונה אישור המורה</strong> לפני שתחשב כרשמית. לאחר הגשה, פנו ישירות למורה לאישור.
+    </div>
+    <div class="ml">שם הנושא המוצע</div>
+    <input id="cm-topic" type="text" placeholder='למשל: "הזכות לדיור הוגן" / "שימוש ב-AI בחינוך"...'
+      style="width:100%;background:var(--sur2);border:1.5px solid var(--brd);border-radius:9px;padding:10px 13px;font-family:Heebo,sans-serif;font-size:13px;color:var(--txt);outline:none;direction:rtl;margin-bottom:14px;transition:border-color .15s"
+      onfocus="this.style.borderColor='var(--acc3)'" onblur="this.style.borderColor='var(--brd)'">
+    <div class="ml">חברי הקבוצה (2 עד 3)</div>
+    <div class="mr" style="margin-bottom:14px">
+      <select id="cm-m1" style="width:100%;background:var(--sur);border:1.5px solid var(--brd);border-radius:8px;padding:9px 10px;font-family:Heebo,sans-serif;font-size:12px;color:var(--txt);outline:none;direction:rtl"><option value="">— חבר 1 —</option></select>
+      <select id="cm-m2" style="width:100%;background:var(--sur);border:1.5px solid var(--brd);border-radius:8px;padding:9px 10px;font-family:Heebo,sans-serif;font-size:12px;color:var(--txt);outline:none;direction:rtl"><option value="">— חבר 2 —</option></select>
+      <select id="cm-m3" style="width:100%;background:var(--sur);border:1.5px solid var(--brd);border-radius:8px;padding:9px 10px;font-family:Heebo,sans-serif;font-size:12px;color:var(--txt);outline:none;direction:rtl"><option value="">— חבר 3 (אופציונלי) —</option></select>
+    </div>
+    <button class="btn" style="background:linear-gradient(135deg,#7c4fff,#a855f7)" onclick="submitCustom()">✦ שליחת הצעת נושא לאישור מורה</button>
   </div>
 </div>
 
@@ -429,8 +735,8 @@ function renderG(){
     const t=TOPICS.find(x=>x.n===g.t);
     const isM=g.id===myId;
     return `<div class="gc${isM?' mg':''}">
-      <div class="gn">נושא ${g.t}${isM?' ⭐ הקבוצה שלי':''}</div>
-      <div class="gt">${t?t.nm:''}</div>
+      <div class="gn">${g.t===0?'✦ נושא חופשי':`נושא ${g.t}`}${isM?' ⭐ הקבוצה שלי':''}${g.pending?' <span style="color:#b45309;font-size:9px">⏳ ממתין לאישור</span>':''}</div>
+      <div class="gt">${g.t===0?(g.customTopic||'נושא חופשי'):(t?t.nm:'')}</div>
       <div class="gm">${g.ms.filter(Boolean).map(m=>`<div class="gmi"><div class="av">${m.charAt(0)}</div>${m}</div>`).join('')}</div>
       <div class="gd">נרשם: ${g.dt}</div>
     </div>`;
@@ -552,12 +858,22 @@ function openTeacher(){
   } else {
     const rows=groups.map(g=>{
       const t=TOPICS.find(x=>x.n===g.t);
+      const topicDisplay = g.t===0
+        ? `<span class="custom-badge">חופשי</span>${g.customTopic||''}`
+        : (t?t.nm:'');
+      const numDisplay = g.t===0 ? '✦' : g.t;
+      const pendingBadge = g.pending ? '<span style="background:rgba(245,200,66,.15);border:1px solid rgba(245,200,66,.4);color:#b45309;border-radius:4px;padding:1px 6px;font-size:9px;font-weight:700;margin-right:4px">ממתין לאישור</span>' : '';
+      const approvedBadge = g.teacherApproved ? '<span style="background:rgba(5,150,105,.1);border:1px solid rgba(5,150,105,.3);color:var(--grn);border-radius:4px;padding:1px 6px;font-size:9px;font-weight:700;margin-right:4px">אושר ע"י מורה</span>' : '';
       return `<tr>
-        <td><strong>${g.t}</strong></td>
-        <td>${t?t.nm:''}</td>
+        <td><strong>${numDisplay}</strong></td>
+        <td>${pendingBadge}${approvedBadge}${topicDisplay}</td>
         <td>${g.ms.join(' · ')}</td>
         <td>${g.dt}</td>
-        <td><button class="t-del" onclick="teacherDelete('${g.id}')">מחק</button></td>
+        <td style="white-space:nowrap">
+          <button class="t-del" onclick="teacherDelete('${g.id}')">🗑 מחק</button>
+          ${g.t!==0?`<button class="t-dup" onclick="teacherDupTopic(${g.t},'${g.id}')">📋 שכפל נושא</button>`:''}
+          ${g.pending?`<button class="t-dup" style="background:rgba(5,150,105,.1);border-color:rgba(5,150,105,.3);color:var(--grn)" onclick="teacherApprove('${g.id}')">✓ אשר</button>`:''}
+        </td>
       </tr>`;
     }).join('');
     document.getElementById('t-table-wrap').innerHTML=`
@@ -636,7 +952,412 @@ function renderStudentStats(){
   `;
 }
 
-load();renderT();
+
+
+function teacherApprove(id){
+  const g=groups.find(x=>x.id===id);
+  if(!g)return;
+  g.pending=false;
+  save(); openTeacher();
+  toast('הנושא אושר!','ok');
+}
+
+function teacherDupTopic(topicNum, excludeId){
+  // Find the topic name
+  const t = TOPICS.find(x=>x.n===topicNum);
+  const nm = t ? t.nm : ('נושא '+topicNum);
+  const names = prompt('שכפול נושא: "'+nm+'"\n\nהזן שמות חברי הקבוצה החדשה (מופרדים בפסיק):');
+  if(!names||!names.trim()) return;
+  const parts = names.split(',').map(s=>s.trim()).filter(Boolean);
+  if(parts.length < 2){ toast('יש להזין לפחות 2 שמות','err'); return; }
+  const g={
+    id: Date.now().toString(),
+    t: topicNum,
+    ms: parts.slice(0,3),
+    gn: 'קבוצה (אושרה ע"י מורה)',
+    dt: new Date().toLocaleDateString('he-IL'),
+    teacherApproved: true
+  };
+  groups.push(g);
+  save(); renderT(); renderG(); openTeacher();
+  toast('✓ קבוצה נוספת נרשמה לנושא זה','ok');
+}
+
+function renderCustomCard(){
+  const el = document.getElementById('custom-card-wrap');
+  if(!el) return;
+  el.innerHTML = `
+    <div class="tc-card" style="border-style:dashed;border-color:rgba(124,79,255,.4);background:rgba(124,79,255,.04)" onclick="openCustomModal()">
+      <div class="cn" style="background:rgba(124,79,255,.12);color:#7c4fff">✦</div>
+      <div class="ct">נושא חופשי — לא מהרשימה</div>
+      <div class="cd">רוצים לחקור נושא שלא מופיע ברשימה? הציעו נושא משלכם — בכפוף לאישור המורה.</div>
+      <div class="cf">
+        <div class="ctags"><span class="ctag" style="background:rgba(124,79,255,.1);border-color:rgba(124,79,255,.3);color:#7c4fff">נושא חופשי</span></div>
+        <div class="ca">← לחצו להצעה</div>
+      </div>
+    </div>`;
+}
+
+function openCustomModal(){
+  const my = myGrp();
+  if(my){ toast('כבר נרשמתם לנושא. מחקו קודם את הרישום הנוכחי.','err'); return; }
+  document.getElementById('custom-ov').classList.add('open');
+  ['cm-m1','cm-m2','cm-m3'].forEach((id,i)=>{
+    const sel=document.getElementById(id);
+    if(!sel)return;
+    const reg=registeredStudents();
+    const ph=['— חבר 1 —','— חבר 2 —','— חבר 3 (אופציונלי) —'][i];
+    sel.innerHTML='<option value="">'+ph+'</option>';
+    STUDENTS.forEach(s=>{
+      const opt=document.createElement('option');
+      opt.value=s; opt.textContent=s;
+      if(reg.includes(s)) opt.style.color='#aaa';
+      sel.appendChild(opt);
+    });
+  });
+}
+
+function closeCustom(e){
+  if(e&&e.target!==document.getElementById('custom-ov'))return;
+  document.getElementById('custom-ov').classList.remove('open');
+}
+
+function submitCustom(){
+  const topic = document.getElementById('cm-topic').value.trim();
+  const m1 = document.getElementById('cm-m1').value;
+  const m2 = document.getElementById('cm-m2').value;
+  const m3 = document.getElementById('cm-m3').value;
+  if(!topic){ toast('יש להזין שם נושא','err'); return; }
+  if(!m1||!m2){ toast('נא לבחור לפחות 2 חברי קבוצה','err'); return; }
+  if((m1&&m2&&m1===m2)||(m1&&m3&&m1===m3)||(m2&&m3&&m2===m3)){
+    toast('אותו תלמיד נבחר יותר מפעם אחת','err'); return;
+  }
+  // Use topic num 0 as custom, store topic name in gn
+  const g={
+    id: Date.now().toString(),
+    t: 0,
+    customTopic: topic,
+    ms: [m1,m2,m3].filter(Boolean),
+    gn: 'נושא חופשי',
+    dt: new Date().toLocaleDateString('he-IL'),
+    pending: true
+  };
+  groups.push(g); myId=g.id; save();
+  document.getElementById('custom-ov').classList.remove('open');
+  renderT(); renderG(); renderCustomCard();
+  toast('✓ הצעת הנושא נשלחה — ממתינה לאישור מורה','ok');
+}
+
+
+
+function dlHTML(content, filename){
+  const blob = new Blob([content], {type:'text/html;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function htmlWrap(title, body){
+  return `<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>${title}</title>
+<style>
+  body{font-family:Calibri,Arial,sans-serif;font-size:12pt;direction:rtl;margin:2.5cm;color:#000;line-height:1.5}
+  h1{font-size:18pt;color:#1a4fd6;text-align:center;margin-bottom:4px}
+  h2{font-size:14pt;color:#1a4fd6;border-bottom:2px solid #1a4fd6;padding-bottom:4px;margin-top:24px}
+  h3{font-size:13pt;color:#2563eb;margin-top:18px}
+  p{margin:6px 0;text-align:justify}
+  .field{border-bottom:1px solid #999;min-height:20px;margin:4px 0}
+  .cover{text-align:center;padding:40px 0}
+  .cover table{margin:20px auto;border-collapse:collapse}
+  .cover td{padding:8px 16px;border:1px solid #c0c0c0;min-width:200px}
+  .cover .lbl{background:#1a4fd6;color:#fff;font-weight:bold}
+  ul{padding-right:20px}
+  li{margin-bottom:4px}
+  .note{background:#fffbe6;border:1px solid #f5c842;border-radius:4px;padding:10px;margin:10px 0;font-size:11pt}
+  .section-num{display:inline-block;background:#dbeafe;color:#1a4fd6;border-radius:4px;padding:1px 8px;font-weight:bold;font-size:11pt;margin-left:6px}
+  table{border-collapse:collapse;width:100%}
+  table td,table th{border:1px solid #d0d9f5;padding:8px 10px;text-align:right}
+  table th{background:#dbeafe;font-weight:bold;color:#1a4fd6}
+  @media print{body{margin:1.5cm}}
+</style>
+</head>
+<body>${body}</body>
+</html>`;
+}
+
+function downloadTemplate(){
+  const body = `
+<div class="cover">
+  <h1>⚖️ מיזם החקר באזרחות</h1>
+  <p style="color:#6b7280;font-size:11pt">מטלה מסכמת כיתה ט8 | מחצית ב' תשפ"ו</p>
+  <table>
+    <tr><td class="lbl">נושא המטלה:</td><td class="field"></td></tr>
+    <tr><td class="lbl">חברי הקבוצה:</td><td class="field"></td></tr>
+    <tr><td class="lbl">תאריך הגשה:</td><td>17.5.2026</td></tr>
+    <tr><td class="lbl">מוגשת למורה:</td><td class="field"></td></tr>
+  </table>
+</div>
+
+<h2>תוכן העניינים</h2>
+<table>
+  <tr><th>פרק</th><th>עמוד</th></tr>
+  <tr><td>מבוא</td><td></td></tr>
+  <tr><td>סקירת ספרות</td><td></td></tr>
+  <tr><td>תוצר — מעגל שיח</td><td></td></tr>
+  <tr><td>רפלקציה</td><td></td></tr>
+  <tr><td>ביבליוגרפיה</td><td></td></tr>
+</table>
+
+<h2>מבוא</h2>
+<h3><span class="section-num">1</span> הצגת הדילמה האזרחית</h3>
+<p>הדילמה האזרחית אותה נחקור היא……</p>
+<div class="field">&nbsp;<br>&nbsp;</div>
+
+<h3><span class="section-num">1.1</span> הצגת הרקע לדילמה</h3>
+<p>מתי התחילה? האם התרחשה בעבר? מה השורשים שלה?</p>
+<div class="field">&nbsp;<br>&nbsp;</div>
+
+<h3><span class="section-num">1.2</span> פתרונות אפשריים ומי טוען אותם</h3>
+<p>פתרון א': …… | פתרון ב': ……</p>
+<div class="field">&nbsp;<br>&nbsp;</div>
+
+<h3><span class="section-num">1.3</span> מושגים מעולם האזרחות</h3>
+<ul><li>מושג 1: ………</li><li>מושג 2: ………</li><li>מושג 3: ………</li></ul>
+
+<h3><span class="section-num">1.4</span> מבנה העבודה</h3>
+<div class="field">&nbsp;</div>
+
+<h3><span class="section-num">1.5</span> הסיבה לבחירת הדילמה</h3>
+<div class="field">&nbsp;<br>&nbsp;</div>
+
+<h2>סקירת ספרות</h2>
+<h3>מבוא היסטורי ואזרחי</h3>
+<div class="field">&nbsp;<br>&nbsp;<br>&nbsp;</div>
+
+<h3><span class="section-num">1.2</span> המצב החוקי</h3>
+<div class="field">&nbsp;<br>&nbsp;</div>
+
+<h3><span class="section-num">1.3</span> בג"צ בנושא</h3>
+<div class="field">&nbsp;<br>&nbsp;</div>
+
+<h3><span class="section-num">1.4</span> נתונים סטטיסטיים</h3>
+<ul><li>נתון 1: ……</li><li>נתון 2: ……</li></ul>
+
+<h3><span class="section-num">1.5</span> דעות שונות</h3>
+<div class="field">&nbsp;<br>&nbsp;<br>&nbsp;</div>
+
+<h3><span class="section-num">1.6</span> השוואה לחו"ל</h3>
+<div class="field">&nbsp;<br>&nbsp;</div>
+
+<h3>סיכום סקירת הספרות</h3>
+<div class="field">&nbsp;<br>&nbsp;</div>
+
+<h2>תוצר — מעגל שיח</h2>
+<div class="note">דף הדיון: ריבוע מרכזי עם שם הבעיה + 4 ריבועים עם טקסטים/ציטוטים וכל אחד עם שאלה מנחה.</div>
+<table>
+  <tr><th colspan="2" style="text-align:center;background:#dbeafe">ריבוע מרכזי — שם הדילמה ושמות הקבוצה</th></tr>
+  <tr><th>ריבוע 1<br>טקסט/ציטוט:<br><div class="field" style="min-height:40px"></div><br>שאלה מנחה:<br><div class="field"></div></th>
+      <th>ריבוע 2<br>טקסט/ציטוט:<br><div class="field" style="min-height:40px"></div><br>שאלה מנחה:<br><div class="field"></div></th></tr>
+  <tr><th>ריבוע 3<br>טקסט/ציטוט:<br><div class="field" style="min-height:40px"></div><br>שאלה מנחה:<br><div class="field"></div></th>
+      <th>ריבוע 4<br>טקסט/ציטוט:<br><div class="field" style="min-height:40px"></div><br>שאלה מנחה:<br><div class="field"></div></th></tr>
+</table>
+
+<h2>רפלקציה</h2>
+<div class="note">כל תלמיד/ת כותב/ת בנפרד — בקול אישי ואמיתי.</div>
+<h3>תלמיד א'</h3>
+<p><strong>מה למדתי:</strong></p><div class="field">&nbsp;</div>
+<p><strong>יכולות שרכשתי:</strong></p><div class="field">&nbsp;</div>
+<p><strong>מה היה קשה:</strong></p><div class="field">&nbsp;</div>
+<p><strong>קול אישי (2 מחשבות לאחר החקר):</strong></p><div class="field">&nbsp;<br>&nbsp;</div>
+<h3>תלמיד ב'</h3>
+<p><strong>מה למדתי:</strong></p><div class="field">&nbsp;</div>
+<p><strong>יכולות שרכשתי:</strong></p><div class="field">&nbsp;</div>
+<p><strong>מה היה קשה:</strong></p><div class="field">&nbsp;</div>
+<p><strong>קול אישי:</strong></p><div class="field">&nbsp;<br>&nbsp;</div>
+<h3>תלמיד ג' (אם יש)</h3>
+<p><strong>מה למדתי:</strong></p><div class="field">&nbsp;</div>
+<p><strong>יכולות שרכשתי:</strong></p><div class="field">&nbsp;</div>
+<p><strong>מה היה קשה:</strong></p><div class="field">&nbsp;</div>
+<p><strong>קול אישי:</strong></p><div class="field">&nbsp;<br>&nbsp;</div>
+
+<h2>ביבליוגרפיה</h2>
+<div class="note">מסודר לפי א'-ב' של שם הכותב. פורמט: שם משפחה, שם פרטי. "כותרת". שם האתר/ספר, תאריך. קישור.</div>
+<div class="field">&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;</div>
+<p><strong>ללא ציון שם הכותב:</strong></p>
+<div class="field">&nbsp;<br>&nbsp;</div>
+`;
+  dlHTML(htmlWrap('תבנית מיזם החקר — אזרחות', body), 'תבנית_מיזם_חקר_אזרחות.html');
+  toast('✓ התבנית הורדה! פתח עם Word','ok');
+}
+
+function downloadExample(){
+  const body = `
+<div class="cover">
+  <h1>⭐ דוגמא מלאה — מיזם החקר באזרחות</h1>
+  <p style="color:#6b7280">נושא: פערים חברתיים-כלכליים בישראל</p>
+  <div class="note" style="margin-top:20px">זו דוגמא להמחשה בלבד. אל תעתיקו — כתבו בסגנון שלכם!</div>
+</div>
+
+<h2>מבוא</h2>
+<h3><span class="section-num">1</span> הצגת הדילמה האזרחית</h3>
+<p>הדילמה שבחרנו לחקור היא: <strong>האם המדינה מחויבת לצמצם פערים חברתיים-כלכליים באמצעות מדיניות אקטיבית של חלוקה מחדש</strong> — כגון מיסוי פרוגרסיבי, קצבאות סוציאליות והשקעה בחינוך — או שעליה להסתפק בהבטחת <strong>שוויון הזדמנויות פורמלי בלבד</strong>, תוך השארת תוצאות הפערים לתהליכי השוק החופשי?</p>
+
+<h3><span class="section-num">1.1</span> הצגת הרקע לדילמה</h3>
+<p>פערי ההכנסות בישראל הולכים ומתרחבים מאז שנות ה-80, עם המעבר לכלכלת שוק חופשי. מחאת האוהלים של 2011 הביאה את הנושא לסדר היום הציבורי. ישראל מדורגת עקביות בין מדינות ה-OECD בעלות מקדמי גיני גבוהים — מה שמעיד על פערים גדולים בין עשירים לעניים.</p>
+
+<h3><span class="section-num">1.2</span> פתרונות אפשריים ומי טוען אותם</h3>
+<p><strong>פתרון א' — מדיניות חלוקה מחדש אקטיבית:</strong> הסתדרות העובדים ומפלגות שמאל תומכות במיסוי פרוגרסיבי מוגבר והרחבת קצבאות. ד"ר שלי לוין (מכון ון ליר) טוענת: "ללא מדיניות אקטיבית הפערים ימשיכו לגדול".</p>
+<p><strong>פתרון ב' — חיזוק שוק העבודה החופשי:</strong> התאחדות התעשיינים תומכת בהפחתת רגולציה. פרופ' דן בן-דוד (מרכז שורש) גורס: "השקעה בחינוך איכותי לכולם היא הדרך היעילה ביותר".</p>
+
+<h3><span class="section-num">1.3</span> מושגים מעולם האזרחות</h3>
+<ul>
+  <li><strong>צדק חלוקתי</strong> — עיקרון לפיו יש לחלק טובין ומשאבים בחברה בצורה שוויונית ומוצדקת, תוך התחשבות בנקודות הפתיחה השונות של כל אדם.</li>
+  <li><strong>מדינת רווחה</strong> — מדינה הנוטלת אחריות לרמת החיים הבסיסית של כלל אזרחיה ומספקת שירותים כמו חינוך, בריאות וביטוח לאומי.</li>
+  <li><strong>כלכלת שוק</strong> — מערכת כלכלית בה מחירים ויצור נקבעים על ידי כוחות ההיצע והביקוש, ללא התערבות ממשלתית מרכזית.</li>
+</ul>
+
+<h3><span class="section-num">1.4</span> מבנה העבודה</h3>
+<p>המבוא מציג את הדילמה ורקעה. סקירת הספרות מביאה נתונים, חוקים, פסיקות ודעות. התוצר הוא מעגל שיח כיתתי. הרפלקציה מסכמת מה למד כל אחד. הביבליוגרפיה כוללת את כל המקורות.</p>
+
+<h3><span class="section-num">1.5</span> הסיבה לבחירת הדילמה</h3>
+<p>בחרנו בנושא זה כי הוא נוגע ישירות לחיינו — חלק מחברי הקבוצה גדלים בשכונות עם רמות סוציו-אקונומיות שונות ורואים מקרוב את ההשפעה של פערים. רצינו להבין: האם אנחנו עומדים בפני הזדמנויות שוות? האם המדינה עושה מספיק?</p>
+
+<h2>סקירת ספרות</h2>
+<h3>מבוא היסטורי ואזרחי</h3>
+<p>פערי ההכנסות בישראל החלו להחריף בשנות ה-80 עם ייצוב המשק והמעבר לכלכלת שוק. בשנות ה-90 גרמה העלייה הגדולה מברה"מ ללחץ נוסף על שוק העבודה. מחאת האוהלים ב-2011 — שבה יצאו מאות אלפי אזרחים לרחובות — הייתה נקודת מפנה. כיום, ישראל היא בעלת מקדם גיני של כ-0.37 לפני העברות סוציאליות — אחד הגבוהים ב-OECD.</p>
+
+<h3><span class="section-num">1.2</span> המצב החוקי</h3>
+<p><strong>חוק הבטחת הכנסה (1980)</strong> — מקנה קצבה מינימלית לאזרחים ללא הכנסה מספקת. ועדת טרכטנברג (2011) המליצה על רפורמות שיצמצמו פערים — הפחתת מע"מ, חינוך חינמי מגיל 3 — אך רק חלקן יושמו.</p>
+
+<h3><span class="section-num">1.3</span> בג"צ בנושא</h3>
+<p><strong>בג"צ 1163/98 — התנועה לאיכות השלטון נ' ממשלת ישראל:</strong> העתירה נגעה לקיצוץ קצבאות הילדים. בית המשפט פסק כי לממשלה יש סמכות לקבוע את מדיניות הקצבאות, אך ציין כי על כל שינוי מדיניות להביא בחשבון את השפעתו על האוכלוסיות החלשות.</p>
+
+<h3><span class="section-num">1.4</span> נתונים סטטיסטיים</h3>
+<ul>
+  <li>20% העשירים ביותר מרוויחים פי 9 מ-20% העניים ביותר (הלמ"ס, 2023)</li>
+  <li>שיעור העוני בישראל עומד על כ-20% — מהגבוהים במדינות ה-OECD (OECD, 2023)</li>
+  <li>לאחר העברות סוציאליות שיעור העוני יורד ל-16.9% — אך עדיין גבוה מהממוצע ב-OECD</li>
+</ul>
+
+<h3><span class="section-num">1.5</span> דעות שונות</h3>
+<p><strong>בעד מדיניות אקטיבית — ד"ר שלי לוין, מכון ון ליר:</strong> טוענת כי ללא התערבות מדינתית, הפערים ימשיכו לגדול וייפגעו בלכידות החברתית ובדמוקרטיה. לדעתה, המדינה חייבת להבטיח שוויון הזדמנויות ממשי ולא פורמלי בלבד.</p>
+<p><strong>בעד שוק חופשי — פרופ' דן בן-דוד, מרכז שורש:</strong> סבור כי צמיחה כלכלית מבוססת חינוך איכותי היא הפתרון ארוך הטווח. מיסוי גבוה מדי עלול לפגוע בתמריצי ייצור ולהאט צמיחה — מה שיפגע בסופו של דבר גם בשכבות החלשות.</p>
+
+<h3><span class="section-num">1.6</span> השוואה לחו"ל</h3>
+<p><strong>שוודיה:</strong> מקדם גיני של כ-0.27, שיעור עוני נמוך מ-9% — הודות למיסוי גבוה ומדיניות רווחה נרחבת. <strong>ארה"ב:</strong> גישה של שוק חופשי יחסית — מקדם גיני של 0.41, שיעור עוני של כ-18%. ישראל ניצבת ביניהן עם אתגרים ייחודיים של הרכב אוכלוסייה מגוון.</p>
+
+<h2>תוצר — מעגל שיח</h2>
+<table>
+  <tr><td colspan="2" style="text-align:center;background:#dbeafe;font-weight:bold">האם המדינה חייבת לצמצם פערים באופן אקטיבי? | [שמות הקבוצה]</td></tr>
+  <tr>
+    <td><strong>ריבוע 1</strong><br><em>"ללא מדיניות אקטיבית, הפערים ימשיכו לגדול ולהרעיל את המרקם הדמוקרטי" — ד"ר שלי לוין</em><br><br><strong>שאלה:</strong> עוני הוא תוצאה של בחירות אישיות, או מבנה חברתי מדכא?</td>
+    <td><strong>ריבוע 2</strong><br><em>"מיסוי גבוה פוגע בתמריצי הצמיחה שממנה כולנו נהנים" — פרופ' דן בן-דוד</em><br><br><strong>שאלה:</strong> האם מס גבוה על העשירים מסייע לעניים — או פוגע בכולנו?</td>
+  </tr>
+  <tr>
+    <td><strong>ריבוע 3</strong><br>20% העשירים מרוויחים פי 9 מ-20% העניים (הלמ"ס 2023)<br><br><strong>שאלה:</strong> אם הפערים כל כך גדולים — האם שוויון הזדמנויות בכלל אפשרי?</td>
+    <td><strong>ריבוע 4</strong><br>שוודיה: שיעור עוני 9% | ישראל: 20% | ארה"ב: 18%<br><br><strong>שאלה:</strong> מה עושה שוודיה שישראל לא עושה — ולמה לא מיישמים?</td>
+  </tr>
+</table>
+
+<h2>רפלקציה</h2>
+<h3>תלמיד א'</h3>
+<p><strong>מה למדתי:</strong> לא ידעתי שישראל מדורגת כל כך גבוה בפערים בין מדינות ה-OECD. הנתון שהעשירים מרוויחים פי 9 הדהים אותי.</p>
+<p><strong>יכולות שרכשתי:</strong> למדתי לקרוא ולפרש נתונים סטטיסטיים ולהציג עמדות מנוגדות בצורה הוגנת.</p>
+<p><strong>מה היה קשה:</strong> למצוא מקורות עדכניים ולהסביר מושגים כלכליים כמו מקדם גיני בפשטות.</p>
+<p><strong>קול אישי:</strong> אני מאמין שהמדינה חייבת לפעול — לא מספיק לומר "יש שוויון הזדמנויות" כשנקודת ההתחלה כל כך שונה. אבל גם הבנתי שמס גבוה מדי עלול לפגוע בצמיחה שממנה כולנו נהנים.</p>
+
+<h2>ביבליוגרפיה</h2>
+<ul>
+  <li>בן-דוד, דן. <em>"פערים ועתיד ישראל"</em>. מרכז שורש, 2022. נלקח 10.3.2026: www.shoresh.org.il</li>
+  <li>הלשכה המרכזית לסטטיסטיקה. <em>"סקר הכנסות 2023"</em>. נלקח 15.3.2026: www.cbs.gov.il</li>
+  <li>לוין, שלי. <em>"צדק חלוקתי בישראל"</em>. מכון ון ליר, 2021.</li>
+  <li>OECD. <em>"Income Inequality Data 2023"</em>. נלקח 12.3.2026: www.oecd.org</li>
+</ul>
+<p><strong>ללא ציון שם הכותב:</strong></p>
+<ul>
+  <li><em>"חוק הבטחת הכנסה, תשמ"א-1980"</em>. ספר החוקים. www.knesset.gov.il</li>
+  <li><em>"בג"צ 1163/98 — התנועה לאיכות השלטון נ' ממשלת ישראל"</em>. www.nevo.co.il</li>
+</ul>
+`;
+  dlHTML(htmlWrap('דוגמא מלאה — מיזם החקר אזרחות', body), 'דוגמא_מלאה_מיזם_חקר.html');
+  toast('✓ הדוגמא הורדה! פתח עם Word','ok');
+}
+
+function downloadGuide(){
+  const body = `
+<div class="cover">
+  <h1>📋 הנחיות מיזם החקר — אזרחות</h1>
+  <p style="color:#6b7280">כיתה ט8 | מחצית ב' תשפ"ו</p>
+</div>
+
+<h2>לוח זמנים</h2>
+<table>
+  <tr><th>תאריך</th><th>משימה</th></tr>
+  <tr><td>עד 27.4.26</td><td>שיבוץ קבוצות ובחירת נושא באתר</td></tr>
+  <tr><td>עד 17.5.26</td><td>הגשת מסמך Word למייל המורה</td></tr>
+</table>
+
+<h2>משקלות ציון</h2>
+<ul>
+  <li>מיזם החקר (עבודה כתובה) — <strong>85% מהציון הכולל</strong></li>
+  <li>עבודת צוות בספרייה — <strong>15% מהציון הכולל</strong></li>
+</ul>
+
+<h2>כללי הרשמה</h2>
+<ul>
+  <li>קבוצות של 2 עד 3 תלמידים</li>
+  <li>הרשמה באתר — מי שנרשם ראשון, הנושא שלו</li>
+  <li>שינוי נושא רק בתיאום עם המורה</li>
+</ul>
+
+<h2>מבנה העבודה</h2>
+<h3>1. מבוא</h3>
+<ul>
+  <li>הצגת הדילמה האזרחית</li>
+  <li>הצגת הרקע לדילמה</li>
+  <li>פתרונות אפשריים ומי טוען אותם (לפחות 2 פתרונות)</li>
+  <li>3 מושגים מעולם האזרחות</li>
+  <li>מבנה העבודה</li>
+  <li>הסיבה לבחירת הדילמה</li>
+</ul>
+<h3>2. סקירת ספרות</h3>
+<ul>
+  <li>מבוא היסטורי ואזרחי</li>
+  <li>המצב החוקי (חוק/ים רלוונטיים)</li>
+  <li>בג"צ בנושא</li>
+  <li>נתונים סטטיסטיים (לפחות 2)</li>
+  <li>דעות שונות (לפחות 2 לכל צד)</li>
+  <li>השוואה לחו"ל</li>
+  <li>סיכום סקירת הספרות</li>
+</ul>
+<h3>3. תוצר — מעגל שיח</h3>
+<p>דף דיון: ריבוע מרכזי + 4 ריבועים עם טקסטים/ציטוטים וכל אחד עם שאלה מנחה.</p>
+<h3>4. רפלקציה</h3>
+<p>כל תלמיד/ת כותב/ת בנפרד: מה למדתי, יכולות שרכשתי, מה היה קשה, קול אישי.</p>
+<h3>5. ביבליוגרפיה</h3>
+<p>מסודרת לפי א'-ב'. פורמט: שם משפחה, שם פרטי. "כותרת". שם האתר, תאריך. קישור.</p>
+
+<h2>הגשה</h2>
+<p>שלחו קובץ Word למייל: <strong>1005530585@hityash.org.il</strong></p>
+<p>שם הקובץ: <strong>שמות_הקבוצה_נושא.docx</strong></p>
+`;
+  dlHTML(htmlWrap('הנחיות מיזם החקר — אזרחות', body), 'הנחיות_מיזם_חקר.html');
+  toast('✓ ההנחיות הורדו! פתח עם Word','ok');
+}
+
+function showPart(btn, partId){
+  document.querySelectorAll('.ex-nav-btn').forEach(b=>b.classList.remove('act'));
+  document.querySelectorAll('.ex-part').forEach(p=>p.classList.remove('act'));
+  btn.classList.add('act');
+  document.getElementById(partId).classList.add('act');
+}
+
+load();renderT();renderCustomCard();
 </script>
 </body>
 </html>
