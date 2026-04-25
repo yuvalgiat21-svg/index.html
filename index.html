@@ -200,6 +200,18 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-he
 .toast.err{border-color:var(--red);color:var(--red)}
 
 @media(max-width:768px){.hero-in{grid-template-columns:1fr}.th{flex-direction:column;align-items:flex-start;gap:8px}.sb input{width:130px}.mr{grid-template-columns:1fr}.main{padding:18px 14px}.hdr,.hero,.tabs{padding-right:14px;padding-left:14px}}
+
+.sstats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.sstat{background:var(--sur2);border:1px solid var(--brd);border-radius:10px;padding:10px 16px;display:flex;align-items:center;gap:10px;min-width:120px}
+.sstat.ok{background:rgba(5,150,105,.08);border-color:rgba(5,150,105,.25)}
+.sstat.warn{background:rgba(220,38,38,.06);border-color:rgba(220,38,38,.2)}
+.sval{font-size:22px;font-weight:800;color:var(--acc)}
+.sstat.ok .sval{color:var(--grn)}
+.sstat.warn .sval{color:var(--red)}
+.slbl{font-size:11px;color:var(--txt2);line-height:1.3}
+.unreg-list{background:var(--sur2);border:1px solid var(--brd);border-radius:10px;padding:12px 16px;font-size:12.5px;color:var(--txt2);line-height:1.8}
+.unreg-list strong{color:var(--txt);display:block;margin-bottom:4px}
+.ok-msg{color:var(--grn);font-weight:700;font-size:13px}
 </style>
 </head>
 <body>
@@ -270,7 +282,7 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-he
       <h3>קבוצות רשומות</h3>
       <button onclick="clearMine()" style="background:var(--redl);border:1px solid rgba(220,38,38,.25);color:var(--red);border-radius:8px;padding:7px 14px;cursor:pointer;font-family:Heebo;font-size:12px;font-weight:600">🗑 מחק את הקבוצה שלי</button>
     </div>
-    <div class="gg" id="gg"></div>
+    <div id="student-stats" style="margin-bottom:18px"></div><div class="gg" id="gg"></div>
   </div>
 
   <!-- INFO -->
@@ -410,6 +422,7 @@ function renderT(f=''){
 
 /* RENDER GROUPS */
 function renderG(){
+  renderStudentStats();
   const el=document.getElementById('gg');
   if(!groups.length){el.innerHTML='<div class="es"><div class="ei">👥</div><p>עדיין אין קבוצות רשומות.<br>היו הראשונים לבחור נושא!</p></div>';return;}
   el.innerHTML=groups.map(g=>{
@@ -443,15 +456,47 @@ function openM(n){
   } else {
     h=`<div class="sp"><div class="spt">📝 הרשמת קבוצה לנושא זה</div>
       <div class="fg"><label>שם קבוצה (אופציונלי)</label><input id="f-gn" placeholder='למשל: "קבוצה א"'></div>
-      <div class="fg"><label>שמות חברי הקבוצה (3 חברים)</label><div class="mr">
-        <input id="f-m1" placeholder="חבר 1"><input id="f-m2" placeholder="חבר 2"><input id="f-m3" placeholder="חבר 3">
+      <div class="fg"><label>חברי הקבוצה (2 עד 3 תלמידים)</label><div class="mr">
+        <select id="f-m1" style="width:100%;background:var(--sur);border:1.5px solid var(--brd);border-radius:8px;padding:9px 10px;font-family:Heebo,sans-serif;font-size:12px;color:var(--txt);outline:none;direction:rtl">
+          <option value="">— חבר 1 —</option>
+        </select>
+        <select id="f-m2" style="width:100%;background:var(--sur);border:1.5px solid var(--brd);border-radius:8px;padding:9px 10px;font-family:Heebo,sans-serif;font-size:12px;color:var(--txt);outline:none;direction:rtl">
+          <option value="">— חבר 2 —</option>
+        </select>
+        <select id="f-m3" style="width:100%;background:var(--sur);border:1.5px solid var(--brd);border-radius:8px;padding:9px 10px;font-family:Heebo,sans-serif;font-size:12px;color:var(--txt);outline:none;direction:rtl">
+          <option value="">— חבר 3 (אופציונלי) —</option>
+        </select>
       </div></div>
+      <div id="dup-warn" style="color:var(--red);font-size:11px;min-height:16px;margin-bottom:4px"></div>
       <button class="btn" onclick="signup(${n})">✓ אני בוחר/ת נושא זה לקבוצתי</button>
     </div>`;
   }
   document.getElementById('msp').innerHTML=h;
   document.getElementById('ov').classList.add('open');
+  // Populate student dropdowns
+  ['f-m1','f-m2','f-m3'].forEach((id,i)=>{
+    const sel=document.getElementById(id);
+    if(!sel)return;
+    const reg=registeredStudents();
+    const placeholder=sel.options[0].text;
+    sel.innerHTML='<option value="">'+placeholder+'</option>';
+    STUDENTS.forEach(s=>{
+      const opt=document.createElement('option');
+      opt.value=s; opt.textContent=s;
+      if(reg.includes(s)) opt.style.color='#aaa';
+      sel.appendChild(opt);
+    });
+    sel.onchange=checkDups;
+  });
 }
+
+function checkDups(){
+  const v=[['f-m1'],['f-m2'],['f-m3']].map(([id])=>(document.getElementById(id)||{}).value||'').filter(Boolean);
+  const dupes=v.filter((x,i)=>v.indexOf(x)!==i);
+  const w=document.getElementById('dup-warn');
+  if(w) w.textContent=dupes.length?'⚠️ אותו תלמיד נבחר יותר מפעם אחת':'';
+}
+
 
 function closeM(e){if(e&&e.target!==document.getElementById('ov'))return;document.getElementById('ov').classList.remove('open');}
 
@@ -460,9 +505,9 @@ function signup(n){
   const m1=(document.getElementById('f-m1')||{}).value?.trim();
   const m2=(document.getElementById('f-m2')||{}).value?.trim();
   const m3=(document.getElementById('f-m3')||{}).value?.trim();
-  if(!m1||!m2||!m3){toast('נא למלא את שמות כל 3 חברי הקבוצה','err');return;}
+  if(!m1||!m2){toast('נא למלא לפחות 2 חברי קבוצה','err');return;}
   if(taken().has(n)){toast('הנושא נתפס זה עתה! בחרו נושא אחר','err');closeM();renderT();return;}
-  const g={id:Date.now().toString(),t:n,ms:[m1,m2,m3],gn:document.getElementById('f-gn')?.value?.trim()||`קבוצה ${groups.length+1}`,dt:new Date().toLocaleDateString('he-IL')};
+  const g={id:Date.now().toString(),t:n,ms:[m1,m2,m3].filter(Boolean),gn:document.getElementById('f-gn')?.value?.trim()||`קבוצה ${groups.length+1}`,dt:new Date().toLocaleDateString('he-IL')};
   groups.push(g);myId=g.id;save();
   closeM();renderT();renderG();
   toast('✓ נרשמתם בהצלחה! נושא: '+TOPICS.find(x=>x.n===n).nm,'ok');
@@ -472,7 +517,7 @@ function clearMine(){
   if(!myId){toast('אין קבוצה רשומה על שמך','err');return;}
   if(!confirm('האם למחוק את רישום הקבוצה שלך?'))return;
   groups=groups.filter(g=>g.id!==myId);myId=null;save();
-  renderT();renderG();toast('הרישום נמחק','ok');
+  renderT();renderG();renderStudentStats();toast('הרישום נמחק','ok');
 }
 
 /* TEACHER LOGIN */
@@ -560,6 +605,36 @@ function switchTab(btn,id){
 function filterT(){renderT(document.getElementById('si').value);}
 
 function toast(msg,type=''){const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type+' show';setTimeout(()=>t.classList.remove('show'),3200);}
+
+
+const STUDENTS=["אברהה מיכל", "אופיר ניב", "אנקוה יהלי", "אריאלי יהב", "אשכנזי עלמה", "בונפיל נועם דוד", "בלפרמן אלה שולמית", "בלרשטיין עלמה", "בן יהודה יה לי", "בנדלר רחמים שחר", "ברנר אמילי", "בר-נתן שחר", "גורפיל בלייר יעל", "גיל קורן", "דנאל עמרי", "הר פז קרשובר עמית", "ויינר ביטון רומי", "יונה כהן עילאי עמרם", "כהן אורן", "כלפון אורי", "לוי עטייה נועה", "ליבנה מאיה", "ליפשיץ עידן לי", "ניסן אלמוג", "סאסי משה נתן", "ענבר ליבי", "פולינר יאיר", "פנחס אדם נבו", "קדר ים", "קולן ירדן", "קורן עומר", "רוטרי יהב", "רטפן אריאל יעקב", "שלכט נועה", "שמחי בן יהודה", "שקולניק תמר"];
+const TOTAL_STUDENTS=STUDENTS.length;
+
+function registeredStudents(){
+  const all=[];
+  groups.forEach(g=>g.ms.filter(Boolean).forEach(m=>all.push(m)));
+  return all;
+}
+
+function unregisteredStudents(){
+  const reg=registeredStudents();
+  return STUDENTS.filter(s=>!reg.includes(s));
+}
+
+function renderStudentStats(){
+  const reg=registeredStudents();
+  const unreg=unregisteredStudents();
+  const el=document.getElementById('student-stats');
+  if(!el)return;
+  el.innerHTML=`
+    <div class="sstats">
+      <div class="sstat ok"><span class="sval">${reg.length}</span><span class="slbl">נרשמו לקבוצה</span></div>
+      <div class="sstat warn"><span class="sval">${unreg.length}</span><span class="slbl">עדיין לא נרשמו</span></div>
+      <div class="sstat"><span class="sval">${TOTAL_STUDENTS}</span><span class="slbl">סה"כ תלמידים</span></div>
+    </div>
+    ${unreg.length>0?`<div class="unreg-list"><strong>לא נרשמו:</strong> ${unreg.join(' · ')}</div>`:'<div class="unreg-list ok-msg">✓ כל התלמידים נרשמו!</div>'}
+  `;
+}
 
 load();renderT();
 </script>
