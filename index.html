@@ -251,8 +251,15 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-he
 .dl-btn:hover{opacity:.9;transform:translateY(-1px)}
 .dl-btn.outline{background:none;border:1.5px solid var(--acc3);color:var(--acc)}
 .dl-btn.outline:hover{background:var(--accl)}
+
+.fb-status{position:fixed;bottom:10px;left:10px;font-size:10px;padding:4px 10px;border-radius:10px;background:var(--grn);color:#fff;font-weight:700;opacity:.8;z-index:999;transition:all .3s}
+.fb-status.offline{background:var(--red)}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
 </head>
 <body>
 
@@ -694,6 +701,7 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-he
 </div>
 
 <div class="toast" id="toast"></div>
+<div class="fb-status" id="fb-status">🟢 מחובר</div>
 
 <script>
 const TOPICS=[
@@ -722,14 +730,69 @@ const TOPICS=[
   {n:23,nm:'מדיניות דיור ומשבר הדיור',d:'כיצד על המדינה לפתור את משבר הדיור — להגביר בנייה, לפקח על מחירים, או לסייע לדיירים?',c:['שוק חופשי מול רגולציה','אינטרס בעלי הדירות מול דיירים','פיתוח מול שימור סביבתי']},
 ];
 
-const SK='civics_v4';
-let groups=[],myId=null,isTeacher=false;
-const TEACHER_PASS='yuval2104';
+// ── FIREBASE INIT ─────────────────────────────────────────────────────────────
+const firebaseConfig = {
+  apiKey: "AIzaSyA8rBrBp_CJ5QQxoAML4WvR8_zOTwDRGC4",
+  authDomain: "civics-hub.firebaseapp.com",
+  projectId: "civics-hub",
+  storageBucket: "civics-hub.firebasestorage.app",
+  messagingSenderId: "806022767247",
+  appId: "1:806022767247:web:7ecc541bde5b0887be06fa",
+  databaseURL: "https://civics-hub-default-rtdb.europe-west1.firebasedatabase.app"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const groupsRef = db.ref('groups');
 
-function load(){try{const s=localStorage.getItem(SK);if(s){const p=JSON.parse(s);groups=p.g||[];myId=p.m||null;}}catch(e){groups=[];myId=null;}}
-function save(){localStorage.setItem(SK,JSON.stringify({g:groups,m:myId}));}
-function taken(){return new Set(groups.map(g=>g.t));}
-function myGrp(){return myId?groups.find(g=>g.id===myId)||null:null;}
+let groups = [], myId = null, isTeacher = false;
+const TEACHER_PASS = 'yuval2104';
+const MY_ID_KEY = 'civics_myId_v1';
+
+// Load myId from localStorage (only the user's own group ID — not all data)
+function loadMyId() {
+  try { myId = localStorage.getItem(MY_ID_KEY) || null; } catch(e) { myId = null; }
+}
+function saveMyId() {
+  try {
+    if (myId) localStorage.setItem(MY_ID_KEY, myId);
+    else localStorage.removeItem(MY_ID_KEY);
+  } catch(e) {}
+}
+
+// Save is now done via Firebase push/set — no bulk save needed
+function save() {} // kept for compatibility — actual saves go directly to Firebase
+
+function taken() { return new Set(groups.map(g => g.t)); }
+function myGrp() { return myId ? groups.find(g => g.id === myId) || null : null; }
+
+// ── REAL-TIME LISTENER ────────────────────────────────────────────────────────
+function startFirebaseListener() {
+  // Connection status
+  db.ref('.info/connected').on('value', snap => {
+    const el = document.getElementById('fb-status');
+    if(el) {
+      if(snap.val()) { el.textContent='🟢 מחובר'; el.className='fb-status'; }
+      else { el.textContent='🔴 לא מחובר'; el.className='fb-status offline'; }
+    }
+  });
+  groupsRef.on('value', snapshot => {
+    const data = snapshot.val();
+    groups = data ? Object.values(data) : [];
+    renderT(document.getElementById('si')?.value || '');
+    renderCustomCard();
+    if (document.getElementById('panel-groups')?.classList.contains('act')) {
+      renderG();
+    }
+    updateStats();
+  });
+}
+
+function updateStats() {
+  const tkc = taken().size;
+  ['st-av','av-c'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent = 23-tkc; });
+  ['st-tk'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent = tkc; });
+  ['st-gr','gr-c'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent = groups.length; });
+}
 
 /* RENDER TOPICS */
 function renderT(f=''){
@@ -839,19 +902,24 @@ function signup(n){
   const m1=(document.getElementById('f-m1')||{}).value?.trim();
   const m2=(document.getElementById('f-m2')||{}).value?.trim();
   const m3=(document.getElementById('f-m3')||{}).value?.trim();
-  if(!m1||!m2){toast('נא למלא לפחות 2 חברי קבוצה','err');return;}
+  if(!m1||!m2){toast('נא לבחור לפחות 2 חברי קבוצה','err');return;}
   if(taken().has(n)){toast('הנושא נתפס זה עתה! בחרו נושא אחר','err');closeM();renderT();return;}
-  const g={id:Date.now().toString(),t:n,ms:[m1,m2,m3].filter(Boolean),gn:document.getElementById('f-gn')?.value?.trim()||`קבוצה ${groups.length+1}`,dt:new Date().toLocaleDateString('he-IL')};
-  groups.push(g);myId=g.id;save();
-  closeM();renderT();renderG();
-  toast('✓ נרשמתם בהצלחה! נושא: '+TOPICS.find(x=>x.n===n).nm,'ok');
+  const newRef = groupsRef.push();
+  const g={id:newRef.key,t:n,ms:[m1,m2,m3].filter(Boolean),gn:document.getElementById('f-gn')?.value?.trim()||`קבוצה ${groups.length+1}`,dt:new Date().toLocaleDateString('he-IL')};
+  newRef.set(g).then(()=>{
+    myId=g.id; saveMyId();
+    closeM();
+    toast('✓ נרשמתם בהצלחה! נושא: '+TOPICS.find(x=>x.n===n).nm,'ok');
+  }).catch(e=>{ toast('שגיאה בשמירה — נסו שוב','err'); console.error(e); });
 }
 
 function clearMine(){
   if(!myId){toast('אין קבוצה רשומה על שמך','err');return;}
   if(!confirm('האם למחוק את רישום הקבוצה שלך?'))return;
-  groups=groups.filter(g=>g.id!==myId);myId=null;save();
-  renderT();renderG();renderStudentStats();toast('הרישום נמחק','ok');
+  groupsRef.child(myId).remove().then(()=>{
+    myId=null; saveMyId();
+    toast('הרישום נמחק','ok');
+  }).catch(e=>{ toast('שגיאה במחיקה','err'); console.error(e); });
 }
 
 /* TEACHER LOGIN */
@@ -918,10 +986,11 @@ function doLogout(){isTeacher=false;closeTeacher();toast('התנתקת','ok');}
 
 function teacherDelete(id){
   if(!confirm('למחוק את רישום הקבוצה הזו?'))return;
-  if(myId===id)myId=null;
-  groups=groups.filter(g=>g.id!==id);
-  save();renderT();renderG();openTeacher();
-  toast('הקבוצה נמחקה','ok');
+  groupsRef.child(id).remove().then(()=>{
+    if(myId===id){ myId=null; saveMyId(); }
+    openTeacher();
+    toast('הקבוצה נמחקה','ok');
+  }).catch(e=>{ toast('שגיאה במחיקה','err'); console.error(e); });
 }
 
 function exportCSV(){
@@ -983,11 +1052,10 @@ function renderStudentStats(){
 
 
 function teacherApprove(id){
-  const g=groups.find(x=>x.id===id);
-  if(!g)return;
-  g.pending=false;
-  save(); openTeacher();
-  toast('הנושא אושר!','ok');
+  groupsRef.child(id).update({pending:false}).then(()=>{
+    openTeacher();
+    toast('הנושא אושר!','ok');
+  }).catch(e=>{ toast('שגיאה','err'); });
 }
 
 function teacherDupTopic(topicNum, excludeId){
@@ -1006,9 +1074,10 @@ function teacherDupTopic(topicNum, excludeId){
     dt: new Date().toLocaleDateString('he-IL'),
     teacherApproved: true
   };
-  groups.push(g);
-  save(); renderT(); renderG(); openTeacher();
-  toast('✓ קבוצה נוספת נרשמה לנושא זה','ok');
+  const newRef2 = groupsRef.push();
+  g.id = newRef2.key;
+  newRef2.set(g).then(()=>{ openTeacher(); toast('✓ קבוצה נוספת נרשמה לנושא זה','ok'); })
+    .catch(e=>{ toast('שגיאה בשמירה','err'); });
 }
 
 function renderCustomCard(){
@@ -1070,10 +1139,13 @@ function submitCustom(){
     dt: new Date().toLocaleDateString('he-IL'),
     pending: true
   };
-  groups.push(g); myId=g.id; save();
-  document.getElementById('custom-ov').classList.remove('open');
-  renderT(); renderG(); renderCustomCard();
-  toast('✓ הצעת הנושא נשלחה — ממתינה לאישור מורה','ok');
+  const custRef = groupsRef.push();
+  g.id = custRef.key;
+  custRef.set(g).then(()=>{
+    myId=g.id; saveMyId();
+    document.getElementById('custom-ov').classList.remove('open');
+    toast('✓ הצעת הנושא נשלחה — ממתינה לאישור מורה','ok');
+  }).catch(e=>{ toast('שגיאה בשמירה — נסו שוב','err'); });
 }
 
 
@@ -1400,6 +1472,9 @@ h2{font-size:14pt;color:#1a4fd6}
 h3{font-size:13pt;color:#2563eb}
 .line{border-bottom:1px solid #999;min-height:22px;margin:6px 0}
 ul{padding-right:18px} li{margin-bottom:4px}
+
+.fb-status{position:fixed;bottom:10px;left:10px;font-size:10px;padding:4px 10px;border-radius:10px;background:var(--grn);color:#fff;font-weight:700;opacity:.8;z-index:999;transition:all .3s}
+.fb-status.offline{background:var(--red)}
 </style></head>
 <body>${bodyContent}</body></html>`;
 
@@ -1600,7 +1675,7 @@ function showPart(btn, partId){
   document.getElementById(partId).classList.add('act');
 }
 
-load();renderT();renderCustomCard();
+loadMyId(); startFirebaseListener(); renderCustomCard();
 </script>
 </body>
 </html>
