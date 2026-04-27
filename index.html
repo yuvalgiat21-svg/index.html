@@ -254,6 +254,33 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-he
 
 .fb-status{position:fixed;bottom:10px;left:10px;font-size:10px;padding:4px 10px;border-radius:10px;background:var(--grn);color:#fff;font-weight:700;opacity:.8;z-index:999;transition:all .3s}
 .fb-status.offline{background:var(--red)}
+
+.t-modal{background:var(--sur);border:1px solid var(--brd2);border-radius:16px;padding:24px;margin-top:16px;box-shadow:var(--shadow)}
+.t-modal h4{font-size:14px;font-weight:700;color:var(--acc);margin-bottom:14px;display:flex;align-items:center;gap:7px}
+.t-form-row{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;margin-bottom:10px;align-items:end}
+.t-form-row.two{grid-template-columns:1fr auto}
+.t-select{width:100%;background:var(--sur2);border:1.5px solid var(--brd);border-radius:8px;padding:8px 10px;font-family:'Heebo',sans-serif;font-size:12px;color:var(--txt);outline:none;direction:rtl;transition:border-color .15s}
+.t-select:focus{border-color:var(--acc3)}
+.t-input{width:100%;background:var(--sur2);border:1.5px solid var(--brd);border-radius:8px;padding:8px 10px;font-family:'Heebo',sans-serif;font-size:12px;color:var(--txt);outline:none;direction:rtl;transition:border-color .15s}
+.t-input:focus{border-color:var(--acc3)}
+.t-add-btn{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border:none;border-radius:8px;padding:8px 14px;font-family:'Heebo',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.t-add-btn:hover{opacity:.9}
+.t-add-btn.red{background:linear-gradient(135deg,var(--red),#b91c1c)}
+.t-add-btn.green{background:linear-gradient(135deg,var(--grn),#047857)}
+.t-group-block{background:var(--sur2);border:1px solid var(--brd);border-radius:10px;padding:14px;margin-bottom:10px}
+.t-group-block-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px}
+.t-group-title{font-size:13px;font-weight:700;color:var(--txt)}
+.t-group-topic{font-size:11px;color:var(--txt3);margin-top:2px}
+.t-member-row{display:flex;align-items:center;justify-content:space-between;padding:5px 8px;background:var(--sur);border-radius:6px;margin-bottom:4px}
+.t-member-name{font-size:12px;color:var(--txt2);display:flex;align-items:center;gap:6px}
+.t-member-av{width:22px;height:22px;border-radius:5px;background:var(--accl);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--acc)}
+.t-remove-btn{background:var(--redl);border:1px solid rgba(220,38,38,.2);color:var(--red);border-radius:5px;padding:2px 8px;font-size:10px;font-weight:700;cursor:pointer;font-family:'Heebo',sans-serif}
+.t-remove-btn:hover{background:rgba(220,38,38,.15)}
+.t-add-member-row{display:flex;gap:6px;margin-top:8px}
+.t-tabs{display:flex;gap:4px;margin-bottom:16px;border-bottom:1px solid var(--brd);padding-bottom:0}
+.t-tab{padding:8px 14px;font-family:'Heebo',sans-serif;font-size:12px;font-weight:600;color:var(--txt3);background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;cursor:pointer;transition:all .15s}
+.t-tab.act{color:var(--acc);border-bottom-color:var(--acc)}
+.t-section{display:none}.t-section.act{display:block}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
@@ -686,9 +713,9 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-he
 
 <!-- TEACHER MODAL -->
 <div class="ov" id="teacher-ov" onclick="closeTeacher(event)">
-  <div class="modal" style="max-width:800px">
+  <div class="modal" style="max-width:860px">
     <button class="mc" onclick="closeTeacher()">✕</button>
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px">
       <h3 style="font-size:18px;font-weight:800;color:var(--acc);display:flex;align-items:center;gap:8px">🎓 לוח בקרה — מורה</h3>
       <div style="display:flex;gap:8px">
         <button class="t-export" onclick="exportCSV()">📥 ייצוא לאקסל</button>
@@ -696,7 +723,54 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-he
       </div>
     </div>
     <div class="t-stats" id="t-stats"></div>
-    <div id="t-table-wrap"></div>
+
+    <!-- TEACHER TABS -->
+    <div class="t-tabs">
+      <button class="t-tab act" onclick="switchTTab(this,'tt-groups')">📋 קבוצות רשומות</button>
+      <button class="t-tab" onclick="switchTTab(this,'tt-create')">➕ יצירת קבוצה חדשה</button>
+      <button class="t-tab" onclick="switchTTab(this,'tt-manage')">✏️ ניהול חברי קבוצה</button>
+    </div>
+
+    <!-- TAB 1: existing groups -->
+    <div class="t-section act" id="tt-groups">
+      <div id="t-table-wrap"></div>
+    </div>
+
+    <!-- TAB 2: create new group -->
+    <div class="t-section" id="tt-create">
+      <div class="t-modal">
+        <h4>➕ יצירת קבוצה חדשה</h4>
+        <div style="margin-bottom:10px">
+          <label style="font-size:11px;font-weight:700;color:var(--txt3);display:block;margin-bottom:4px">נושא</label>
+          <select id="tc-topic" class="t-select">
+            <option value="">— בחר נושא —</option>
+            <option value="0">✦ נושא חופשי (הזן למטה)</option>
+          </select>
+        </div>
+        <div style="margin-bottom:10px" id="tc-custom-wrap" style="display:none">
+          <label style="font-size:11px;font-weight:700;color:var(--txt3);display:block;margin-bottom:4px">שם הנושא החופשי</label>
+          <input type="text" id="tc-custom" class="t-input" placeholder="למשל: זכות לדיור הוגן">
+        </div>
+        <div style="margin-bottom:14px">
+          <label style="font-size:11px;font-weight:700;color:var(--txt3);display:block;margin-bottom:6px">חברי הקבוצה (2–3 תלמידים)</label>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+            <select id="tc-m1" class="t-select"><option value="">— חבר 1 —</option></select>
+            <select id="tc-m2" class="t-select"><option value="">— חבר 2 —</option></select>
+            <select id="tc-m3" class="t-select"><option value="">— חבר 3 (אופציונלי) —</option></select>
+          </div>
+        </div>
+        <button class="t-add-btn green" onclick="teacherCreateGroup()">✓ צור קבוצה</button>
+      </div>
+    </div>
+
+    <!-- TAB 3: manage members -->
+    <div class="t-section" id="tt-manage">
+      <div class="t-modal">
+        <h4>✏️ ניהול חברי קבוצות</h4>
+        <div id="tt-manage-list"></div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -939,6 +1013,172 @@ function doLogin(){
 }
 
 /* TEACHER PANEL */
+
+// ── TEACHER TABS ──────────────────────────────────────────────────────────────
+function switchTTab(btn, id) {
+  document.querySelectorAll('.t-tab').forEach(b => b.classList.remove('act'));
+  document.querySelectorAll('.t-section').forEach(s => s.classList.remove('act'));
+  btn.classList.add('act');
+  document.getElementById(id).classList.add('act');
+  if (id === 'tt-create') populateTeacherSelects();
+  if (id === 'tt-manage') renderManageList();
+}
+
+// ── POPULATE TOPIC + STUDENT SELECTS ─────────────────────────────────────────
+function populateTeacherSelects() {
+  // Topic select
+  const tSel = document.getElementById('tc-topic');
+  if (!tSel) return;
+  const cur = tSel.value;
+  tSel.innerHTML = '<option value="">— בחר נושא —</option><option value="0">✦ נושא חופשי</option>';
+  TOPICS.forEach(t => {
+    const opt = document.createElement('option');
+    opt.value = t.n; opt.textContent = `${t.n}. ${t.nm}`;
+    tSel.appendChild(opt);
+  });
+  tSel.value = cur;
+  tSel.onchange = () => {
+    const w = document.getElementById('tc-custom-wrap');
+    if (w) w.style.display = tSel.value === '0' ? 'block' : 'none';
+  };
+
+  // Student selects for create tab
+  ['tc-m1','tc-m2','tc-m3'].forEach((id, i) => {
+    const sel = document.getElementById(id);
+    if (!sel) return;
+    const ph = ['— חבר 1 —','— חבר 2 —','— חבר 3 (אופציונלי) —'][i];
+    sel.innerHTML = `<option value="">${ph}</option>`;
+    STUDENTS.forEach(s => {
+      const opt = document.createElement('option');
+      opt.value = s; opt.textContent = s;
+      sel.appendChild(opt);
+    });
+  });
+}
+
+// ── CREATE GROUP (teacher) ────────────────────────────────────────────────────
+function teacherCreateGroup() {
+  const topicVal = document.getElementById('tc-topic').value;
+  const m1 = document.getElementById('tc-m1').value;
+  const m2 = document.getElementById('tc-m2').value;
+  const m3 = document.getElementById('tc-m3').value;
+  const custom = document.getElementById('tc-custom')?.value?.trim();
+
+  if (!topicVal) { toast('בחר נושא','err'); return; }
+  if (!m1 || !m2) { toast('נא לבחור לפחות 2 חברים','err'); return; }
+  if (topicVal === '0' && !custom) { toast('הזן שם נושא חופשי','err'); return; }
+
+  // Check duplicates
+  const ms = [m1,m2,m3].filter(Boolean);
+  if (new Set(ms).size !== ms.length) { toast('אותו תלמיד נבחר פעמיים','err'); return; }
+
+  const newRef = groupsRef.push();
+  const g = {
+    id: newRef.key,
+    t: parseInt(topicVal),
+    ms,
+    gn: `קבוצה (מורה)`,
+    dt: new Date().toLocaleDateString('he-IL'),
+    teacherApproved: true,
+    ...(topicVal === '0' && custom ? {customTopic: custom} : {})
+  };
+
+  newRef.set(g).then(() => {
+    toast('✓ הקבוצה נוצרה בהצלחה','ok');
+    // Reset form
+    ['tc-topic','tc-m1','tc-m2','tc-m3'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    const cw = document.getElementById('tc-custom-wrap');
+    if (cw) cw.style.display = 'none';
+    openTeacher();
+    // Switch back to groups tab
+    document.querySelectorAll('.t-tab')[0].click();
+  }).catch(e => { toast('שגיאה ביצירה','err'); console.error(e); });
+}
+
+// ── MANAGE MEMBERS LIST ───────────────────────────────────────────────────────
+function renderManageList() {
+  const el = document.getElementById('tt-manage-list');
+  if (!el) return;
+
+  if (!groups.length) {
+    el.innerHTML = '<p style="color:var(--txt3);font-size:13px">אין קבוצות רשומות עדיין.</p>';
+    return;
+  }
+
+  el.innerHTML = groups.map(g => {
+    const t = TOPICS.find(x => x.n === g.t);
+    const topicName = g.t === 0 ? (g.customTopic || 'נושא חופשי') : (t ? t.nm : '');
+    const members = (g.ms || []).filter(Boolean);
+
+    // Student select for adding
+    const studentOpts = STUDENTS.map(s =>
+      `<option value="${s}">${s}</option>`
+    ).join('');
+
+    return `<div class="t-group-block">
+      <div class="t-group-block-header">
+        <div>
+          <div class="t-group-title">נושא ${g.t === 0 ? '✦' : g.t}: ${topicName}</div>
+          <div class="t-group-topic">נרשם: ${g.dt || ''}</div>
+        </div>
+        <button class="t-del" onclick="teacherDelete('${g.id}')">🗑 מחק קבוצה</button>
+      </div>
+      <div id="members-${g.id}">
+        ${members.map(m => `
+          <div class="t-member-row" id="mr-${g.id}-${btoa(encodeURIComponent(m)).replace(/=/g,'')}">
+            <div class="t-member-name">
+              <div class="t-member-av">${m.charAt(0)}</div>
+              ${m}
+            </div>
+            <button class="t-remove-btn" onclick="teacherRemoveMember('${g.id}','${m.replace(/'/g,"\'")}')">✕ הסר</button>
+          </div>`).join('')}
+      </div>
+      <div class="t-add-member-row">
+        <select id="add-sel-${g.id}" class="t-select" style="flex:1">
+          <option value="">— הוסף תלמיד —</option>
+          ${studentOpts}
+        </select>
+        <button class="t-add-btn" onclick="teacherAddMember('${g.id}')">+ הוסף</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── ADD MEMBER ────────────────────────────────────────────────────────────────
+function teacherAddMember(groupId) {
+  const sel = document.getElementById(`add-sel-${groupId}`);
+  const name = sel?.value;
+  if (!name) { toast('בחר תלמיד להוספה','err'); return; }
+
+  const g = groups.find(x => x.id === groupId);
+  if (!g) return;
+  const ms = (g.ms || []).filter(Boolean);
+  if (ms.includes(name)) { toast('התלמיד כבר בקבוצה','err'); return; }
+
+  const newMs = [...ms, name];
+  groupsRef.child(groupId).update({ms: newMs}).then(() => {
+    toast(`✓ ${name} נוסף לקבוצה`,'ok');
+    sel.value = '';
+    renderManageList();
+  }).catch(e => { toast('שגיאה','err'); console.error(e); });
+}
+
+// ── REMOVE MEMBER ─────────────────────────────────────────────────────────────
+function teacherRemoveMember(groupId, memberName) {
+  if (!confirm(`להסיר את ${memberName} מהקבוצה?`)) return;
+  const g = groups.find(x => x.id === groupId);
+  if (!g) return;
+  const newMs = (g.ms || []).filter(m => m !== memberName);
+  if (newMs.length < 1) { toast('לא ניתן להסיר — הקבוצה תישאר ריקה. מחק את הקבוצה במקום.','err'); return; }
+  groupsRef.child(groupId).update({ms: newMs}).then(() => {
+    toast(`✓ ${memberName} הוסר מהקבוצה`,'ok');
+    renderManageList();
+  }).catch(e => { toast('שגיאה','err'); console.error(e); });
+}
+
 function openTeacher(){
   // stats
   const tk=taken();
@@ -979,6 +1219,9 @@ function openTeacher(){
       </table>`;
   }
   document.getElementById('teacher-ov').classList.add('open');
+  // Reset to first tab
+  document.querySelectorAll('.t-tab').forEach((b,i) => b.classList.toggle('act', i===0));
+  document.querySelectorAll('.t-section').forEach((s,i) => s.classList.toggle('act', i===0));
 }
 
 function closeTeacher(e){if(e&&e.target!==document.getElementById('teacher-ov'))return;document.getElementById('teacher-ov').classList.remove('open');}
@@ -1475,6 +1718,33 @@ ul{padding-right:18px} li{margin-bottom:4px}
 
 .fb-status{position:fixed;bottom:10px;left:10px;font-size:10px;padding:4px 10px;border-radius:10px;background:var(--grn);color:#fff;font-weight:700;opacity:.8;z-index:999;transition:all .3s}
 .fb-status.offline{background:var(--red)}
+
+.t-modal{background:var(--sur);border:1px solid var(--brd2);border-radius:16px;padding:24px;margin-top:16px;box-shadow:var(--shadow)}
+.t-modal h4{font-size:14px;font-weight:700;color:var(--acc);margin-bottom:14px;display:flex;align-items:center;gap:7px}
+.t-form-row{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;margin-bottom:10px;align-items:end}
+.t-form-row.two{grid-template-columns:1fr auto}
+.t-select{width:100%;background:var(--sur2);border:1.5px solid var(--brd);border-radius:8px;padding:8px 10px;font-family:'Heebo',sans-serif;font-size:12px;color:var(--txt);outline:none;direction:rtl;transition:border-color .15s}
+.t-select:focus{border-color:var(--acc3)}
+.t-input{width:100%;background:var(--sur2);border:1.5px solid var(--brd);border-radius:8px;padding:8px 10px;font-family:'Heebo',sans-serif;font-size:12px;color:var(--txt);outline:none;direction:rtl;transition:border-color .15s}
+.t-input:focus{border-color:var(--acc3)}
+.t-add-btn{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border:none;border-radius:8px;padding:8px 14px;font-family:'Heebo',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.t-add-btn:hover{opacity:.9}
+.t-add-btn.red{background:linear-gradient(135deg,var(--red),#b91c1c)}
+.t-add-btn.green{background:linear-gradient(135deg,var(--grn),#047857)}
+.t-group-block{background:var(--sur2);border:1px solid var(--brd);border-radius:10px;padding:14px;margin-bottom:10px}
+.t-group-block-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px}
+.t-group-title{font-size:13px;font-weight:700;color:var(--txt)}
+.t-group-topic{font-size:11px;color:var(--txt3);margin-top:2px}
+.t-member-row{display:flex;align-items:center;justify-content:space-between;padding:5px 8px;background:var(--sur);border-radius:6px;margin-bottom:4px}
+.t-member-name{font-size:12px;color:var(--txt2);display:flex;align-items:center;gap:6px}
+.t-member-av{width:22px;height:22px;border-radius:5px;background:var(--accl);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--acc)}
+.t-remove-btn{background:var(--redl);border:1px solid rgba(220,38,38,.2);color:var(--red);border-radius:5px;padding:2px 8px;font-size:10px;font-weight:700;cursor:pointer;font-family:'Heebo',sans-serif}
+.t-remove-btn:hover{background:rgba(220,38,38,.15)}
+.t-add-member-row{display:flex;gap:6px;margin-top:8px}
+.t-tabs{display:flex;gap:4px;margin-bottom:16px;border-bottom:1px solid var(--brd);padding-bottom:0}
+.t-tab{padding:8px 14px;font-family:'Heebo',sans-serif;font-size:12px;font-weight:600;color:var(--txt3);background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;cursor:pointer;transition:all .15s}
+.t-tab.act{color:var(--acc);border-bottom-color:var(--acc)}
+.t-section{display:none}.t-section.act{display:block}
 </style></head>
 <body>${bodyContent}</body></html>`;
 
