@@ -840,6 +840,34 @@ function taken() { return new Set(groups.map(g => g.t)); }
 function myGrp() { return myId ? groups.find(g => g.id === myId) || null : null; }
 
 // ── REAL-TIME LISTENER ────────────────────────────────────────────────────────
+function migrateFromLocalStorage() {
+  // One-time migration: if Firebase is empty, copy old localStorage data
+  groupsRef.once('value', snapshot => {
+    if (snapshot.val()) return; // Firebase already has data, skip
+    try {
+      const old = localStorage.getItem('civics_v4');
+      if (!old) return;
+      const parsed = JSON.parse(old);
+      const oldGroups = parsed.g || [];
+      if (!oldGroups.length) return;
+      // Write each group to Firebase
+      const updates = {};
+      oldGroups.forEach(g => {
+        const key = g.id || groupsRef.push().key;
+        updates[key] = {...g, id: key};
+        // If this was myGroup, update myId
+        if (parsed.m === g.id) {
+          myId = key;
+          saveMyId();
+        }
+      });
+      groupsRef.update(updates).then(() => {
+        toast('✓ הנתונים שוחזרו בהצלחה!', 'ok');
+      });
+    } catch(e) { console.error('Migration error:', e); }
+  });
+}
+
 function startFirebaseListener() {
   // Connection status
   db.ref('.info/connected').on('value', snap => {
@@ -849,6 +877,8 @@ function startFirebaseListener() {
       else { el.textContent='🔴 לא מחובר'; el.className='fb-status offline'; }
     }
   });
+  // Migrate old data first, then listen
+  migrateFromLocalStorage();
   groupsRef.on('value', snapshot => {
     const data = snapshot.val();
     groups = data ? Object.values(data) : [];
@@ -1064,7 +1094,7 @@ function teacherCreateGroup() {
   const m3 = document.getElementById('tc-m3').value;
   const custom = document.getElementById('tc-custom')?.value?.trim();
 
-  if (!topicVal) { toast('בחר נושא','err'); return; }
+  if (topicVal === '') { toast('בחר נושא','err'); return; }
   if (!m1 || !m2) { toast('נא לבחור לפחות 2 חברים','err'); return; }
   if (topicVal === '0' && !custom) { toast('הזן שם נושא חופשי','err'); return; }
 
@@ -1075,7 +1105,7 @@ function teacherCreateGroup() {
   const newRef = groupsRef.push();
   const g = {
     id: newRef.key,
-    t: parseInt(topicVal),
+    t: topicVal === '0' ? 0 : parseInt(topicVal),
     ms,
     gn: `קבוצה (מורה)`,
     dt: new Date().toLocaleDateString('he-IL'),
