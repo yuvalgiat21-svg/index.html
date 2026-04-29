@@ -281,6 +281,24 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-he
 .t-tab{padding:8px 14px;font-family:'Heebo',sans-serif;font-size:12px;font-weight:600;color:var(--txt3);background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;cursor:pointer;transition:all .15s}
 .t-tab.act{color:var(--acc);border-bottom-color:var(--acc)}
 .t-section{display:none}.t-section.act{display:block}
+
+.sub-panel{background:var(--sur);border:1.5px solid var(--brd2);border-radius:var(--r);padding:22px;margin-bottom:16px;box-shadow:var(--shadow)}
+.sub-panel h4{font-size:14px;font-weight:700;color:var(--txt);margin-bottom:14px;display:flex;align-items:center;gap:7px}
+.sub-form{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end;margin-bottom:10px}
+.sub-input{width:100%;background:var(--sur2);border:1.5px solid var(--brd);border-radius:9px;padding:10px 13px;font-family:'Heebo',sans-serif;font-size:13px;color:var(--txt);outline:none;direction:rtl;transition:border-color .15s}
+.sub-input:focus{border-color:var(--acc3)}
+.sub-btn{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border:none;border-radius:9px;padding:10px 18px;font-family:'Heebo',sans-serif;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .2s;box-shadow:0 4px 12px rgba(37,99,235,.25)}
+.sub-btn:hover{opacity:.9;transform:translateY(-1px)}
+.sub-note{font-size:11.5px;color:var(--txt3);margin-top:4px}
+.sub-mine{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid var(--grn);border-radius:12px;padding:16px;margin-top:8px}
+.sub-mine h5{font-size:13px;font-weight:700;color:var(--grn);margin-bottom:8px}
+.sub-mine a{color:var(--acc);font-size:13px;word-break:break-all}
+.sub-mine-meta{font-size:11px;color:var(--txt3);margin-top:6px}
+.t-sub-row{background:var(--sur2);border-radius:8px;padding:10px 14px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.t-sub-info{font-size:12px;color:var(--txt2)}
+.t-sub-link{color:var(--acc);font-size:12px;font-weight:600;text-decoration:none}
+.t-sub-link:hover{text-decoration:underline}
+.t-sub-date{font-size:10px;color:var(--txt3)}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
@@ -326,6 +344,7 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-he
     <button class="tb" onclick="switchTab(this,'info')">📋 הנחיות</button>
     <button class="tb" onclick="switchTab(this,'example')">📄 דוגמא מלאה</button>
     <button class="tb" onclick="switchTab(this,'download')">⬇️ הורדות</button>
+    <button class="tb" onclick="switchTab(this,'submit')">📤 הגשת עבודה</button>
   </div>
 </div>
 
@@ -659,6 +678,43 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-he
 
   </div>
 
+  <!-- SUBMIT PANEL -->
+  <div class="panel" id="panel-submit">
+
+    <div class="sub-panel">
+      <h4>📤 הגשת קישור לעבודה</h4>
+      <p style="font-size:13px;color:var(--txt2);margin-bottom:16px;line-height:1.6">
+        העלו את העבודה ל-Google Drive ושתפו אותה ← העתיקו את הקישור ← הדביקו כאן.
+        <br>ודאו שהקישור פתוח ל<strong>"כל מי שיש לו קישור"</strong> לפני ההגשה.
+      </p>
+      <div id="sub-form-wrap"></div>
+      <div id="sub-mine-wrap"></div>
+    </div>
+
+    <div style="background:var(--sur2);border:1px solid var(--brd);border-radius:var(--r);padding:18px">
+      <h4 style="font-size:13px;font-weight:700;margin-bottom:12px;color:var(--txt)">📋 איך מגישים?</h4>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div>
+          <div style="font-size:12px;font-weight:700;color:var(--acc);margin-bottom:8px">🔗 דרך Google Drive</div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="background:var(--sur);border-radius:8px;padding:10px;font-size:11.5px;color:var(--txt2)">1️⃣ פתחו את הקובץ ב-Google Docs</div>
+            <div style="background:var(--sur);border-radius:8px;padding:10px;font-size:11.5px;color:var(--txt2)">2️⃣ לחצו <strong>שיתוף</strong> ← <strong>כל מי שיש לו קישור</strong> ← <strong>צופה</strong></div>
+            <div style="background:var(--sur);border-radius:8px;padding:10px;font-size:11.5px;color:var(--txt2)">3️⃣ לחצו <strong>העתק קישור</strong> ← הדביקו בשדה הראשון</div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:700;color:var(--acc);margin-bottom:8px">📄 דרך OneDrive</div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="background:var(--sur);border-radius:8px;padding:10px;font-size:11.5px;color:var(--txt2)">1️⃣ פתחו onedrive.live.com ← העלו את הקובץ</div>
+            <div style="background:var(--sur);border-radius:8px;padding:10px;font-size:11.5px;color:var(--txt2)">2️⃣ לחצו ימני על הקובץ ← <strong>שתף</strong> ← <strong>כל אחד עם הקישור</strong></div>
+            <div style="background:var(--sur);border-radius:8px;padding:10px;font-size:11.5px;color:var(--txt2)">3️⃣ העתיקו הקישור ← הדביקו בשדה השני</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
 </div>
 
 <!-- TOPIC MODAL -->
@@ -729,6 +785,7 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-he
       <button class="t-tab act" onclick="switchTTab(this,'tt-groups')">📋 קבוצות רשומות</button>
       <button class="t-tab" onclick="switchTTab(this,'tt-create')">➕ יצירת קבוצה חדשה</button>
       <button class="t-tab" onclick="switchTTab(this,'tt-manage')">✏️ ניהול חברי קבוצה</button>
+      <button class="t-tab" onclick="switchTTab(this,'tt-submissions')">📥 הגשות</button>
     </div>
 
     <!-- TAB 1: existing groups -->
@@ -760,6 +817,14 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-he
           </div>
         </div>
         <button class="t-add-btn green" onclick="teacherCreateGroup()">✓ צור קבוצה</button>
+      </div>
+    </div>
+
+    <!-- TAB 4: submissions -->
+    <div class="t-section" id="tt-submissions">
+      <div class="t-modal">
+        <h4>📥 הגשות שהתקבלו</h4>
+        <div id="tt-sub-list"><p style="color:var(--txt3);font-size:13px">טוען הגשות...</p></div>
       </div>
     </div>
 
@@ -1045,6 +1110,142 @@ function doLogin(){
 /* TEACHER PANEL */
 
 // ── TEACHER TABS ──────────────────────────────────────────────────────────────
+
+const subsRef = db.ref('submissions');
+
+// ── RENDER SUBMIT PANEL ────────────────────────────────────────────────────
+function renderSubmitPanel() {
+  const my = myGrp();
+  const formWrap = document.getElementById('sub-form-wrap');
+  const mineWrap = document.getElementById('sub-mine-wrap');
+  if (!formWrap) return;
+
+  if (!my) {
+    formWrap.innerHTML = `<div style="background:rgba(220,38,38,.06);border:1px solid rgba(220,38,38,.2);border-radius:10px;padding:14px;font-size:13px;color:var(--red)">
+      ⚠️ יש להירשם לקבוצה קודם כדי להגיש עבודה.
+    </div>`;
+    if (mineWrap) mineWrap.innerHTML = '';
+    return;
+  }
+
+  const t = TOPICS.find(x => x.n === my.t);
+  const topicName = my.t === 0 ? (my.customTopic || 'נושא חופשי') : (t ? t.nm : '');
+
+  formWrap.innerHTML = `
+    <div style="font-size:12px;color:var(--txt2);margin-bottom:14px">
+      מגיש עבור: <strong>${my.ms.join(', ')}</strong> | נושא: <strong>${topicName}</strong>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+
+      <!-- OPTION 1: Google Drive/Docs link -->
+      <div style="background:var(--sur2);border:1.5px solid var(--brd);border-radius:10px;padding:14px">
+        <div style="font-size:12px;font-weight:700;color:var(--txt);margin-bottom:6px">🔗 קישור Google Drive / Docs</div>
+        <div style="font-size:11px;color:var(--txt3);margin-bottom:8px">העתיקו את הקישור לקובץ שלכם</div>
+        <input type="url" id="sub-link" class="sub-input" placeholder="https://docs.google.com/...">
+        <div class="sub-note" style="margin-top:6px">ודאו שהקישור פתוח ל"כל מי שיש לו קישור"</div>
+      </div>
+
+      <!-- OPTION 2: OneDrive / direct Word link -->
+      <div style="background:var(--sur2);border:1.5px solid var(--brd);border-radius:10px;padding:14px">
+        <div style="font-size:12px;font-weight:700;color:var(--txt);margin-bottom:6px">📄 קישור OneDrive / Word Online</div>
+        <div style="font-size:11px;color:var(--txt3);margin-bottom:8px">העלו לـ OneDrive ושתפו קישור</div>
+        <input type="url" id="sub-link2" class="sub-input" placeholder="https://1drv.ms/... או קישור אחר">
+        <div class="sub-note" style="margin-top:6px">ניתן להזין כל קישור לקובץ מקוון</div>
+      </div>
+
+    </div>
+
+    <button class="sub-btn" onclick="submitWork()" style="width:100%">📤 הגש עבודה</button>
+  `;
+
+  // Check if already submitted
+  subsRef.child(my.id).once('value', snap => {
+    const sub = snap.val();
+    if (sub && mineWrap) {
+      mineWrap.innerHTML = `
+        <div class="sub-mine">
+          <h5>✅ העבודה הוגשה!</h5>
+          ${sub.link  ? `<div style="margin-bottom:4px">🔗 <a href="${sub.link}"  target="_blank" style="color:var(--acc)">Google Drive / Docs</a></div>` : ''}
+          ${sub.link2 ? `<div>📄 <a href="${sub.link2}" target="_blank" style="color:var(--acc)">OneDrive / קישור נוסף</a></div>` : ''}
+          <div class="sub-mine-meta">הוגש בתאריך: ${sub.dt} | ניתן לעדכן על ידי הגשה מחדש</div>
+        </div>`;
+    } else if (mineWrap) {
+      mineWrap.innerHTML = '';
+    }
+  });
+}
+
+// ── SUBMIT WORK ────────────────────────────────────────────────────────────
+function submitWork() {
+  const link  = document.getElementById('sub-link')?.value?.trim();
+  const link2 = document.getElementById('sub-link2')?.value?.trim();
+  const my = myGrp();
+
+  if (!my) { toast('יש להירשם לקבוצה קודם','err'); return; }
+  if (!link && !link2) { toast('יש להזין לפחות קישור אחד','err'); return; }
+  if (link  && !link.startsWith('http'))  { toast('הקישור הראשון אינו תקין','err'); return; }
+  if (link2 && !link2.startsWith('http')) { toast('הקישור השני אינו תקין','err'); return; }
+
+  const t = TOPICS.find(x => x.n === my.t);
+  const topicName = my.t === 0 ? (my.customTopic || 'נושא חופשי') : (t ? t.nm : '');
+
+  const sub = {
+    groupId: my.id,
+    members: my.ms,
+    topic: topicName,
+    topicNum: my.t,
+    link:  link  || '',
+    link2: link2 || '',
+    dt: new Date().toLocaleDateString('he-IL'),
+    ts: Date.now()
+  };
+
+  subsRef.child(my.id).set(sub).then(() => {
+    toast('✅ העבודה הוגשה בהצלחה!','ok');
+    renderSubmitPanel();
+  }).catch(e => { toast('שגיאה בהגשה — נסו שוב','err'); console.error(e); });
+}
+
+// ── TEACHER: VIEW SUBMISSIONS ──────────────────────────────────────────────
+function renderTeacherSubmissions() {
+  const el = document.getElementById('tt-sub-list');
+  if (!el) return;
+  subsRef.once('value', snap => {
+    const data = snap.val();
+    if (!data) {
+      el.innerHTML = '<p style="color:var(--txt3);font-size:13px">אין הגשות עדיין.</p>';
+      return;
+    }
+    const subs = Object.values(data).sort((a,b) => b.ts - a.ts);
+    el.innerHTML = subs.map(s => `
+      <div class="t-sub-row">
+        <div>
+          <div class="t-sub-info"><strong>נושא ${s.topicNum}: ${s.topic}</strong></div>
+          <div class="t-sub-info">${(s.members||[]).join(' · ')}</div>
+          <div class="t-sub-date">הוגש: ${s.dt}</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          ${s.link  ? `<a href="${s.link}"  target="_blank" class="t-sub-link">🔗 Google Drive</a>` : ''}
+          ${s.link2 ? `<a href="${s.link2}" target="_blank" class="t-sub-link">📄 OneDrive</a>` : ''}
+          <button class="t-del" onclick="deleteSubmission('${s.groupId}')">🗑</button>
+        </div>
+      </div>
+    `).join('');
+    // Update stats
+    const countEl = document.getElementById('sub-count-stat');
+    if (countEl) countEl.textContent = subs.length;
+  });
+}
+
+function deleteSubmission(groupId) {
+  if (!confirm('למחוק את ההגשה?')) return;
+  subsRef.child(groupId).remove().then(() => {
+    toast('ההגשה נמחקה','ok');
+    renderTeacherSubmissions();
+  });
+}
+
 function switchTTab(btn, id) {
   document.querySelectorAll('.t-tab').forEach(b => b.classList.remove('act'));
   document.querySelectorAll('.t-section').forEach(s => s.classList.remove('act'));
@@ -1052,6 +1253,7 @@ function switchTTab(btn, id) {
   document.getElementById(id).classList.add('act');
   if (id === 'tt-create') populateTeacherSelects();
   if (id === 'tt-manage') renderManageList();
+  if (id === 'tt-submissions') renderTeacherSubmissions();
 }
 
 // ── POPULATE TOPIC + STUDENT SELECTS ─────────────────────────────────────────
@@ -1214,6 +1416,7 @@ function openTeacher(){
   const tk=taken();
   document.getElementById('t-stats').innerHTML=`
     <div class="t-stat"><div class="t-stat-val">${groups.length}</div><div class="t-stat-lbl">קבוצות רשומות</div></div>
+    <div class="t-stat"><div class="t-stat-val" id="sub-count-stat" style="color:var(--grn)">...</div><div class="t-stat-lbl">הגשות התקבלו</div></div>
     <div class="t-stat"><div class="t-stat-val" style="color:var(--red)">${tk.size}</div><div class="t-stat-lbl">נושאים נתפסו</div></div>
     <div class="t-stat"><div class="t-stat-val" style="color:var(--grn)">${23-tk.size}</div><div class="t-stat-lbl">נושאים פנויים</div></div>
     <div class="t-stat"><div class="t-stat-val">${groups.reduce((s,g)=>s+g.ms.filter(Boolean).length,0)}</div><div class="t-stat-lbl">תלמידים רשומים</div></div>
@@ -1248,6 +1451,11 @@ function openTeacher(){
         <tbody>${rows}</tbody>
       </table>`;
   }
+  // Load submission count
+  subsRef.once('value', snap => {
+    const el = document.getElementById('sub-count-stat');
+    if (el) el.textContent = snap.val() ? Object.keys(snap.val()).length : 0;
+  });
   document.getElementById('teacher-ov').classList.add('open');
   // Reset to first tab
   document.querySelectorAll('.t-tab').forEach((b,i) => b.classList.toggle('act', i===0));
@@ -1286,6 +1494,7 @@ function switchTab(btn,id){
   btn.classList.add('act');
   document.getElementById('panel-'+id).classList.add('act');
   if(id==='groups')renderG();
+  if(id==='submit')renderSubmitPanel();
 }
 
 function filterT(){renderT(document.getElementById('si').value);}
@@ -1775,6 +1984,24 @@ ul{padding-right:18px} li{margin-bottom:4px}
 .t-tab{padding:8px 14px;font-family:'Heebo',sans-serif;font-size:12px;font-weight:600;color:var(--txt3);background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;cursor:pointer;transition:all .15s}
 .t-tab.act{color:var(--acc);border-bottom-color:var(--acc)}
 .t-section{display:none}.t-section.act{display:block}
+
+.sub-panel{background:var(--sur);border:1.5px solid var(--brd2);border-radius:var(--r);padding:22px;margin-bottom:16px;box-shadow:var(--shadow)}
+.sub-panel h4{font-size:14px;font-weight:700;color:var(--txt);margin-bottom:14px;display:flex;align-items:center;gap:7px}
+.sub-form{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end;margin-bottom:10px}
+.sub-input{width:100%;background:var(--sur2);border:1.5px solid var(--brd);border-radius:9px;padding:10px 13px;font-family:'Heebo',sans-serif;font-size:13px;color:var(--txt);outline:none;direction:rtl;transition:border-color .15s}
+.sub-input:focus{border-color:var(--acc3)}
+.sub-btn{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border:none;border-radius:9px;padding:10px 18px;font-family:'Heebo',sans-serif;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .2s;box-shadow:0 4px 12px rgba(37,99,235,.25)}
+.sub-btn:hover{opacity:.9;transform:translateY(-1px)}
+.sub-note{font-size:11.5px;color:var(--txt3);margin-top:4px}
+.sub-mine{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid var(--grn);border-radius:12px;padding:16px;margin-top:8px}
+.sub-mine h5{font-size:13px;font-weight:700;color:var(--grn);margin-bottom:8px}
+.sub-mine a{color:var(--acc);font-size:13px;word-break:break-all}
+.sub-mine-meta{font-size:11px;color:var(--txt3);margin-top:6px}
+.t-sub-row{background:var(--sur2);border-radius:8px;padding:10px 14px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.t-sub-info{font-size:12px;color:var(--txt2)}
+.t-sub-link{color:var(--acc);font-size:12px;font-weight:600;text-decoration:none}
+.t-sub-link:hover{text-decoration:underline}
+.t-sub-date{font-size:10px;color:var(--txt3)}
 </style></head>
 <body>${bodyContent}</body></html>`;
 
