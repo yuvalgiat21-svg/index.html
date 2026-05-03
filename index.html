@@ -1013,10 +1013,33 @@ function openM(n){
   const tk=taken(),my=myGrp(),isTk=tk.has(n),isM=my&&my.t===n,hasG=!!my;
   let h='';
   if(isM){
-    h=`<div class="sp" style="border-color:#059669;background:var(--grnl)"><div class="spt" style="color:var(--grn)">⭐ זהו הנושא שלכם!</div><div style="font-size:13px;color:var(--txt2)">הקבוצה שלך רשומה על נושא זה. בהצלחה!</div></div>`;
+    const groupMembers = my && my.ms ? my.ms.join(', ') : '';
+    h=`<div class="sp" style="border-color:#059669;background:var(--grnl)">
+      <div class="spt" style="color:var(--grn)">⭐ זהו הנושא שלכם!</div>
+      <div style="font-size:12px;color:var(--txt2);margin-bottom:14px">חברי הקבוצה: <strong>${groupMembers}</strong></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+        <button onclick="closeM();downloadTemplate()" style="background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border:none;border-radius:9px;padding:10px;font-family:Heebo,sans-serif;font-size:12px;font-weight:700;cursor:pointer">⬇️ הורד תבנית</button>
+        <button onclick="closeM();downloadExample()" style="background:var(--sur2);border:1.5px solid var(--brd2);color:var(--acc);border-radius:9px;padding:10px;font-family:Heebo,sans-serif;font-size:12px;font-weight:700;cursor:pointer">⭐ הורד דוגמא</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <button onclick="closeM();switchTabById('example')" style="background:var(--sur2);border:1.5px solid var(--brd2);color:var(--acc);border-radius:9px;padding:10px;font-family:Heebo,sans-serif;font-size:12px;font-weight:700;cursor:pointer">📄 צפה בדוגמא</button>
+        <button onclick="closeM();switchTabById('submit')" style="background:linear-gradient(135deg,var(--grn),#047857);color:#fff;border:none;border-radius:9px;padding:10px;font-family:Heebo,sans-serif;font-size:12px;font-weight:700;cursor:pointer">📤 הגש עבודה</button>
+      </div>
+    </div>`;
   } else if(isTk){
     const g=groups.find(g=>g.t===n);
-    h=`<div class="sp tk"><div class="tkm"><div class="tki">⛔</div><h4>נושא זה נתפס!</h4><p>קבוצה אחרת כבר בחרה נושא זה.</p><p style="margin-top:6px;font-size:11px">נרשם: ${g?g.dt:''}</p></div></div>`;
+    const members = g && g.ms ? g.ms.join(', ') : '';
+    const takenContent = isTeacher
+      ? `<div class="sp" style="border-color:rgba(62,207,142,.3);background:rgba(62,207,142,.05)">
+          <div class="spt">👥 קבוצה רשומה על נושא זה</div>
+          <div style="font-size:12px;color:var(--txt2);margin-bottom:14px">חברי הקבוצה: <strong>${members}</strong><br>נרשם: ${g?g.dt:''}</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <button onclick="downloadTemplate()" style="background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border:none;border-radius:9px;padding:10px;font-family:Heebo,sans-serif;font-size:12px;font-weight:700;cursor:pointer">⬇️ הורד תבנית</button>
+            <button onclick="downloadExample()" style="background:var(--sur2);border:1.5px solid var(--brd2);color:var(--acc);border-radius:9px;padding:10px;font-family:Heebo,sans-serif;font-size:12px;font-weight:700;cursor:pointer">⭐ הורד דוגמא</button>
+          </div>
+        </div>`
+      : `<div class="sp tk"><div class="tkm"><div class="tki">⛔</div><h4>נושא זה נתפס!</h4><p>קבוצה אחרת כבר בחרה נושא זה.</p><p style="margin-top:6px;font-size:11px">נרשם: ${g?g.dt:''}</p></div></div>`;
+    h = takenContent;
   } else if(hasG){
     h=`<div class="sp"><div class="spt">ℹ️ כבר יש לכם קבוצה</div><div style="font-size:13px;color:var(--txt2)">הקבוצה שלך רשומה על נושא אחר.<br>מחק את הרישום הנוכחי כדי לשנות.</div></div>`;
   } else {
@@ -2205,6 +2228,19 @@ function getGuideHTML() {
 </ul>`;
 }
 
+
+
+function switchTabById(id) {
+  const btn = document.querySelector(`.tb[onclick*="'${id}'"]`);
+  if (btn) {
+    document.querySelectorAll('.tb').forEach(b => b.classList.remove('act'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('act'));
+    btn.classList.add('act');
+    document.getElementById('panel-' + id).classList.add('act');
+    if (id === 'groups') renderG();
+    if (id === 'submit') renderSubmitPanel();
+  }
+}
 
 function showPart(btn, partId){
   document.querySelectorAll('.ex-nav-btn').forEach(b=>b.classList.remove('act'));
