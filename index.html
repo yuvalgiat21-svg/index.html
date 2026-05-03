@@ -1541,17 +1541,28 @@ function teacherApprove(id){
 }
 
 function teacherDupTopic(topicNum, excludeId){
-  // Find the topic name
-  const t = TOPICS.find(x=>x.n===topicNum);
-  const nm = t ? t.nm : ('נושא '+topicNum);
-  const names = prompt('שכפול נושא: "'+nm+'"\n\nהזן שמות חברי הקבוצה החדשה (מופרדים בפסיק):');
-  if(!names||!names.trim()) return;
-  const parts = names.split(',').map(s=>s.trim()).filter(Boolean);
-  if(parts.length < 2){ toast('יש להזין לפחות 2 שמות','err'); return; }
+  // Switch to create tab with topic pre-selected
+  closeTeacher();
+  openTeacher();
+  // Switch to create tab
+  setTimeout(() => {
+    const tabs = document.querySelectorAll('.t-tab');
+    const sections = document.querySelectorAll('.t-section');
+    tabs.forEach(b => b.classList.remove('act'));
+    sections.forEach(s => s.classList.remove('act'));
+    if(tabs[1]) tabs[1].classList.add('act');
+    if(sections[1]) sections[1].classList.add('act');
+    populateTeacherSelects();
+    // Pre-select the topic
+    const sel = document.getElementById('tc-topic');
+    if(sel) { sel.value = String(topicNum); sel.dispatchEvent(new Event('change')); }
+    toast('בחר חברי קבוצה ולחץ "צור קבוצה"','ok');
+  }, 100);
+  return; // rest of old function removed
   const g={
     id: Date.now().toString(),
     t: topicNum,
-    ms: parts.slice(0,3),
+    ms: [],
     gn: 'קבוצה (אושרה ע"י מורה)',
     dt: new Date().toLocaleDateString('he-IL'),
     teacherApproved: true
