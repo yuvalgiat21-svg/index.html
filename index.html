@@ -1005,78 +1005,110 @@ function renderG(){
 
 /* OPEN TOPIC MODAL */
 function openM(n){
-  const t=TOPICS.find(x=>x.n===n);if(!t)return;
-  document.getElementById('mn').textContent=n;
-  document.getElementById('mt').textContent=t.nm;
-  document.getElementById('md').textContent=t.d;
-  document.getElementById('mcl').innerHTML=t.c.map(c=>`<div class="ci"><div class="cd2"></div><span>${c}</span></div>`).join('');
-  const tk=taken(),my=myGrp(),isTk=tk.has(n),isM=my&&my.t===n,hasG=!!my;
-  let h='';
-  if(isM){
-    const groupMembers = my && my.ms ? my.ms.join(', ') : '';
-    h=`<div class="sp" style="border-color:#059669;background:var(--grnl)">
-      <div class="spt" style="color:var(--grn)">⭐ זהו הנושא שלכם!</div>
-      <div style="font-size:12px;color:var(--txt2);margin-bottom:14px">חברי הקבוצה: <strong>${groupMembers}</strong></div>
+  const t=TOPICS.find(x=>x.n===n); if(!t) return;
+  const tk=taken(), my=myGrp(), isTk=tk.has(n), isM=my&&my.t===n, hasG=!!my;
+
+  // ── MODAL HEADER ──────────────────────────────────────────────────────────
+  document.getElementById('mn').textContent = n;
+  document.getElementById('mt').textContent = t.nm;
+  document.getElementById('md').textContent = t.d;
+  document.getElementById('mcl').innerHTML = t.c.map(c=>
+    `<div class="ci"><div class="cd2"></div><span>${c}</span></div>`
+  ).join('');
+
+  // ── CONTENT SECTION (always visible) ──────────────────────────────────────
+  const contentSection = `
+    <div style="margin-top:16px;padding:16px;background:var(--sur2);border-radius:12px;border:1px solid var(--brd)">
+      <div style="font-size:11px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">חומרי עבודה</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
-        <button onclick="closeM();downloadTemplate()" style="background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border:none;border-radius:9px;padding:10px;font-family:Heebo,sans-serif;font-size:12px;font-weight:700;cursor:pointer">⬇️ הורד תבנית</button>
-        <button onclick="closeM();downloadExample()" style="background:var(--sur2);border:1.5px solid var(--brd2);color:var(--acc);border-radius:9px;padding:10px;font-family:Heebo,sans-serif;font-size:12px;font-weight:700;cursor:pointer">⭐ הורד דוגמא</button>
+        <button onclick="downloadTemplate()" style="background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border:none;border-radius:9px;padding:10px 8px;font-family:Heebo,sans-serif;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px">
+          ⬇️ תבנית עבודה
+        </button>
+        <button onclick="downloadExample()" style="background:var(--sur);border:1.5px solid var(--brd2);color:var(--acc);border-radius:9px;padding:10px 8px;font-family:Heebo,sans-serif;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px">
+          ⭐ דוגמא מלאה
+        </button>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-        <button onclick="closeM();switchTabById('example')" style="background:var(--sur2);border:1.5px solid var(--brd2);color:var(--acc);border-radius:9px;padding:10px;font-family:Heebo,sans-serif;font-size:12px;font-weight:700;cursor:pointer">📄 צפה בדוגמא</button>
-        <button onclick="closeM();switchTabById('submit')" style="background:linear-gradient(135deg,var(--grn),#047857);color:#fff;border:none;border-radius:9px;padding:10px;font-family:Heebo,sans-serif;font-size:12px;font-weight:700;cursor:pointer">📤 הגש עבודה</button>
+        <button onclick="closeM();switchTabById('example')" style="background:var(--sur);border:1.5px solid var(--brd2);color:var(--acc);border-radius:9px;padding:10px 8px;font-family:Heebo,sans-serif;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px">
+          📄 צפה בדוגמא
+        </button>
+        <button onclick="closeM();switchTabById('info')" style="background:var(--sur);border:1.5px solid var(--brd2);color:var(--acc);border-radius:9px;padding:10px 8px;font-family:Heebo,sans-serif;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px">
+          📋 הנחיות מפורטות
+        </button>
       </div>
     </div>`;
+
+  // ── SIGNUP / STATUS SECTION ────────────────────────────────────────────────
+  let signupSection = '';
+
+  if(isM){
+    const groupMembers = my && my.ms ? my.ms.join(', ') : '';
+    signupSection = `
+      <div class="sp" style="border-color:#059669;background:var(--grnl);margin-top:12px">
+        <div class="spt" style="color:var(--grn)">⭐ זהו הנושא שלכם!</div>
+        <div style="font-size:12px;color:var(--txt2);margin-bottom:10px">חברי הקבוצה: <strong>${groupMembers}</strong></div>
+        <button onclick="closeM();switchTabById('submit')" style="width:100%;background:linear-gradient(135deg,var(--grn),#047857);color:#fff;border:none;border-radius:9px;padding:11px;font-family:Heebo,sans-serif;font-size:13px;font-weight:700;cursor:pointer">
+          📤 הגש את העבודה
+        </button>
+      </div>`;
   } else if(isTk){
-    const g=groups.find(g=>g.t===n);
-    const members = g && g.ms ? g.ms.join(', ') : '';
-    const takenContent = isTeacher
-      ? `<div class="sp" style="border-color:rgba(62,207,142,.3);background:rgba(62,207,142,.05)">
-          <div class="spt">👥 קבוצה רשומה על נושא זה</div>
-          <div style="font-size:12px;color:var(--txt2);margin-bottom:14px">חברי הקבוצה: <strong>${members}</strong><br>נרשם: ${g?g.dt:''}</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-            <button onclick="downloadTemplate()" style="background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border:none;border-radius:9px;padding:10px;font-family:Heebo,sans-serif;font-size:12px;font-weight:700;cursor:pointer">⬇️ הורד תבנית</button>
-            <button onclick="downloadExample()" style="background:var(--sur2);border:1.5px solid var(--brd2);color:var(--acc);border-radius:9px;padding:10px;font-family:Heebo,sans-serif;font-size:12px;font-weight:700;cursor:pointer">⭐ הורד דוגמא</button>
-          </div>
-        </div>`
-      : `<div class="sp tk"><div class="tkm"><div class="tki">⛔</div><h4>נושא זה נתפס!</h4><p>קבוצה אחרת כבר בחרה נושא זה.</p><p style="margin-top:6px;font-size:11px">נרשם: ${g?g.dt:''}</p></div></div>`;
-    h = takenContent;
+    const g = groups.find(g=>g.t===n);
+    if(isTeacher){
+      const members = g && g.ms ? g.ms.join(', ') : '';
+      signupSection = `
+        <div class="sp" style="border-color:rgba(62,207,142,.3);background:rgba(62,207,142,.05);margin-top:12px">
+          <div class="spt">👥 קבוצה רשומה</div>
+          <div style="font-size:12px;color:var(--txt2)">חברי הקבוצה: <strong>${members}</strong><br>נרשם: ${g?g.dt:''}</div>
+        </div>`;
+    } else {
+      signupSection = `
+        <div class="sp tk" style="margin-top:12px">
+          <div class="tkm"><div class="tki">⛔</div><h4>נושא זה נתפס</h4>
+          <p>קבוצה אחרת כבר בחרה נושא זה.</p></div>
+        </div>`;
+    }
   } else if(hasG){
-    h=`<div class="sp"><div class="spt">ℹ️ כבר יש לכם קבוצה</div><div style="font-size:13px;color:var(--txt2)">הקבוצה שלך רשומה על נושא אחר.<br>מחק את הרישום הנוכחי כדי לשנות.</div></div>`;
+    signupSection = `
+      <div class="sp" style="margin-top:12px">
+        <div class="spt">ℹ️ כבר יש לכם קבוצה</div>
+        <div style="font-size:13px;color:var(--txt2)">הקבוצה שלך רשומה על נושא אחר.<br>מחק את הרישום הנוכחי כדי לשנות.</div>
+      </div>`;
   } else {
-    h=`<div class="sp"><div class="spt">📝 הרשמת קבוצה לנושא זה</div>
-      <div class="fg"><label>שם קבוצה (אופציונלי)</label><input id="f-gn" placeholder='למשל: "קבוצה א"'></div>
-      <div class="fg"><label>חברי הקבוצה (2 עד 3 תלמידים)</label><div class="mr">
-        <select id="f-m1" style="width:100%;background:var(--sur);border:1.5px solid var(--brd);border-radius:8px;padding:9px 10px;font-family:Heebo,sans-serif;font-size:12px;color:var(--txt);outline:none;direction:rtl">
-          <option value="">— חבר 1 —</option>
-        </select>
-        <select id="f-m2" style="width:100%;background:var(--sur);border:1.5px solid var(--brd);border-radius:8px;padding:9px 10px;font-family:Heebo,sans-serif;font-size:12px;color:var(--txt);outline:none;direction:rtl">
-          <option value="">— חבר 2 —</option>
-        </select>
-        <select id="f-m3" style="width:100%;background:var(--sur);border:1.5px solid var(--brd);border-radius:8px;padding:9px 10px;font-family:Heebo,sans-serif;font-size:12px;color:var(--txt);outline:none;direction:rtl">
-          <option value="">— חבר 3 (אופציונלי) —</option>
-        </select>
-      </div></div>
-      <div id="dup-warn" style="color:var(--red);font-size:11px;min-height:16px;margin-bottom:4px"></div>
-      <button class="btn" onclick="signup(${n})">✓ אני בוחר/ת נושא זה לקבוצתי</button>
-    </div>`;
+    signupSection = `
+      <div class="sp" style="margin-top:12px">
+        <div class="spt">📝 הרשמת קבוצה לנושא זה</div>
+        <div class="fg"><label>שם קבוצה (אופציונלי)</label><input id="f-gn" placeholder='למשל: "קבוצה א"'></div>
+        <div class="fg"><label>חברי הקבוצה (2 עד 3 תלמידים)</label>
+          <div class="mr">
+            <select id="f-m1" style="width:100%;background:var(--sur);border:1.5px solid var(--brd);border-radius:8px;padding:9px 10px;font-family:Heebo,sans-serif;font-size:12px;color:var(--txt);outline:none;direction:rtl"><option value="">— חבר 1 —</option></select>
+            <select id="f-m2" style="width:100%;background:var(--sur);border:1.5px solid var(--brd);border-radius:8px;padding:9px 10px;font-family:Heebo,sans-serif;font-size:12px;color:var(--txt);outline:none;direction:rtl"><option value="">— חבר 2 —</option></select>
+            <select id="f-m3" style="width:100%;background:var(--sur);border:1.5px solid var(--brd);border-radius:8px;padding:9px 10px;font-family:Heebo,sans-serif;font-size:12px;color:var(--txt);outline:none;direction:rtl"><option value="">— חבר 3 (אופציונלי) —</option></select>
+          </div>
+        </div>
+        <div id="dup-warn" style="color:var(--red);font-size:11px;min-height:16px;margin-bottom:4px"></div>
+        <button class="btn" onclick="signup(${n})">✓ אני בוחר/ת נושא זה לקבוצתי</button>
+      </div>`;
   }
-  document.getElementById('msp').innerHTML=h;
+
+  document.getElementById('msp').innerHTML = contentSection + signupSection;
   document.getElementById('ov').classList.add('open');
-  // Populate student dropdowns
-  ['f-m1','f-m2','f-m3'].forEach((id,i)=>{
-    const sel=document.getElementById(id);
-    if(!sel)return;
-    const reg=registeredStudents();
-    const placeholder=sel.options[0].text;
-    sel.innerHTML='<option value="">'+placeholder+'</option>';
-    STUDENTS.forEach(s=>{
-      const opt=document.createElement('option');
-      opt.value=s; opt.textContent=s;
-      if(reg.includes(s)) opt.style.color='#aaa';
-      sel.appendChild(opt);
+
+  // Populate student dropdowns if signup form shown
+  if(!isM && !isTk && !hasG){
+    ['f-m1','f-m2','f-m3'].forEach((id,i)=>{
+      const sel=document.getElementById(id); if(!sel)return;
+      const reg=registeredStudents();
+      const ph=['— חבר 1 —','— חבר 2 —','— חבר 3 (אופציונלי) —'][i];
+      sel.innerHTML=`<option value="">${ph}</option>`;
+      STUDENTS.forEach(s=>{
+        const opt=document.createElement('option');
+        opt.value=s; opt.textContent=s;
+        if(reg.includes(s)) opt.style.color='#aaa';
+        sel.appendChild(opt);
+      });
+      sel.onchange=checkDups;
     });
-    sel.onchange=checkDups;
-  });
+  }
 }
 
 function checkDups(){
