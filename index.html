@@ -561,6 +561,7 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-he
       <button class="t-tab act" onclick="switchTTab(this,'tt-groups')">📋 קבוצות רשומות</button>
       <button class="t-tab" onclick="switchTTab(this,'tt-create')">➕ יצירת קבוצה</button>
       <button class="t-tab" onclick="switchTTab(this,'tt-manage')">✏️ ניהול חברים</button>
+      <button class="t-tab" onclick="switchTTab(this,'tt-submissions')">📥 הגשות וציונים</button>
     </div>
     <div class="t-section act" id="tt-groups"><div id="t-table-wrap"></div></div>
     <div class="t-section" id="tt-create">
@@ -589,6 +590,32 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--txt);min-he
       </div>
     </div>
     <div class="t-section" id="tt-manage"><div class="t-modal"><h4>✏️ ניהול חברי קבוצות</h4><div id="tt-manage-list"></div></div></div>
+    <div class="t-section" id="tt-submissions">
+      <div class="t-modal">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px">
+          <h4 style="margin:0">📥 הגשות וציונים</h4>
+          <button class="t-export" onclick="exportGrades()">📊 ייצוא ציונים</button>
+        </div>
+        <div class="rubric-panel">
+          <h5>📋 מחוון הציון</h5>
+          <div class="rubric-row"><span class="rubric-name">מבוא ורקע</span><span class="rubric-weight">20 נקודות</span></div>
+          <div class="rubric-row"><span class="rubric-name">סקירת ספרות</span><span class="rubric-weight">30 נקודות</span></div>
+          <div class="rubric-row"><span class="rubric-name">תוצר — מעגל שיח</span><span class="rubric-weight">25 נקודות</span></div>
+          <div class="rubric-row"><span class="rubric-name">רפלקציה</span><span class="rubric-weight">15 נקודות</span></div>
+          <div class="rubric-row"><span class="rubric-name">ביבליוגרפיה</span><span class="rubric-weight">10 נקודות</span></div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+          <span style="font-size:12px;color:var(--txt2);font-weight:600">סינון:</span>
+          <select class="filter-select" id="sub-filter-status" onchange="renderTeacherSubmissions()">
+            <option value="all">כל הקבוצות</option>
+            <option value="submitted">הגישו בלבד</option>
+            <option value="graded">נבדקו</option>
+            <option value="pending">ממתינות</option>
+          </select>
+        </div>
+        <div id="tt-sub-list"><p style="color:var(--txt3);font-size:13px">טוען הגשות...</p></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -999,6 +1026,7 @@ function switchTTab(btn,id){
   document.querySelectorAll('.t-section').forEach(s=>s.classList.remove('act'));
   btn.classList.add('act');document.getElementById(id).classList.add('act');
   if(id==='tt-manage')renderManageList();
+  if(id==='tt-submissions')renderTeacherSubmissions();
 }
 
 function renderManageList(){
@@ -1433,6 +1461,97 @@ function switchTab(btn,id){
 
 function filterT(){renderT(document.getElementById('si').value);}
 function toast(msg,type=''){const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type+' show';setTimeout(()=>t.classList.remove('show'),3200);}
+
+// ── TEACHER SUBMISSIONS & GRADES ────────────────────────────────────────────
+function renderTeacherSubmissions(){
+  const el=document.getElementById('tt-sub-list');
+  if(!el)return;
+  const filterStatus=document.getElementById('sub-filter-status')?.value||'all';
+  Promise.all([subsRef.once('value'),db.ref('grades').once('value')]).then(([subSnap,gradeSnap])=>{
+    const subsData=subSnap.val()||{};
+    const gradesData=gradeSnap.val()||{};
+    const allSubs=Object.values(subsData);
+    const submittedIds=new Set(allSubs.map(s=>s.groupId));
+    let rows=[];
+    allSubs.forEach(s=>{
+      const grade=gradesData[s.groupId]||{};
+      const score=grade.score??null;
+      if(filterStatus==='submitted'&&!s.link&&!s.fileName&&!s.text)return;
+      if(filterStatus==='graded'&&score===null)return;
+      if(filterStatus==='pending'&&score!==null)return;
+      const scoreClass=score===null?'none':score>=85?'high':score>=70?'mid':'low';
+      rows.push(`<tr>
+        <td><strong>${(s.topic||'').length>25?(s.topic||'').slice(0,25)+'...':(s.topic||'')}</strong></td>
+        <td style="font-size:11px">${(s.members||[]).join(', ')}</td>
+        <td>${s.link?'<a href="'+s.link+'" target="_blank" style="color:var(--acc);font-size:12px;font-weight:600">🔗 Drive</a>':''}
+            ${s.fileName?'<span style="font-size:11px;color:var(--txt2)">📎 '+s.fileName+'</span>':''}
+            ${!s.link&&!s.fileName&&s.text?'<span style="font-size:11px;color:var(--txt3)">✍️ טקסט</span>':''}
+            ${!s.link&&!s.fileName&&!s.text?'<span style="color:var(--txt3);font-size:11px">—</span>':''}</td>
+        <td style="font-size:11px;color:var(--txt3)">${s.dt||''}</td>
+        <td><div class="grade-badge ${scoreClass}">${score!==null?score:'—'}</div></td>
+        <td><input class="grade-input" id="score-${s.groupId}" type="number" min="0" max="100" value="${score??''}" placeholder="—"></td>
+        <td><div style="display:flex;gap:4px;flex-wrap:wrap">
+          <button class="save-grade-btn" onclick="saveGrade('${s.groupId}')">💾 שמור</button>
+          <button class="save-grade-btn" style="background:${grade&&grade.published?'var(--grn)':'var(--acc)'}" onclick="publishGrade('${s.groupId}')">${grade&&grade.published?'✅ מפורסם':'📢 פרסם'}</button>
+          <button class="t-del" onclick="deleteSubmission('${s.groupId}')">🗑</button>
+        </div></td>
+      </tr>`);
+    });
+    if(filterStatus==='all'||filterStatus==='pending'){
+      groups.forEach(g=>{
+        if(submittedIds.has(g.id))return;
+        const t=TOPICS.find(x=>x.n===g.t);
+        const topicName=g.t===0?(g.customTopic||'נושא חופשי'):(t?t.nm:'');
+        rows.push(`<tr style="opacity:.6"><td>${topicName.slice(0,25)}</td><td style="font-size:11px">${(g.ms||[]).join(', ')}</td>
+          <td><span style="font-size:11px;color:var(--red);font-weight:700">⏳ טרם הגישו</span></td>
+          <td>—</td><td><div class="grade-badge none">—</div></td><td colspan="2" style="font-size:11px;color:var(--txt3)">ממתין להגשה</td></tr>`);
+      });
+    }
+    if(!rows.length){el.innerHTML='<p style="color:var(--txt3);font-size:13px;padding:20px 0">אין הגשות בסינון זה.</p>';return;}
+    el.innerHTML='<div style="overflow-x:auto"><table class="grade-table"><thead><tr><th>נושא</th><th>תלמידים</th><th>קישורים</th><th>תאריך</th><th>ציון</th><th>עדכן ציון</th><th>פעולות</th></tr></thead><tbody>'+rows.join('')+'</tbody></table></div>';
+  });
+}
+
+function saveGrade(groupId){
+  const score=document.getElementById('score-'+groupId)?.value;
+  if(score===''||score===null){toast('הזן ציון','err');return;}
+  const s=parseInt(score);
+  if(s<0||s>100){toast('הציון חייב להיות 0–100','err');return;}
+  db.ref('grades').child(groupId).update({score:s,ts:Date.now()})
+    .then(()=>{toast('✓ ציון '+s+' נשמר','ok');renderTeacherSubmissions();})
+    .catch(()=>toast('שגיאה בשמירה','err'));
+}
+
+function publishGrade(groupId){
+  const score=document.getElementById('score-'+groupId)?.value;
+  if(!score){toast('שמור ציון קודם לפני פרסום','err');return;}
+  if(!confirm('לפרסם את הציון ('+score+') לתלמידים?'))return;
+  db.ref('grades').child(groupId).update({score:parseInt(score),published:true,publishedAt:new Date().toLocaleDateString('he-IL'),ts:Date.now()})
+    .then(()=>{toast('✅ הציון פורסם!','ok');renderTeacherSubmissions();})
+    .catch(()=>toast('שגיאה בפרסום','err'));
+}
+
+function deleteSubmission(groupId){
+  if(!confirm('למחוק את ההגשה?'))return;
+  subsRef.child(groupId).remove().then(()=>{toast('ההגשה נמחקה','ok');renderTeacherSubmissions();});
+}
+
+function exportGrades(){
+  Promise.all([subsRef.once('value'),db.ref('grades').once('value')]).then(([subSnap,gradeSnap])=>{
+    const subs=Object.values(subSnap.val()||{});
+    const grades=gradeSnap.val()||{};
+    const rows=[['נושא','תלמידים','קישור','תאריך הגשה','ציון']];
+    subs.forEach(s=>{const g=grades[s.groupId]||{};rows.push([s.topic||'',(s.members||[]).join(' + '),s.link||'',s.dt||'',g.score??'']);});
+    groups.forEach(g=>{
+      if(subs.find(s=>s.groupId===g.id))return;
+      const t=TOPICS.find(x=>x.n===g.t);
+      rows.push([g.t===0?(g.customTopic||'נושא חופשי'):(t?t.nm:''),(g.ms||[]).join(' + '),'לא הגיש','','']);
+    });
+    const csv='\uFEFF'+rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');
+    const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);a.download='ציונות_אזרחות.csv';a.click();
+    toast('✓ הורד','ok');
+  });
+}
 
 // ── SUBMIT PANEL ──────────────────────────────────────────────────────────────
 function populateStudentDropdown(){
