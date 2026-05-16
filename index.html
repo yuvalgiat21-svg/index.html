@@ -1472,42 +1472,34 @@ function renderTeacherSubmissions(){
       const prezGrade = prezGradesData[s.groupId]||{};
       const prezTeacherScore = prezGrade.score??null;
 
-      // Compute peer score
-      const _fbSubs=Object.values(fbAllData[s.groupId]||{});
-      let peerHtml='<span style="color:var(--txt3);font-size:11px">—</span>';
-      if(_fbSubs.length){
-        const _vals=_fbSubs.flatMap(f=>Object.values(f.scores||{})).filter(v=>v>0);
-        const _avg=_vals.length?_vals.reduce((a,b)=>a+b,0)/_vals.length:0;
-        if(_avg>0){
-          const _s100=Math.round((_avg-1)/4*100);
-          const _cls=_s100>=85?'high':_s100>=70?'mid':'low';
-          peerHtml='<div class="grade-badge '+_cls+'">'+_s100+'</div><div style="font-size:9px;color:var(--txt3);margin-top:2px">'+_fbSubs.length+' משובים</div>';
+      // Compute peer score for this group
+      var _fbGroup = fbAllData[s.groupId] || {};
+      var _fbSubs = Object.values(_fbGroup);
+      var peerHtml = '<span style="color:var(--txt3);font-size:11px">—</span>';
+      if (_fbSubs.length > 0) {
+        var _vals = _fbSubs.flatMap(function(f){ return Object.values(f.scores||{}); }).filter(function(v){ return v>0; });
+        if (_vals.length > 0) {
+          var _avg = _vals.reduce(function(a,b){return a+b;},0) / _vals.length;
+          var _s100 = Math.round((_avg-1)/4*100);
+          var _cls = _s100>=85 ? 'high' : _s100>=70 ? 'mid' : 'low';
+          peerHtml = '<div class="grade-badge '+_cls+'">'+_s100+'</div><div style="font-size:9px;color:var(--txt3);margin-top:2px">'+_fbSubs.length+' משובים</div>';
         }
       }
-      rows.push(`<tr>
-        <td><strong>${(s.topic||'').length>25?(s.topic||'').slice(0,25)+'...':(s.topic||'')}</strong></td>
-        <td style="font-size:11px">${(s.members||[]).join(', ')}</td>
-        <td>${s.link?'<a href="'+s.link+'" target="_blank" style="color:var(--acc);font-size:12px;font-weight:600">🔗 Drive</a>':''}
-            ${s.fileName?'<span style="font-size:11px;color:var(--txt2)">📎 '+s.fileName+'</span>':''}
-            ${!s.link&&!s.fileName&&s.text?'<span style="font-size:11px;color:var(--txt3)">✍️ טקסט</span>':''}
-            ${!s.link&&!s.fileName&&!s.text?'<span style="color:var(--txt3);font-size:11px">—</span>':''}</td>
-        <td style="font-size:11px;color:var(--txt3)">${s.dt||''}</td>
-        <td><div class="grade-badge ${scoreClass}">${score!==null?score:'—'}</div></td>
-        <td><input class="grade-input" id="score-${s.groupId}" type="number" min="0" max="100" value="${score??''}" placeholder="—">
-          <button class="save-grade-btn" onclick="saveGrade('${s.groupId}')" style="margin-top:4px;display:block">💾</button>
-          <button class="save-grade-btn" style="margin-top:2px;display:block;background:${grade&&grade.published?'var(--grn)':'var(--acc)'}" onclick="publishGrade('${s.groupId}')">${grade&&grade.published?'✅':'📢'}</button>
-        </td>
-        <td style="text-align:center">
-          ${peerScore100!==null?'<div class="grade-badge '+(peerScore100>=85?'high':peerScore100>=70?'mid':'low')+'">'+peerScore100+'</div><div style="font-size:9px;color:var(--txt3);margin-top:2px">'+fbSubs.length+' משובים</div>':'<span style="color:var(--txt3);font-size:11px">—</span>'}
-        </td>
-        <td>
-          <input class="grade-input" id="prez-score-${s.groupId}" type="number" min="0" max="100" value="${prezTeacherScore??''}" placeholder="—">
-          <button class="save-grade-btn" onclick="savePrezGrade('${s.groupId}')" style="margin-top:4px;display:block">💾</button>
-        </td>
-        <td style="text-align:center">${peerHtml}</td>
-        <td><input class="grade-input" id="prez-score-${s.groupId}" type="number" min="0" max="100" placeholder="—" style="width:52px" value="${prezGradeData[s.groupId]?.score??''}"><br><button class="save-grade-btn" style="margin-top:3px" onclick="savePrezGrade('${s.groupId}')">💾</button></td>
-        <td><button class="t-del" onclick="deleteSubmission('${s.groupId}')">🗑</button></td>
-      </tr>`);
+      var prezSaved = (prezGradeData[s.groupId] && prezGradeData[s.groupId].score != null) ? prezGradeData[s.groupId].score : '';
+      rows.push('<tr>'
+        + '<td><strong>'+(s.topic||'').slice(0,25)+'</strong></td>'
+        + '<td style="font-size:11px">'+(s.members||[]).join(', ')+'</td>'
+        + '<td>'+(s.link ? '<a href="'+s.link+'" target="_blank" style="color:var(--acc);font-size:12px;font-weight:600">🔗 Drive</a>' : '')
+             +(s.fileName ? '<span style="font-size:11px;color:var(--txt2)">📎 '+s.fileName+'</span>' : '')
+             +(!s.link&&!s.fileName&&s.text ? '<span style="font-size:11px;color:var(--txt3)">✍️ טקסט</span>' : '')
+             +(!s.link&&!s.fileName&&!s.text ? '<span style="color:var(--txt3);font-size:11px">—</span>' : '')+'</td>'
+        + '<td style="font-size:11px;color:var(--txt3)">'+(s.dt||'')+'</td>'
+        + '<td><div class="grade-badge '+scoreClass+'">'+(score!==null?score:'—')+'</div></td>'
+        + '<td><input class="grade-input" id="score-'+s.groupId+'" type="number" min="0" max="100" value="'+(score||'')+'" placeholder="—"><br><button class="save-grade-btn" onclick="saveGrade(''+s.groupId+'')" style="margin-top:3px">💾 שמור</button><br><button class="save-grade-btn" style="margin-top:2px;background:'+(grade&&grade.published?'var(--grn)':'var(--acc)')+'" onclick="publishGrade(''+s.groupId+'')">'+(grade&&grade.published?'✅ מפורסם':'📢 פרסם')+'</button></td>'
+        + '<td style="text-align:center">'+peerHtml+'</td>'
+        + '<td><input class="grade-input" id="prez-score-'+s.groupId+'" type="number" min="0" max="100" value="'+prezSaved+'" placeholder="—"><br><button class="save-grade-btn" onclick="savePrezGrade(''+s.groupId+'')" style="margin-top:3px">💾</button></td>'
+        + '<td><button class="t-del" onclick="deleteSubmission(''+s.groupId+'')">🗑</button></td>'
+        + '</tr>');
     });
     if(filterStatus==='all'||filterStatus==='pending'){
       groups.forEach(g=>{
