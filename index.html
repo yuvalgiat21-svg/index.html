@@ -1444,9 +1444,11 @@ function renderTeacherSubmissions(){
   const el=document.getElementById('tt-sub-list');
   if(!el)return;
   const filterStatus=document.getElementById('sub-filter-status')?.value||'all';
-  Promise.all([subsRef.once('value'),db.ref('grades').once('value')]).then(([subSnap,gradeSnap])=>{
+  Promise.all([subsRef.once('value'),db.ref('grades').once('value'),fbRef.once('value'),fbGradesRef.once('value')]).then(([subSnap,gradeSnap,fbSnap,prezGradesSnap])=>{
     const subsData=subSnap.val()||{};
     const gradesData=gradeSnap.val()||{};
+    const fbData=fbSnap.val()||{};
+    const prezGradesData=prezGradesSnap.val()||{};
     const allSubs=Object.values(subsData);
     const submittedIds=new Set(allSubs.map(s=>s.groupId));
     let rows=[];
@@ -1457,6 +1459,19 @@ function renderTeacherSubmissions(){
       if(filterStatus==='graded'&&score===null)return;
       if(filterStatus==='pending'&&score!==null)return;
       const scoreClass=score===null?'none':score>=85?'high':score>=70?'mid':'low';
+      
+      // Get peer feedback score for this group
+      const fbGroup = fbData[s.groupId]||{};
+      const fbSubs = Object.values(fbGroup);
+      let peerAvg = 0;
+      if(fbSubs.length>0){
+        const allVals = fbSubs.flatMap(f=>Object.values(f.scores||{})).filter(v=>v>0);
+        peerAvg = allVals.length ? (allVals.reduce((a,b)=>a+b,0)/allVals.length) : 0;
+      }
+      const peerScore100 = peerAvg>0 ? Math.round((peerAvg-1)/4*100) : null;
+      const prezGrade = prezGradesData[s.groupId]||{};
+      const prezTeacherScore = prezGrade.score??null;
+
       rows.push(`<tr>
         <td><strong>${(s.topic||'').length>25?(s.topic||'').slice(0,25)+'...':(s.topic||'')}</strong></td>
         <td style="font-size:11px">${(s.members||[]).join(', ')}</td>
@@ -1466,12 +1481,18 @@ function renderTeacherSubmissions(){
             ${!s.link&&!s.fileName&&!s.text?'<span style="color:var(--txt3);font-size:11px">—</span>':''}</td>
         <td style="font-size:11px;color:var(--txt3)">${s.dt||''}</td>
         <td><div class="grade-badge ${scoreClass}">${score!==null?score:'—'}</div></td>
-        <td><input class="grade-input" id="score-${s.groupId}" type="number" min="0" max="100" value="${score??''}" placeholder="—"></td>
-        <td><div style="display:flex;gap:4px;flex-wrap:wrap">
-          <button class="save-grade-btn" onclick="saveGrade('${s.groupId}')">💾 שמור</button>
-          <button class="save-grade-btn" style="background:${grade&&grade.published?'var(--grn)':'var(--acc)'}" onclick="publishGrade('${s.groupId}')">${grade&&grade.published?'✅ מפורסם':'📢 פרסם'}</button>
-          <button class="t-del" onclick="deleteSubmission('${s.groupId}')">🗑</button>
-        </div></td>
+        <td><input class="grade-input" id="score-${s.groupId}" type="number" min="0" max="100" value="${score??''}" placeholder="—">
+          <button class="save-grade-btn" onclick="saveGrade('${s.groupId}')" style="margin-top:4px;display:block">💾</button>
+          <button class="save-grade-btn" style="margin-top:2px;display:block;background:${grade&&grade.published?'var(--grn)':'var(--acc)'}" onclick="publishGrade('${s.groupId}')">${grade&&grade.published?'✅':'📢'}</button>
+        </td>
+        <td style="text-align:center">
+          ${peerScore100!==null?'<div class="grade-badge '+(peerScore100>=85?'high':peerScore100>=70?'mid':'low')+'">'+peerScore100+'</div><div style="font-size:9px;color:var(--txt3);margin-top:2px">'+fbSubs.length+' משובים</div>':'<span style="color:var(--txt3);font-size:11px">—</span>'}
+        </td>
+        <td>
+          <input class="grade-input" id="prez-score-${s.groupId}" type="number" min="0" max="100" value="${prezTeacherScore??''}" placeholder="—">
+          <button class="save-grade-btn" onclick="savePrezGrade('${s.groupId}')" style="margin-top:4px;display:block">💾</button>
+        </td>
+        <td><button class="t-del" onclick="deleteSubmission('${s.groupId}')">🗑</button></td>
       </tr>`);
     });
     if(filterStatus==='all'||filterStatus==='pending'){
@@ -1485,8 +1506,18 @@ function renderTeacherSubmissions(){
       });
     }
     if(!rows.length){el.innerHTML='<p style="color:var(--txt3);font-size:13px;padding:20px 0">אין הגשות בסינון זה.</p>';return;}
-    el.innerHTML='<div style="overflow-x:auto"><table class="grade-table"><thead><tr><th>נושא</th><th>תלמידים</th><th>קישורים</th><th>תאריך</th><th>ציון</th><th>עדכן ציון</th><th>פעולות</th></tr></thead><tbody>'+rows.join('')+'</tbody></table></div>';
+    el.innerHTML='<div style="overflow-x:auto"><table class="grade-table"><thead><tr><th>נושא</th><th>תלמידים</th><th>קישורים</th><th>תאריך</th><th>ציון עבודה</th><th>עדכן ציון עבודה</th><th>ציון עמיתים (פרז')</th><th>ציון מורה (פרז')</th><th>פעולות</th></tr></thead><tbody>'+rows.join('')+'</tbody></table></div>';
   });
+}
+
+function savePrezGrade(groupId){
+  const score=document.getElementById('prez-score-'+groupId)?.value;
+  if(score===''||score===null){toast('הזן ציון פרזנטציה','err');return;}
+  const s=parseInt(score);
+  if(s<0||s>100){toast('הציון חייב להיות 0–100','err');return;}
+  fbGradesRef.child(groupId).update({score:s,saved:true,ts:Date.now()})
+    .then(()=>{toast('✓ ציון פרזנטציה '+s+' נשמר','ok');renderTeacherSubmissions();})
+    .catch(()=>toast('שגיאה','err'));
 }
 
 function saveGrade(groupId){
