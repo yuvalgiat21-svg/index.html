@@ -1495,10 +1495,10 @@ function renderTeacherSubmissions(){
              +(!s.link&&!s.fileName&&!s.text ? '<span style="color:var(--txt3);font-size:11px">—</span>' : '')+'</td>'
         + '<td style="font-size:11px;color:var(--txt3)">'+(s.dt||'')+'</td>'
         + '<td><div class="grade-badge '+scoreClass+'">'+(score!==null?score:'—')+'</div></td>'
-        + '<td><input class="grade-input" id="score-'+s.groupId+'" type="number" min="0" max="100" value="'+(score||'')+'" placeholder="—"><br><button class="save-grade-btn" onclick="saveGrade('"+s.groupId+"')" style="margin-top:3px">💾 שמור</button><br><button class="save-grade-btn" style="margin-top:2px;background:'+(grade&&grade.published?'var(--grn)':'var(--acc)')+'" onclick="publishGrade('"+s.groupId+"')">'+(grade&&grade.published?'✅ מפורסם':'📢 פרסם')+'</button></td>'
+        + '<td><input class="grade-input" id="score-'+s.groupId+'" type="number" min="0" max="100" value="'+(score||'')+'" placeholder="—"><br><button class="save-grade-btn" onclick="saveGrade(\''+s.groupId+'\')" style="margin-top:3px">💾 שמור</button><br><button class="save-grade-btn" style="margin-top:2px;background:'+(grade&&grade.published?'var(--grn)':'var(--acc)')+'" onclick="publishGrade(\''+s.groupId+'\')">'+(grade&&grade.published?'✅ מפורסם':'📢 פרסם')+'</button></td>'
         + '<td style="text-align:center">'+peerHtml+'</td>'
-        + '<td><input class="grade-input" id="prez-score-'+s.groupId+'" type="number" min="0" max="100" value="'+prezSaved+'" placeholder="—"><br><button class="save-grade-btn" onclick="savePrezGrade('"+s.groupId+"')" style="margin-top:3px">💾</button></td>'
-        + '<td><button class="t-del" onclick="deleteSubmission('"+s.groupId+"')">🗑</button></td>'
+        + '<td><input class="grade-input" id="prez-score-'+s.groupId+'" type="number" min="0" max="100" value="'+prezSaved+'" placeholder="—"><br><button class="save-grade-btn" onclick="savePrezGrade(\''+s.groupId+'\')" style="margin-top:3px">💾</button></td>'
+        + '<td><button class="t-del" onclick="deleteSubmission(\''+s.groupId+'\')">🗑</button></td>'
         + '</tr>');
     });
     if(filterStatus==='all'||filterStatus==='pending'){
@@ -1667,3 +1667,4 @@ loadMyId();renderT();renderCustomCard();startFirebaseListener();
 </script>
 </body>
 </html>
+    
