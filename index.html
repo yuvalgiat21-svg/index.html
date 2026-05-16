@@ -1473,7 +1473,7 @@ function renderTeacherSubmissions(){
       const prezTeacherScore = prezGrade.score??null;
 
       // Compute peer score for this group
-      var _fbGroup = fbAllData[s.groupId] || {};
+      var _fbGroup = fbData[s.groupId] || {};
       var _fbSubs = Object.values(_fbGroup);
       var peerHtml = '<span style="color:var(--txt3);font-size:11px">—</span>';
       if (_fbSubs.length > 0) {
@@ -1485,7 +1485,7 @@ function renderTeacherSubmissions(){
           peerHtml = '<div class="grade-badge '+_cls+'">'+_s100+'</div><div style="font-size:9px;color:var(--txt3);margin-top:2px">'+_fbSubs.length+' משובים</div>';
         }
       }
-      var prezSaved = (prezGradeData[s.groupId] && prezGradeData[s.groupId].score != null) ? prezGradeData[s.groupId].score : '';
+      var prezSaved = (prezGradesData[s.groupId] && prezGradesData[s.groupId].score != null) ? prezGradesData[s.groupId].score : '';
       rows.push('<tr>'
         + '<td><strong>'+(s.topic||'').slice(0,25)+'</strong></td>'
         + '<td style="font-size:11px">'+(s.members||[]).join(', ')+'</td>'
